@@ -285,15 +285,15 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
     <div className="fixed inset-0 z-50 overflow-y-auto flex items-start justify-center p-4 sm:p-6 pt-[12vh]">
       {/* Backdrop */}
       <div 
-        className="fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity"
+        className="fixed inset-0 bg-black/60 transition-opacity"
         onClick={onClose}
       />
 
       {/* Palette Modal */}
-      <div className="relative w-full max-w-xl bg-zinc-900 border border-zinc-800 rounded-2xl shadow-2xl overflow-hidden z-10 animate-fade-in flex flex-col">
+      <div className="relative w-full max-w-xl bg-[#EDE6D8] dark:bg-[#11161A] border border-[#D8CEBF] dark:border-[#272D30] rounded-2xl shadow-2xl overflow-hidden z-10 animate-fade-in flex flex-col">
         {/* Search Bar */}
-        <div className="p-3.5 border-b border-zinc-800 flex items-center gap-3">
-          <Search className="w-5 h-5 text-zinc-400 shrink-0 ml-1" />
+        <div className="p-3.5 border-b border-[#D8CEBF] dark:border-[#272D30] flex items-center gap-3">
+          <Search className="w-5 h-5 text-[#606669] dark:text-[#8C8A86] shrink-0 ml-1" />
           <input
             ref={inputRef}
             type="text"
@@ -301,17 +301,17 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Type a command or search tools (e.g. JPG, Ideas, IP Check)..."
-            className="w-full bg-transparent text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none"
+            className="w-full bg-transparent text-sm text-[#1A2024] dark:text-[#F3EDE2] placeholder:text-[#8C8A86] focus:outline-none"
           />
-          <kbd className="hidden sm:inline-block text-[10px] font-mono px-2 py-0.5 rounded bg-zinc-800 text-zinc-400 border border-zinc-700">
+          <kbd className="hidden sm:inline-block text-[10px] font-mono px-2 py-0.5 rounded bg-[#E9E1D1] dark:bg-[#0C0F12] text-[#606669] dark:text-[#8C8A86] border border-[#D8CEBF] dark:border-[#272D30]">
             ESC
           </kbd>
         </div>
 
         {/* Results List */}
-        <div className="max-h-[380px] overflow-y-auto p-2 divide-y divide-zinc-800/40">
+        <div className="max-h-[380px] overflow-y-auto p-2 divide-y divide-[#D8CEBF]/60 dark:divide-[#272D30]/60">
           {filtered.length === 0 ? (
-            <div className="p-8 text-center text-xs text-zinc-500">
+            <div className="p-8 text-center text-xs text-[#606669] dark:text-[#8C8A86]">
               No matching tools or commands found for "{query}".
             </div>
           ) : (
@@ -326,28 +326,28 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
                     onClose();
                   }}
                   onMouseEnter={() => setSelectedIndex(idx)}
-                  className={`w-full flex items-center justify-between p-2.5 rounded-xl text-xs transition-colors text-left ${
+                  className={`w-full flex items-center justify-between p-2.5 rounded-lg text-xs transition-colors text-left focus-visible:outline-none ${
                     isSelected
-                      ? 'bg-zinc-800/90 text-zinc-100'
-                      : 'text-zinc-300 hover:bg-zinc-800/50'
+                      ? 'bg-[#E2D9C7] dark:bg-[#171E24] text-[#1A2024] dark:text-[#F3EDE2]'
+                      : 'text-[#606669] dark:text-[#8C8A86] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] hover:text-[#1A2024] dark:hover:text-[#F3EDE2]'
                   }`}
                 >
                   <div className="flex items-center gap-2.5 min-w-0">
-                    <div className={`p-1.5 rounded-lg ${isSelected ? 'bg-indigo-500/20 text-indigo-400 font-bold' : 'bg-zinc-800 text-zinc-400'}`}>
+                    <div className={`p-1.5 rounded-lg ${isSelected ? 'bg-[#C74A43]/15 text-[#C74A43] font-bold' : 'bg-[#E9E1D1] dark:bg-[#0C0F12] text-[#606669] dark:text-[#8C8A86]'}`}>
                       <Icon className="w-4 h-4" />
                     </div>
                     <div className="min-w-0">
                       <span className="font-semibold truncate block">{cmd.title}</span>
-                      <span className="text-[10px] text-zinc-500 uppercase tracking-wider font-bold">{cmd.category}</span>
+                      <span className="text-[10px] text-[#606669] dark:text-[#8C8A86] uppercase tracking-wider font-bold">{cmd.category}</span>
                     </div>
                   </div>
                   <div className="flex items-center gap-2 shrink-0 ml-2">
                     {cmd.shortcut && (
-                      <kbd className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-zinc-950 text-zinc-400 border border-zinc-800 font-semibold">
+                      <kbd className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#E9E1D1] dark:bg-[#0C0F12] text-[#606669] dark:text-[#8C8A86] border border-[#D8CEBF] dark:border-[#272D30] font-semibold">
                         {cmd.shortcut}
                       </kbd>
                     )}
-                    <ArrowRight className={`w-3.5 h-3.5 transition-transform ${isSelected ? 'translate-x-0.5 text-indigo-400' : 'opacity-0'}`} />
+                    <ArrowRight className={`w-3.5 h-3.5 transition-transform ${isSelected ? 'translate-x-0.5 text-[#C74A43]' : 'opacity-0'}`} />
                   </div>
                 </button>
               );
@@ -356,9 +356,9 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
         </div>
 
         {/* Footer shortcuts */}
-        <div className="px-4 py-2.5 border-t border-zinc-800/80 bg-zinc-950/40 text-[11px] text-zinc-500 flex items-center justify-between">
-          <span>Navigate with <kbd className="px-1 py-0.2 bg-zinc-800 rounded text-zinc-400">↑</kbd> <kbd className="px-1 py-0.2 bg-zinc-800 rounded text-zinc-400">↓</kbd></span>
-          <span>Select <kbd className="px-1 py-0.2 bg-zinc-800 rounded text-zinc-400">Enter</kbd></span>
+        <div className="px-4 py-2.5 border-t border-[#D8CEBF] dark:border-[#272D30] bg-[#E9E1D1] dark:bg-[#0C0F12] text-[11px] text-[#606669] dark:text-[#8C8A86] flex items-center justify-between">
+          <span>Navigate with <kbd className="px-1 py-0.2 bg-[#EDE6D8] dark:bg-[#171E24] rounded text-[#606669] dark:text-[#8C8A86] border border-[#D8CEBF] dark:border-[#272D30]">↑</kbd> <kbd className="px-1 py-0.2 bg-[#EDE6D8] dark:bg-[#171E24] rounded text-[#606669] dark:text-[#8C8A86] border border-[#D8CEBF] dark:border-[#272D30]">↓</kbd></span>
+          <span>Select <kbd className="px-1 py-0.2 bg-[#EDE6D8] dark:bg-[#171E24] rounded text-[#606669] dark:text-[#8C8A86] border border-[#D8CEBF] dark:border-[#272D30]">Enter</kbd></span>
         </div>
       </div>
     </div>

@@ -140,13 +140,16 @@ export const SilhouetteFinder: React.FC<SilhouetteFinderProps> = ({
   return (
     <div className="space-y-6 max-w-7xl mx-auto">
       {/* Minimal Header */}
-      <div className="pb-4 border-b border-zinc-200 dark:border-zinc-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
-            <Users className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+          <div className="text-[11px] font-semibold uppercase tracking-wider text-[#606669] dark:text-[#8C8A86] mb-1">
+            Silhouette Lab
+          </div>
+          <h1 className="font-editorial text-2xl sm:text-3xl text-[#1A2024] dark:text-[#F3EDE2] font-normal tracking-tight flex items-center gap-2.5">
+            <Users className="w-6 h-6 text-[#C74A43]" />
             <span>Silhouette Finder</span>
           </h1>
-          <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
+          <p className="text-xs text-[#606669] dark:text-[#8C8A86] mt-1 max-w-xl">
             Generate clean high-contrast silhouette & vector figure prompts with clear anatomical outlines and copy space.
           </p>
         </div>
@@ -154,7 +157,7 @@ export const SilhouetteFinder: React.FC<SilhouetteFinderProps> = ({
         <button
           type="button"
           onClick={() => setShowAdvanced(!showAdvanced)}
-          className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1.5 cursor-pointer self-start sm:self-auto"
+          className="text-xs font-medium text-[#606669] dark:text-[#8C8A86] hover:text-[#1A2024] dark:hover:text-[#F3EDE2] flex items-center gap-1.5 cursor-pointer self-start sm:self-auto transition-colors"
         >
           <SlidersHorizontal className="w-3.5 h-3.5" />
           <span>{showAdvanced ? 'Hide Extra Options' : 'More Options'}</span>
@@ -162,13 +165,13 @@ export const SilhouetteFinder: React.FC<SilhouetteFinderProps> = ({
       </div>
 
       {/* Minimal Form Workspace */}
-      <div className="bg-white dark:bg-zinc-900 rounded-xl p-5 border border-zinc-200 dark:border-zinc-800 shadow-xs space-y-5">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
+      <div className="rounded-xl border border-[#D8CEBF] dark:border-[#272D30] bg-[#EDE6D8] dark:bg-[#11161A] p-5 sm:p-6 space-y-5">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           
           {/* Left Column: Input Fields */}
           <div className="lg:col-span-7 space-y-4">
-            <div>
-              <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5">
+            <div className="space-y-1.5">
+              <label className="text-xs font-medium text-[#1A2024] dark:text-[#F3EDE2]">
                 Subject or Figure Concept *
               </label>
               <input
@@ -176,12 +179,12 @@ export const SilhouetteFinder: React.FC<SilhouetteFinderProps> = ({
                 value={subject}
                 onChange={(e) => setSubject(e.target.value)}
                 placeholder="E.g. Athletic female runner sprinting, silhouette of horse galloping, business executives meeting..."
-                className="w-full text-xs p-3 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
+                className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3.5 py-2.5 text-xs text-[#1A2024] dark:text-[#F3EDE2] placeholder-[#606669] dark:placeholder-[#606669] focus:outline-none focus:border-[#C74A43]"
               />
             </div>
 
-            <div>
-              <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5">
+            <div className="space-y-1.5">
+              <label className="text-xs font-medium text-[#1A2024] dark:text-[#F3EDE2]">
                 Contour & Negative Space Instructions
               </label>
               <textarea
@@ -189,81 +192,81 @@ export const SilhouetteFinder: React.FC<SilhouetteFinderProps> = ({
                 onChange={(e) => setInstructions(e.target.value)}
                 placeholder="E.g. Clear limb separation, no confusing overlaps, solid pure white background, left copy space..."
                 rows={3}
-                className="w-full text-xs p-3 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 resize-none"
+                className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3.5 py-2.5 text-xs text-[#1A2024] dark:text-[#F3EDE2] placeholder-[#606669] dark:placeholder-[#606669] focus:outline-none focus:border-[#C74A43] resize-none"
               />
             </div>
 
             {/* Main Options Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
-              <div>
-                <label className="block text-[11px] font-semibold text-zinc-600 dark:text-zinc-400 mb-1">
+              <div className="space-y-1">
+                <label className="text-[11px] font-medium text-[#606669] dark:text-[#8C8A86]">
                   Silhouette Style
                 </label>
                 <select
                   value={style}
                   onChange={(e) => setStyle(e.target.value)}
-                  className="w-full text-xs p-2 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100"
+                  className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] focus:outline-none focus:border-[#C74A43]"
                 >
-                  {styleOptions.map(s => <option key={s} value={s}>{s}</option>)}
+                  {styleOptions.map(s => <option key={s} value={s} className="bg-[#11161A] text-[#F3EDE2]">{s}</option>)}
                 </select>
               </div>
 
-              <div>
-                <label className="block text-[11px] font-semibold text-zinc-600 dark:text-zinc-400 mb-1">
+              <div className="space-y-1">
+                <label className="text-[11px] font-medium text-[#606669] dark:text-[#8C8A86]">
                   Copy Space Layout
                 </label>
                 <select
                   value={copySpace}
                   onChange={(e) => setCopySpace(e.target.value)}
-                  className="w-full text-xs p-2 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100"
+                  className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] focus:outline-none focus:border-[#C74A43]"
                 >
-                  {['Left', 'Right', 'Top', 'Bottom', 'Center', 'None'].map(c => <option key={c} value={c}>{c}</option>)}
+                  {['Left', 'Right', 'Top', 'Bottom', 'Center', 'None'].map(c => <option key={c} value={c} className="bg-[#11161A] text-[#F3EDE2]">{c}</option>)}
                 </select>
               </div>
 
-              <div>
-                <label className="block text-[11px] font-semibold text-zinc-600 dark:text-zinc-400 mb-1">
+              <div className="space-y-1">
+                <label className="text-[11px] font-medium text-[#606669] dark:text-[#8C8A86]">
                   Category
                 </label>
                 <select
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
-                  className="w-full text-xs p-2 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100"
+                  className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] focus:outline-none focus:border-[#C74A43]"
                 >
-                  {categories.map(c => <option key={c} value={c}>{c}</option>)}
+                  {categories.map(c => <option key={c} value={c} className="bg-[#11161A] text-[#F3EDE2]">{c}</option>)}
                 </select>
               </div>
             </div>
 
             {/* Extra Options Drawer */}
             {showAdvanced && (
-              <div className="p-3.5 rounded-lg bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700/60 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-                <div>
-                  <label className="block text-[11px] font-semibold text-zinc-600 dark:text-zinc-400 mb-1">
+              <div className="p-4 rounded-lg bg-[#E9E1D1] dark:bg-[#0C0F12] border border-[#D8CEBF] dark:border-[#272D30] grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs animate-fade-in">
+                <div className="space-y-1">
+                  <label className="text-[11px] font-medium text-[#606669] dark:text-[#8C8A86]">
                     Background
                   </label>
                   <select
                     value={background}
                     onChange={(e) => setBackground(e.target.value)}
-                    className="w-full text-xs p-2 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100"
+                    className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] focus:outline-none focus:border-[#C74A43]"
                   >
                     {['Solid Pure White Background (#ffffff)', 'Warm Sunset Gradient (Photo Silhouette)', 'Soft Minimal Studio Gray (#f4f4f5)', 'Auto (Default)'].map(b => (
-                      <option key={b} value={b}>{b}</option>
+                      <option key={b} value={b} className="bg-[#11161A] text-[#F3EDE2]">{b}</option>
                     ))}
                   </select>
                 </div>
 
-                <div>
-                  <label className="block text-[11px] font-semibold text-zinc-600 dark:text-zinc-400 mb-1">
+                <div className="space-y-1">
+                  <label className="text-[11px] font-medium text-[#606669] dark:text-[#8C8A86]">
                     Composition Style
                   </label>
                   <select
                     value={composition}
                     onChange={(e) => setComposition(e.target.value)}
-                    className="w-full text-xs p-2 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100"
+                    className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] focus:outline-none focus:border-[#C74A43]"
                   >
                     {['Dynamic Action Pose on Rule of Thirds', 'Centered Monumental Figure', 'Panoramic Group Progression', 'Auto (Default)'].map(p => (
-                      <option key={p} value={p}>{p}</option>
+                      <option key={p} value={p} className="bg-[#11161A] text-[#F3EDE2]">{p}</option>
                     ))}
                   </select>
                 </div>
@@ -283,7 +286,7 @@ export const SilhouetteFinder: React.FC<SilhouetteFinderProps> = ({
               type="button"
               onClick={handleGenerate}
               disabled={isGenerating || !subject.trim()}
-              className="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-medium text-xs shadow-md shadow-indigo-600/20 flex items-center justify-center gap-2 transition-all cursor-pointer"
+              className="w-full rounded-lg bg-[#C74A43] hover:bg-[#B53F39] text-[#F3EDE2] font-semibold px-4 py-3 text-sm disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 transition-colors cursor-pointer"
             >
               {isGenerating ? (
                 <>

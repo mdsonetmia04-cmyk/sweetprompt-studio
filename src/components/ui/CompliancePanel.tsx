@@ -58,23 +58,23 @@ export const CompliancePanel: React.FC<CompliancePanelProps> = ({
 
   if (compact) {
     return (
-      <div className={`p-3 rounded-xl bg-zinc-900/60 border border-zinc-800 text-xs space-y-2 ${className}`}>
+      <div className={`p-3 rounded-xl bg-[#EDE6D8] dark:bg-[#11161A] border border-[#D8CEBF] dark:border-[#272D30] text-xs space-y-2 ${className}`}>
         <div className="flex items-center justify-between">
-          <span className="font-semibold text-zinc-300 uppercase tracking-wider text-[11px] flex items-center gap-1.5">
-            <ShieldCheck className="w-3.5 h-3.5 text-zinc-400" />
+          <span className="font-semibold text-[#1A2024] dark:text-[#F3EDE2] uppercase tracking-wider text-[11px] flex items-center gap-1.5">
+            <ShieldCheck className="w-3.5 h-3.5 text-[#606669] dark:text-[#8C8A86]" />
             <span>Compliance Check</span>
           </span>
           <StatusBadge status={overallStatus} size="sm" />
         </div>
         <div className="grid grid-cols-2 gap-1.5 text-[11px] pt-1">
           {items.map((item, idx) => (
-            <div key={idx} className="flex items-center gap-1.5 text-zinc-400">
+            <div key={idx} className="flex items-center gap-1.5 text-[#606669] dark:text-[#8C8A86]">
               {item.ok ? (
-                <Check className="w-3 h-3 text-emerald-400 shrink-0" />
+                <Check className="w-3 h-3 text-emerald-700 dark:text-emerald-400 shrink-0" />
               ) : item.warning ? (
-                <AlertTriangle className="w-3 h-3 text-amber-400 shrink-0" />
+                <AlertTriangle className="w-3 h-3 text-amber-700 dark:text-amber-400 shrink-0" />
               ) : (
-                <X className="w-3 h-3 text-rose-400 shrink-0" />
+                <X className="w-3 h-3 text-rose-700 dark:text-rose-400 shrink-0" />
               )}
               <span className="truncate">{item.label}</span>
             </div>
@@ -85,18 +85,18 @@ export const CompliancePanel: React.FC<CompliancePanelProps> = ({
   }
 
   return (
-    <div className={`p-4 rounded-xl bg-zinc-900/80 border border-zinc-800 space-y-3.5 ${className}`}>
-      <div className="flex items-center justify-between border-b border-zinc-800/80 pb-3">
+    <div className={`p-4 sm:p-5 rounded-xl bg-[#EDE6D8] dark:bg-[#11161A] border border-[#D8CEBF] dark:border-[#272D30] space-y-3.5 ${className}`}>
+      <div className="flex items-center justify-between border-b border-[#D8CEBF] dark:border-[#272D30] pb-3">
         <div className="flex items-center gap-2">
-          <ShieldCheck className="w-4 h-4 text-zinc-400" />
-          <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-200">
+          <ShieldCheck className="w-4 h-4 text-[#606669] dark:text-[#8C8A86]" />
+          <h4 className="text-xs font-bold uppercase tracking-wider text-[#1A2024] dark:text-[#F3EDE2]">
             Compliance Check
           </h4>
         </div>
         <StatusBadge status={overallStatus} />
       </div>
 
-      <p className="text-[11px] text-zinc-400 leading-relaxed">
+      <p className="text-[11px] text-[#606669] dark:text-[#8C8A86] leading-relaxed">
         {overallStatus === 'LOW' && 'Potentially safe based on detected signals. Manual review recommended.'}
         {overallStatus === 'REVIEW' && 'Potential issue detected. Manual review recommended before submission.'}
         {overallStatus === 'HIGH' && 'Potential IP/compliance issue detected. Sanitize flagged terms.'}
@@ -106,27 +106,27 @@ export const CompliancePanel: React.FC<CompliancePanelProps> = ({
         {items.map((item, idx) => (
           <div
             key={idx}
-            className="flex items-center justify-between p-2 rounded-lg bg-zinc-950/40 border border-zinc-800/60 text-xs"
+            className="flex items-center justify-between p-2 rounded-lg bg-[#E9E1D1] dark:bg-[#0C0F12] border border-[#D8CEBF] dark:border-[#272D30] text-xs"
           >
             <div className="flex items-center gap-2 min-w-0">
               {item.ok ? (
-                <span className="w-4 h-4 rounded-full bg-emerald-500/10 text-emerald-400 flex items-center justify-center shrink-0">
+                <span className="w-4 h-4 rounded-full bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 flex items-center justify-center shrink-0">
                   <Check className="w-2.5 h-2.5" />
                 </span>
               ) : item.warning ? (
-                <span className="w-4 h-4 rounded-full bg-amber-500/10 text-amber-400 flex items-center justify-center shrink-0">
+                <span className="w-4 h-4 rounded-full bg-amber-500/10 text-amber-700 dark:text-amber-400 flex items-center justify-center shrink-0">
                   <AlertTriangle className="w-2.5 h-2.5" />
                 </span>
               ) : (
-                <span className="w-4 h-4 rounded-full bg-rose-500/10 text-rose-400 flex items-center justify-center shrink-0">
+                <span className="w-4 h-4 rounded-full bg-rose-500/10 text-rose-700 dark:text-rose-400 flex items-center justify-center shrink-0">
                   <X className="w-2.5 h-2.5" />
                 </span>
               )}
-              <span className={`font-medium truncate ${item.ok ? 'text-zinc-300' : item.warning ? 'text-amber-300' : 'text-rose-300'}`}>
+              <span className={`font-medium truncate ${item.ok ? 'text-[#1A2024] dark:text-[#F3EDE2]' : item.warning ? 'text-amber-700 dark:text-amber-400' : 'text-rose-700 dark:text-rose-400'}`}>
                 {item.label}
               </span>
             </div>
-            <span className="text-[11px] text-zinc-500 hidden sm:inline ml-2 truncate max-w-[220px]">
+            <span className="text-[11px] text-[#606669] dark:text-[#8C8A86] hidden sm:inline ml-2 truncate max-w-[220px]">
               {item.detail}
             </span>
           </div>

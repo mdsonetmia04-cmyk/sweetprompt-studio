@@ -116,73 +116,74 @@ export const PromptExpander: React.FC<PromptExpanderProps> = ({
   return (
     <div className="space-y-6">
       {/* Header Panel */}
-      <div className="p-5 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm space-y-5">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-zinc-100 dark:border-zinc-800">
-          <div>
-            <h1 className="text-xl font-extrabold text-zinc-950 dark:text-zinc-50 flex items-center gap-2">
-              <Maximize2 className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
-              <span>Prompt Expander & Detail Enricher</span>
-            </h1>
-            <p className="text-xs font-medium text-zinc-600 dark:text-zinc-300 mt-1 max-w-2xl leading-relaxed">
-              Transform short seed concepts into richly textured, multi-layered commercial stock prompts with atmospheric depth.
-            </p>
+      <div className="rounded-xl border border-[#D8CEBF] dark:border-[#272D30] bg-[#EDE6D8] dark:bg-[#11161A] p-5 sm:p-6 space-y-5">
+        <div className="pb-4 border-b border-[#D8CEBF] dark:border-[#272D30]">
+          <div className="text-[11px] font-semibold uppercase tracking-wider text-[#606669] dark:text-[#8C8A86] mb-1">
+            Prompt Tools
           </div>
+          <h1 className="font-editorial text-2xl sm:text-3xl text-[#1A2024] dark:text-[#F3EDE2] font-normal tracking-tight flex items-center gap-2.5">
+            <Maximize2 className="w-6 h-6 text-[#C74A43]" />
+            <span>Prompt Expander & Detail Enricher</span>
+          </h1>
+          <p className="text-xs text-[#606669] dark:text-[#8C8A86] mt-1 max-w-xl">
+            Transform short seed concepts into richly textured, multi-layered commercial stock prompts with atmospheric depth.
+          </p>
         </div>
 
         {/* Inputs Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Left Column: Seed & Instructions */}
           <div className="lg:col-span-7 space-y-4">
             <div className="space-y-1.5">
-              <label className="text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 flex items-center justify-between">
+              <label className="text-xs font-medium text-[#1A2024] dark:text-[#F3EDE2] flex items-center justify-between">
                 <span>Seed Concept / Brief Phrase *</span>
-                <span className="text-[10px] text-zinc-500 font-normal">Core concept to elaborate</span>
+                <span className="text-[10px] text-[#606669] dark:text-[#8C8A86] font-normal">Core concept to elaborate</span>
               </label>
               <textarea
                 value={seedConcept}
                 onChange={(e) => setSeedConcept(e.target.value)}
                 placeholder="Enter a brief idea (e.g. organic agriculture robot harvesting ripe strawberries)..."
                 rows={3}
-                className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 text-sm text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none font-medium leading-relaxed"
+                className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3.5 py-2.5 text-sm text-[#1A2024] dark:text-[#F3EDE2] placeholder-[#606669] dark:placeholder-[#606669] focus:outline-none focus:border-[#C74A43] resize-none leading-relaxed"
               />
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 flex items-center justify-between">
+              <label className="text-xs font-medium text-[#1A2024] dark:text-[#F3EDE2] flex items-center justify-between">
                 <span>Expansion Style & Sensory Direction</span>
-                <span className="text-[10px] text-zinc-500 font-normal">Textures, lighting & mood</span>
+                <span className="text-[10px] text-[#606669] dark:text-[#8C8A86] font-normal">Textures, lighting & mood</span>
               </label>
               <textarea
                 value={instructions}
                 onChange={(e) => setInstructions(e.target.value)}
                 placeholder="Direct specific expansion facets (e.g. Emphasize warm natural morning lighting, tactile materials, negative space for text, no logos)..."
                 rows={2}
-                className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 text-xs text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none font-medium leading-relaxed"
+                className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3.5 py-2.5 text-xs text-[#1A2024] dark:text-[#F3EDE2] placeholder-[#606669] dark:placeholder-[#606669] focus:outline-none focus:border-[#C74A43] resize-none leading-relaxed"
               />
             </div>
 
             {/* Quick Settings */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
               <div className="space-y-1">
-                <label className="text-[11px] font-bold text-zinc-700 dark:text-zinc-300">Expansion Style</label>
+                <label className="text-[11px] font-medium text-[#606669] dark:text-[#8C8A86]">Expansion Style</label>
                 <select
                   value={expansionStyle}
                   onChange={(e) => setExpansionStyle(e.target.value)}
-                  className="w-full rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 p-2 text-xs text-zinc-900 dark:text-zinc-100 font-medium focus:ring-2 focus:ring-indigo-500"
+                  className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] focus:outline-none focus:border-[#C74A43]"
                 >
-                  {stylePresets.map(s => <option key={s} value={s}>{s}</option>)}
+                  {stylePresets.map(s => <option key={s} value={s} className="bg-[#11161A] text-[#F3EDE2]">{s}</option>)}
                 </select>
               </div>
 
               <div className="space-y-1">
-                <label className="text-[11px] font-bold text-zinc-700 dark:text-zinc-300">Content Type</label>
+                <label className="text-[11px] font-medium text-[#606669] dark:text-[#8C8A86]">Content Type</label>
                 <select
                   value={contentType}
                   onChange={(e) => setContentType(e.target.value)}
-                  className="w-full rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 p-2 text-xs text-zinc-900 dark:text-zinc-100 font-medium focus:ring-2 focus:ring-indigo-500"
+                  className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] focus:outline-none focus:border-[#C74A43]"
                 >
                   {['Auto (Default)', 'Photo', 'Illustration', 'Vector', '3D Render', 'Silhouette'].map(t => (
-                    <option key={t} value={t}>{t}</option>
+                    <option key={t} value={t} className="bg-[#11161A] text-[#F3EDE2]">{t}</option>
                   ))}
                 </select>
               </div>
@@ -197,9 +198,9 @@ export const PromptExpander: React.FC<PromptExpanderProps> = ({
               disabled={isGenerating}
             />
 
-            <div className="p-3.5 rounded-xl bg-zinc-50 dark:bg-zinc-950/60 border border-zinc-200 dark:border-zinc-800 space-y-1.5 text-xs">
-              <span className="font-bold text-zinc-900 dark:text-zinc-100 block">Rich Commercial Elaboration</span>
-              <p className="text-[11px] font-medium text-zinc-600 dark:text-zinc-300 leading-relaxed">
+            <div className="p-3.5 rounded-lg bg-[#E9E1D1] dark:bg-[#0C0F12] border border-[#D8CEBF] dark:border-[#272D30] space-y-1.5 text-xs">
+              <span className="font-semibold text-[#1A2024] dark:text-[#F3EDE2] block">Rich Commercial Elaboration</span>
+              <p className="text-[11px] text-[#606669] dark:text-[#8C8A86] leading-relaxed">
                 Transforms bare phrases into comprehensive prompts featuring camera perspective, lighting, tactile materials, and usable commercial layout.
               </p>
             </div>
@@ -208,7 +209,7 @@ export const PromptExpander: React.FC<PromptExpanderProps> = ({
               type="button"
               onClick={handleExpand}
               disabled={isGenerating || !seedConcept.trim()}
-              className="w-full py-3.5 px-5 rounded-xl bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold text-sm shadow-sm shadow-indigo-600/30 flex items-center justify-center gap-2 transition-all cursor-pointer hover:scale-[1.01]"
+              className="w-full rounded-lg bg-[#C74A43] hover:bg-[#B53F39] text-[#F3EDE2] font-semibold px-4 py-3 text-sm disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 transition-colors cursor-pointer"
             >
               {isGenerating ? (
                 <>

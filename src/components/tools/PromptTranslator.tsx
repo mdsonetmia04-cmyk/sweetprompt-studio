@@ -3,7 +3,6 @@ import {
   Languages, 
   Copy, 
   Check, 
-  ArrowRight, 
   RefreshCw, 
   Tag, 
   ShieldAlert, 
@@ -111,30 +110,35 @@ Translate into production-ready English commercial stock prompt.`;
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const smallSecondaryClass = "px-2.5 py-1.5 rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] text-[#1A2024] dark:text-[#F3EDE2] text-xs font-medium flex items-center gap-1.5 transition-colors cursor-pointer";
+
   return (
     <div className="space-y-6">
-      <div className="pb-4 border-b border-zinc-200 dark:border-zinc-800">
-        <h1 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
-          <Languages className="w-5 h-5 text-teal-600" />
+      <div>
+        <div className="text-[11px] font-semibold uppercase tracking-wider text-[#606669] dark:text-[#8C8A86] mb-1">
+          Prompt Tools
+        </div>
+        <h1 className="font-editorial text-2xl sm:text-3xl text-[#1A2024] dark:text-[#F3EDE2] font-normal tracking-tight flex items-center gap-2.5">
+          <Languages className="w-6 h-6 text-[#C74A43]" />
           <span>Prompt Stock Translator</span>
         </h1>
-        <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
+        <p className="text-xs text-[#606669] dark:text-[#8C8A86] mt-1 max-w-2xl">
           Translate prompts from Spanish, French, German, Japanese, Chinese, Arabic, and more into fluent English stock prompts with photography cues.
         </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         <div className="lg:col-span-5 space-y-4">
-          <div className="bg-white dark:bg-zinc-900 rounded-xl p-5 border border-zinc-200 dark:border-zinc-800 shadow-sm space-y-4">
+          <div className="rounded-xl border border-[#D8CEBF] dark:border-[#272D30] bg-[#EDE6D8] dark:bg-[#11161A] p-5 sm:p-6 space-y-4">
             <div>
               <div className="flex items-center justify-between mb-1.5">
-                <label className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
+                <label className="text-xs font-medium text-[#1A2024] dark:text-[#F3EDE2]">
                   Non-English Prompt *
                 </label>
                 <select
                   value={sourceLang}
                   onChange={(e) => setSourceLang(e.target.value)}
-                  className="text-[11px] p-1 rounded border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300"
+                  className="text-[11px] rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-2 py-1 text-[#1A2024] dark:text-[#F3EDE2] focus:outline-none focus:border-[#C74A43]"
                 >
                   <option value="Auto-Detect">Auto-Detect</option>
                   <option value="Spanish">Spanish</option>
@@ -154,12 +158,12 @@ Translate into production-ready English commercial stock prompt.`;
                 onChange={(e) => setForeignPrompt(e.target.value)}
                 placeholder="Escribe tu prompt en cualquier idioma..."
                 rows={4}
-                className="w-full text-xs p-3 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-teal-500/50"
+                className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] placeholder-[#606669] dark:placeholder-[#606669] focus:outline-none focus:border-[#C74A43]"
               />
             </div>
 
             <div>
-              <span className="text-[11px] font-semibold text-zinc-400 uppercase tracking-wider block mb-1.5">
+              <span className="text-[11px] font-semibold text-[#606669] dark:text-[#8C8A86] uppercase tracking-wider block mb-1.5">
                 Try Examples:
               </span>
               <div className="space-y-1.5">
@@ -170,9 +174,9 @@ Translate into production-ready English commercial stock prompt.`;
                       setForeignPrompt(s.text);
                       setSourceLang(s.lang);
                     }}
-                    className="w-full text-left p-2 rounded-lg bg-zinc-50 dark:bg-zinc-800/60 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-[11px] text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700/60 flex items-center gap-2 truncate"
+                    className="w-full text-left p-2 rounded-lg bg-[#E9E1D1] dark:bg-[#0C0F12] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] text-[11px] text-[#606669] dark:text-[#8C8A86] border border-[#D8CEBF] dark:border-[#272D30] flex items-center gap-2 transition-colors cursor-pointer"
                   >
-                    <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-zinc-200 dark:bg-zinc-700 text-zinc-700 dark:text-zinc-300">
+                    <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-[#EDE6D8] dark:bg-[#11161A] border border-[#D8CEBF] dark:border-[#272D30] text-[#1A2024] dark:text-[#F3EDE2] shrink-0">
                       {s.lang}
                     </span>
                     <span className="truncate">{s.text}</span>
@@ -184,7 +188,7 @@ Translate into production-ready English commercial stock prompt.`;
             <button
               onClick={handleTranslate}
               disabled={loading}
-              className="w-full py-2.5 rounded-xl bg-teal-600 hover:bg-teal-500 disabled:opacity-50 text-white font-medium text-xs flex items-center justify-center gap-2 shadow-md shadow-teal-600/20 transition-all cursor-pointer"
+              className="w-full rounded-lg bg-[#C74A43] hover:bg-[#B53F39] text-[#F3EDE2] font-semibold px-4 py-2.5 text-xs disabled:opacity-50 flex items-center justify-center gap-2 transition-colors cursor-pointer"
             >
               {loading ? (
                 <>
@@ -202,47 +206,47 @@ Translate into production-ready English commercial stock prompt.`;
         </div>
 
         <div className="lg:col-span-7 space-y-4">
-          <h2 className="text-sm font-bold text-zinc-900 dark:text-zinc-100">
+          <h2 className="text-sm font-semibold text-[#1A2024] dark:text-[#F3EDE2]">
             Fluent English Stock Prompt
           </h2>
 
           {!translatedResult && !loading && (
-            <div className="rounded-xl border border-dashed border-zinc-300 dark:border-zinc-800 p-12 text-center bg-white/50 dark:bg-zinc-900/50 space-y-3">
-              <div className="w-12 h-12 rounded-xl bg-teal-50 dark:bg-teal-950/60 text-teal-600 mx-auto flex items-center justify-center">
+            <div className="rounded-xl border border-dashed border-[#D8CEBF] dark:border-[#272D30] p-12 text-center bg-[#EDE6D8]/60 dark:bg-[#11161A]/60 space-y-3">
+              <div className="w-12 h-12 rounded-xl bg-[#E9E1D1] dark:bg-[#0C0F12] text-[#C74A43] mx-auto flex items-center justify-center border border-[#D8CEBF] dark:border-[#272D30]">
                 <Languages className="w-6 h-6" />
               </div>
-              <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 text-sm">
+              <h3 className="font-semibold text-[#1A2024] dark:text-[#F3EDE2] text-sm">
                 Ready for Translation
               </h3>
-              <p className="text-xs text-zinc-500 dark:text-zinc-400 max-w-sm mx-auto">
+              <p className="text-xs text-[#606669] dark:text-[#8C8A86] max-w-sm mx-auto">
                 Paste foreign language concepts to convert them into native English commercial stock prompts with studio terminology.
               </p>
             </div>
           )}
 
           {loading && (
-            <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 p-12 text-center bg-white dark:bg-zinc-900 space-y-3">
-              <RefreshCw className="w-8 h-8 text-teal-600 animate-spin mx-auto" />
-              <p className="text-xs text-zinc-600 dark:text-zinc-400">
+            <div className="rounded-xl border border-[#D8CEBF] dark:border-[#272D30] bg-[#EDE6D8] dark:bg-[#11161A] p-12 text-center space-y-3">
+              <RefreshCw className="w-8 h-8 text-[#C74A43] animate-spin mx-auto" />
+              <p className="text-xs text-[#606669] dark:text-[#8C8A86]">
                 Translating idioms and framing with commercial photography keywords...
               </p>
             </div>
           )}
 
           {translatedResult && (
-            <div className="bg-white dark:bg-zinc-900 rounded-xl p-5 border border-zinc-200 dark:border-zinc-800 shadow-sm space-y-4">
-              <div className="flex items-start justify-between gap-3">
+            <div className="rounded-xl border border-[#D8CEBF] dark:border-[#272D30] bg-[#EDE6D8] dark:bg-[#11161A] p-5 sm:p-6 space-y-4">
+              <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
-                  <span className="text-[10px] font-bold text-teal-600 bg-teal-50 dark:bg-teal-950/50 px-2 py-0.5 rounded border border-teal-200 dark:border-teal-900 mb-1 inline-block">
-                    FROM {translatedResult.detectedLanguage.toUpperCase()}
+                  <span className="text-[10px] font-bold text-[#C74A43] bg-[#E9E1D1] dark:bg-[#0C0F12] px-2 py-0.5 rounded border border-[#D8CEBF] dark:border-[#272D30] mb-1.5 inline-block uppercase tracking-wider">
+                    From {translatedResult.detectedLanguage}
                   </span>
-                  <h3 className="font-bold text-zinc-900 dark:text-zinc-100 text-base">
+                  <h3 className="font-semibold text-[#1A2024] dark:text-[#F3EDE2] text-base">
                     {translatedResult.title}
                   </h3>
                 </div>
                 <button
                   onClick={handleCopy}
-                  className="px-3 py-1.5 rounded-lg bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 text-xs font-medium flex items-center gap-1.5 transition-colors"
+                  className={smallSecondaryClass}
                 >
                   {copied ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
                   <span>{copied ? 'Copied' : 'Copy'}</span>
@@ -250,33 +254,33 @@ Translate into production-ready English commercial stock prompt.`;
               </div>
 
               <div className="space-y-1.5">
-                <span className="text-[11px] font-semibold text-zinc-400 uppercase tracking-wider block">
+                <span className="text-[11px] font-semibold text-[#606669] dark:text-[#8C8A86] uppercase tracking-wider block">
                   Original Text:
                 </span>
-                <div className="p-2.5 rounded-lg bg-zinc-50 dark:bg-zinc-800/40 border border-zinc-200 dark:border-zinc-800 text-xs text-zinc-600 dark:text-zinc-400 italic">
+                <div className="p-2.5 rounded-lg bg-[#E9E1D1] dark:bg-[#0C0F12] border border-[#D8CEBF] dark:border-[#272D30] text-xs text-[#606669] dark:text-[#8C8A86] italic">
                   "{translatedResult.original}"
                 </div>
 
-                <span className="text-[11px] font-semibold text-teal-600 uppercase tracking-wider block pt-1">
+                <span className="text-[11px] font-semibold text-[#606669] dark:text-[#8C8A86] uppercase tracking-wider block pt-1">
                   Commercial English Prompt:
                 </span>
-                <div className="p-3.5 rounded-lg bg-teal-50/30 dark:bg-zinc-950/60 border border-teal-500/30 font-mono text-xs text-zinc-800 dark:text-zinc-200 leading-relaxed select-all">
+                <div className="p-3.5 rounded-lg bg-[#E9E1D1] dark:bg-[#0C0F12] border border-[#D8CEBF] dark:border-[#272D30] font-mono text-xs text-[#1A2024] dark:text-[#F3EDE2] leading-relaxed select-all">
                   {translatedResult.translatedStockPrompt}
                 </div>
               </div>
 
-              <div className="pt-2 flex flex-wrap items-center justify-between gap-2 border-t border-zinc-100 dark:border-zinc-800">
-                <div className="flex items-center gap-2">
+              <div className="pt-3 flex flex-wrap items-center justify-between gap-2 border-t border-[#D8CEBF] dark:border-[#272D30]">
+                <div className="flex flex-wrap items-center gap-2">
                   <button
                     onClick={() => onSendToMetadata(translatedResult.translatedStockPrompt, translatedResult.title, 'Stock Photo')}
-                    className="px-2.5 py-1.5 rounded-lg bg-zinc-100 dark:bg-zinc-800 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 hover:text-emerald-600 text-zinc-700 dark:text-zinc-300 text-xs font-medium flex items-center gap-1.5 transition-colors"
+                    className={smallSecondaryClass}
                   >
                     <Tag className="w-3.5 h-3.5 text-emerald-600" />
                     <span>Send to Metadata</span>
                   </button>
                   <button
                     onClick={() => onSendToRisk(translatedResult.translatedStockPrompt)}
-                    className="px-2.5 py-1.5 rounded-lg bg-zinc-100 dark:bg-zinc-800 hover:bg-rose-50 dark:hover:bg-rose-950/40 hover:text-rose-600 text-zinc-700 dark:text-zinc-300 text-xs font-medium flex items-center gap-1.5 transition-colors"
+                    className={smallSecondaryClass}
                   >
                     <ShieldAlert className="w-3.5 h-3.5 text-rose-500" />
                     <span>Scan IP</span>
@@ -294,9 +298,9 @@ Translate into production-ready English commercial stock prompt.`;
                     });
                     showToast('Saved to Library');
                   }}
-                  className="px-2.5 py-1.5 rounded-lg bg-zinc-100 dark:bg-zinc-800 hover:bg-teal-50 dark:hover:bg-teal-950/40 hover:text-teal-600 text-zinc-700 dark:text-zinc-300 text-xs font-medium flex items-center gap-1.5 transition-colors"
+                  className={smallSecondaryClass}
                 >
-                  <Layers className="w-3.5 h-3.5 text-teal-500" />
+                  <Layers className="w-3.5 h-3.5 text-[#C74A43]" />
                   <span>Save to Library</span>
                 </button>
               </div>

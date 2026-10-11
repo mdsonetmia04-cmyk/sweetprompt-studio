@@ -133,24 +133,29 @@ Return strictly JSON format:
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const smallSecondaryClass = "px-2.5 py-1.5 rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] text-[#1A2024] dark:text-[#F3EDE2] text-xs font-medium flex items-center gap-1.5 transition-colors cursor-pointer";
+
   return (
     <div className="space-y-6">
-      <div className="pb-4 border-b border-zinc-200 dark:border-zinc-800">
-        <h1 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
-          <ShieldCheck className="w-5 h-5 text-emerald-600" />
+      <div>
+        <div className="text-[11px] font-semibold uppercase tracking-wider text-[#606669] dark:text-[#8C8A86] mb-1">
+          Compliance Tools
+        </div>
+        <h1 className="font-editorial text-2xl sm:text-3xl text-[#1A2024] dark:text-[#F3EDE2] font-normal tracking-tight flex items-center gap-2.5">
+          <ShieldCheck className="w-6 h-6 text-[#C74A43]" />
           <span>Prompt Fixer & Compliance Sanitizer</span>
         </h1>
-        <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
+        <p className="text-xs text-[#606669] dark:text-[#8C8A86] mt-1 max-w-2xl">
           Instant rule-based sanitation: strips brand names, celebrity figures, living artist styles ("in the style of"), and AI spam buzzwords, substituting Adobe Stock-safe commercial terminology.
         </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         <div className="lg:col-span-5 space-y-4">
-          <div className="bg-white dark:bg-zinc-900 rounded-xl p-5 border border-zinc-200 dark:border-zinc-800 shadow-sm space-y-4">
+          <div className="rounded-xl border border-[#D8CEBF] dark:border-[#272D30] bg-[#EDE6D8] dark:bg-[#11161A] p-5 sm:p-6 space-y-4">
             <div>
               <div className="flex items-center justify-between mb-1.5">
-                <label className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
+                <label className="text-xs font-medium text-[#1A2024] dark:text-[#F3EDE2]">
                   Input Prompt with Potential Violations *
                 </label>
               </div>
@@ -159,12 +164,12 @@ Return strictly JSON format:
                 onChange={(e) => setDirtyPrompt(e.target.value)}
                 placeholder="Paste any prompt with brand names, logos, artist styles, or buzzwords..."
                 rows={5}
-                className="w-full text-xs p-3 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
+                className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] placeholder-[#606669] dark:placeholder-[#606669] focus:outline-none focus:border-[#C74A43]"
               />
             </div>
 
             <div>
-              <span className="text-[11px] font-semibold text-zinc-400 uppercase tracking-wider block mb-1.5">
+              <span className="text-[11px] font-semibold text-[#606669] dark:text-[#8C8A86] uppercase tracking-wider block mb-1.5">
                 Try a Sample Risky Prompt:
               </span>
               <div className="space-y-1.5">
@@ -172,7 +177,7 @@ Return strictly JSON format:
                   <button
                     key={idx}
                     onClick={() => setDirtyPrompt(sample)}
-                    className="w-full text-left p-2 rounded-lg bg-zinc-50 dark:bg-zinc-800/60 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-[11px] text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700/60 truncate"
+                    className="w-full text-left p-2 rounded-lg bg-[#E9E1D1] dark:bg-[#0C0F12] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] text-[11px] text-[#606669] dark:text-[#8C8A86] border border-[#D8CEBF] dark:border-[#272D30] truncate transition-colors cursor-pointer"
                   >
                     "{sample}"
                   </button>
@@ -183,7 +188,7 @@ Return strictly JSON format:
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               <button
                 onClick={handleFix}
-                className="py-2.5 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-xs flex items-center justify-center gap-2 shadow-md shadow-emerald-600/20 transition-all cursor-pointer"
+                className="rounded-lg bg-[#C74A43] hover:bg-[#B53F39] text-[#F3EDE2] font-semibold px-4 py-2.5 text-xs flex items-center justify-center gap-2 transition-colors cursor-pointer"
               >
                 <ShieldCheck className="w-4 h-4" />
                 <span>Fast Sanitize</span>
@@ -192,7 +197,7 @@ Return strictly JSON format:
               <button
                 onClick={handleAiFix}
                 disabled={isAiFixing}
-                className="py-2.5 px-3 rounded-xl bg-purple-600 hover:bg-purple-500 disabled:opacity-50 text-white font-medium text-xs flex items-center justify-center gap-2 shadow-md shadow-purple-600/20 transition-all cursor-pointer"
+                className="border border-[#D8CEBF] dark:border-[#272D30] bg-[#EDE6D8] dark:bg-[#11161A] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] text-[#1A2024] dark:text-[#F3EDE2] font-medium rounded-lg px-4 py-2.5 text-xs disabled:opacity-50 flex items-center justify-center gap-2 transition-colors cursor-pointer"
               >
                 {isAiFixing ? <RefreshCw className="w-4 h-4 animate-spin" /> : null}
                 <span>{isAiFixing ? 'Rewriting...' : 'Smart Rewrite'}</span>
@@ -202,38 +207,38 @@ Return strictly JSON format:
         </div>
 
         <div className="lg:col-span-7 space-y-4">
-          <h2 className="text-sm font-bold text-zinc-900 dark:text-zinc-100">
+          <h2 className="text-sm font-semibold text-[#1A2024] dark:text-[#F3EDE2]">
             Sanitized Adobe Stock-Safe Result
           </h2>
 
           {!fixedResult && (
-            <div className="rounded-xl border border-dashed border-zinc-300 dark:border-zinc-800 p-12 text-center bg-white/50 dark:bg-zinc-900/50 space-y-3">
-              <div className="w-12 h-12 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 mx-auto flex items-center justify-center">
+            <div className="rounded-xl border border-dashed border-[#D8CEBF] dark:border-[#272D30] p-12 text-center bg-[#EDE6D8]/60 dark:bg-[#11161A]/60 space-y-3">
+              <div className="w-12 h-12 rounded-xl bg-[#E9E1D1] dark:bg-[#0C0F12] text-emerald-600 dark:text-emerald-400 mx-auto flex items-center justify-center border border-[#D8CEBF] dark:border-[#272D30]">
                 <ShieldCheck className="w-6 h-6" />
               </div>
-              <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 text-sm">
+              <h3 className="font-semibold text-[#1A2024] dark:text-[#F3EDE2] text-sm">
                 Ready to Sanitize
               </h3>
-              <p className="text-xs text-zinc-500 dark:text-zinc-400 max-w-sm mx-auto">
+              <p className="text-xs text-[#606669] dark:text-[#8C8A86] max-w-sm mx-auto">
                 Paste any prompt containing trademarks (e.g. Nike, iPhone), artist names ("style of Picasso"), or spam buzzwords to clean it automatically.
               </p>
             </div>
           )}
 
           {fixedResult && (
-            <div className="bg-white dark:bg-zinc-900 rounded-xl p-5 border border-zinc-200 dark:border-zinc-800 shadow-sm space-y-4">
-              <div className="flex items-start justify-between gap-3">
+            <div className="rounded-xl border border-[#D8CEBF] dark:border-[#272D30] bg-[#EDE6D8] dark:bg-[#11161A] p-5 sm:p-6 space-y-4">
+              <div className="flex flex-wrap items-start justify-between gap-3">
                 <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 dark:bg-emerald-950/50 px-2 py-0.5 rounded border border-emerald-200 dark:border-emerald-900">
+                  <span className="text-[10px] font-bold text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded border border-emerald-200 dark:border-emerald-900/60">
                     ADOBE STOCK COMPLIANT
                   </span>
-                  <span className="text-xs text-zinc-500 dark:text-zinc-400">
+                  <span className="text-xs text-[#606669] dark:text-[#8C8A86]">
                     {fixedResult.replacedCount} issue{fixedResult.replacedCount === 1 ? '' : 's'} cleaned
                   </span>
                 </div>
                 <button
                   onClick={handleCopy}
-                  className="px-3 py-1.5 rounded-lg bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 text-xs font-medium flex items-center gap-1.5 transition-colors"
+                  className={smallSecondaryClass}
                 >
                   {copied ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
                   <span>{copied ? 'Copied' : 'Copy'}</span>
@@ -242,30 +247,30 @@ Return strictly JSON format:
 
               {/* Clean Output */}
               <div className="space-y-1.5">
-                <span className="text-[11px] font-semibold text-emerald-600 uppercase tracking-wider block">
+                <span className="text-[11px] font-semibold text-[#606669] dark:text-[#8C8A86] uppercase tracking-wider block">
                   Sanitized Stock Prompt:
                 </span>
-                <div className="p-3.5 rounded-lg bg-emerald-50/30 dark:bg-zinc-950/60 border border-emerald-500/30 font-mono text-xs text-zinc-800 dark:text-zinc-200 leading-relaxed select-all">
+                <div className="p-3.5 rounded-lg bg-emerald-50/40 dark:bg-emerald-950/20 border border-emerald-200/60 dark:border-emerald-900/50 font-mono text-xs text-[#1A2024] dark:text-[#F3EDE2] leading-relaxed select-all">
                   {fixedResult.sanitized}
                 </div>
               </div>
 
               {/* Replacements Breakdown */}
               {fixedResult.replacedTerms.length > 0 ? (
-                <div className="p-3.5 rounded-lg bg-amber-50/40 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900/40 space-y-2">
-                  <span className="text-xs font-bold text-amber-800 dark:text-amber-300 flex items-center gap-1.5">
-                    <AlertTriangle className="w-3.5 h-3.5 text-amber-600" />
+                <div className="p-3.5 rounded-lg bg-amber-50/40 dark:bg-amber-950/20 border border-amber-200/70 dark:border-amber-900/40 space-y-2">
+                  <span className="text-xs font-semibold text-amber-800 dark:text-amber-300 flex items-center gap-1.5">
+                    <AlertTriangle className="w-3.5 h-3.5" />
                     Cleaned Violations & Substitutions:
                   </span>
                   <div className="space-y-2 pt-1">
                     {fixedResult.replacedTerms.map((item, idx) => (
-                      <div key={idx} className="text-xs p-2 rounded bg-white/70 dark:bg-zinc-800/70 border border-amber-200/60 dark:border-amber-900/60">
-                        <div className="flex items-center gap-2">
+                      <div key={idx} className="text-xs p-2.5 rounded-lg bg-[#EDE6D8] dark:bg-[#11161A] border border-amber-200/60 dark:border-amber-900/60">
+                        <div className="flex flex-wrap items-center gap-2">
                           <span className="font-semibold text-rose-600 line-through">"{item.original}"</span>
-                          <ArrowRight className="w-3 h-3 text-zinc-400" />
+                          <ArrowRight className="w-3 h-3 text-[#606669] dark:text-[#8C8A86]" />
                           <span className="font-semibold text-emerald-600">"{item.replacement}"</span>
                         </div>
-                        <p className="text-[11px] text-zinc-500 dark:text-zinc-400 mt-0.5">
+                        <p className="text-[11px] text-[#606669] dark:text-[#8C8A86] mt-0.5">
                           {item.reason}
                         </p>
                       </div>
@@ -273,25 +278,25 @@ Return strictly JSON format:
                   </div>
                 </div>
               ) : (
-                <div className="p-3 rounded-lg bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-900 text-xs text-emerald-700 dark:text-emerald-300 flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                <div className="p-3 rounded-lg bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-900/60 text-xs text-emerald-700 dark:text-emerald-300 flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 shrink-0" />
                   <span>No trademark, brand, or artist violations detected in this prompt.</span>
                 </div>
               )}
 
               {/* Action Buttons */}
-              <div className="pt-2 flex flex-wrap items-center justify-between gap-2 border-t border-zinc-100 dark:border-zinc-800">
-                <div className="flex items-center gap-2">
+              <div className="pt-3 flex flex-wrap items-center justify-between gap-2 border-t border-[#D8CEBF] dark:border-[#272D30]">
+                <div className="flex flex-wrap items-center gap-2">
                   <button
                     onClick={() => onSendToMetadata(fixedResult.sanitized, 'Sanitized Stock Asset', 'Commercial Stock')}
-                    className="px-2.5 py-1.5 rounded-lg bg-zinc-100 dark:bg-zinc-800 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 hover:text-emerald-600 text-zinc-700 dark:text-zinc-300 text-xs font-medium flex items-center gap-1.5 transition-colors"
+                    className={smallSecondaryClass}
                   >
                     <Tag className="w-3.5 h-3.5 text-emerald-600" />
                     <span>Send to Metadata</span>
                   </button>
                   <button
                     onClick={() => onSendToRisk(fixedResult.sanitized)}
-                    className="px-2.5 py-1.5 rounded-lg bg-zinc-100 dark:bg-zinc-800 hover:bg-rose-50 dark:hover:bg-rose-950/40 hover:text-rose-600 text-zinc-700 dark:text-zinc-300 text-xs font-medium flex items-center gap-1.5 transition-colors"
+                    className={smallSecondaryClass}
                   >
                     <ShieldAlert className="w-3.5 h-3.5 text-rose-500" />
                     <span>Verify Scan</span>
@@ -309,9 +314,9 @@ Return strictly JSON format:
                     });
                     showToast('Saved to Library');
                   }}
-                  className="px-2.5 py-1.5 rounded-lg bg-zinc-100 dark:bg-zinc-800 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 hover:text-emerald-600 text-zinc-700 dark:text-zinc-300 text-xs font-medium flex items-center gap-1.5 transition-colors"
+                  className={smallSecondaryClass}
                 >
-                  <Layers className="w-3.5 h-3.5 text-emerald-500" />
+                  <Layers className="w-3.5 h-3.5 text-[#C74A43]" />
                   <span>Save to Library</span>
                 </button>
               </div>
