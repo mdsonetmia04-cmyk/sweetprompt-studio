@@ -7,7 +7,6 @@ import {
   Workflow,
   SlidersHorizontal,
   RefreshCw,
-  FileText,
   FileSpreadsheet
 } from 'lucide-react';
 import { AISettings } from '../../types';
@@ -211,30 +210,36 @@ export const BulkHub: React.FC<BulkHubProps> = ({
     }));
   };
 
+  const tabButtonClass = (tab: BulkTab) =>
+    `px-3 py-1.5 rounded-lg font-semibold flex items-center gap-1.5 transition-colors cursor-pointer ${
+      activeTab === tab
+        ? 'bg-[#C74A43] text-[#F3EDE2]'
+        : 'text-[#606669] dark:text-[#8C8A86] hover:text-[#1A2024] dark:hover:text-[#F3EDE2]'
+    }`;
+
   return (
     <div className="space-y-6">
       {/* Page Title & Navigation Tabs */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-zinc-200 dark:border-zinc-800">
+      <div className="space-y-4">
         <div>
-          <h1 className="text-xl font-extrabold text-zinc-950 dark:text-zinc-50 flex items-center gap-2">
-            <Package className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+          <div className="text-[11px] font-semibold uppercase tracking-wider text-[#606669] dark:text-[#8C8A86] mb-1">
+            Bulk Production
+          </div>
+          <h1 className="font-editorial text-2xl sm:text-3xl text-[#1A2024] dark:text-[#F3EDE2] font-normal tracking-tight flex items-center gap-2.5">
+            <Package className="w-6 h-6 text-[#C74A43]" />
             <span>Bulk Generator & Production Hub</span>
           </h1>
-          <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-1 font-medium">
+          <p className="text-xs text-[#606669] dark:text-[#8C8A86] mt-1 max-w-xl">
             Generate multi-count batches of unique prompts, metadata sets, or compliance scans with instant TXT and CSV exports.
           </p>
         </div>
 
         {/* Tab Navigation */}
-        <div className="flex bg-zinc-100 dark:bg-zinc-900 p-1 rounded-xl border border-zinc-200 dark:border-zinc-800 text-xs">
+        <div className="flex flex-wrap bg-[#E9E1D1] dark:bg-[#0C0F12] p-1 rounded-xl border border-[#D8CEBF] dark:border-[#272D30] text-xs gap-0.5 w-fit max-w-full">
           <button
             type="button"
             onClick={() => setActiveTab('prompts')}
-            className={`px-3 py-1.5 rounded-lg font-bold flex items-center gap-1.5 transition-colors cursor-pointer ${
-              activeTab === 'prompts'
-                ? 'bg-white dark:bg-zinc-800 text-indigo-600 dark:text-indigo-400 shadow-xs'
-                : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200'
-            }`}
+            className={tabButtonClass('prompts')}
           >
             <Layers className="w-3.5 h-3.5" />
             <span>Prompt Generator</span>
@@ -243,11 +248,7 @@ export const BulkHub: React.FC<BulkHubProps> = ({
           <button
             type="button"
             onClick={() => setActiveTab('metadata')}
-            className={`px-3 py-1.5 rounded-lg font-bold flex items-center gap-1.5 transition-colors cursor-pointer ${
-              activeTab === 'metadata'
-                ? 'bg-white dark:bg-zinc-800 text-indigo-600 dark:text-indigo-400 shadow-xs'
-                : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200'
-            }`}
+            className={tabButtonClass('metadata')}
           >
             <Tag className="w-3.5 h-3.5" />
             <span>Bulk Metadata</span>
@@ -256,11 +257,7 @@ export const BulkHub: React.FC<BulkHubProps> = ({
           <button
             type="button"
             onClick={() => setActiveTab('risk')}
-            className={`px-3 py-1.5 rounded-lg font-bold flex items-center gap-1.5 transition-colors cursor-pointer ${
-              activeTab === 'risk'
-                ? 'bg-white dark:bg-zinc-800 text-indigo-600 dark:text-indigo-400 shadow-xs'
-                : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200'
-            }`}
+            className={tabButtonClass('risk')}
           >
             <ShieldAlert className="w-3.5 h-3.5" />
             <span>Bulk IP Scan</span>
@@ -269,11 +266,7 @@ export const BulkHub: React.FC<BulkHubProps> = ({
           <button
             type="button"
             onClick={() => setActiveTab('pipeline')}
-            className={`px-3 py-1.5 rounded-lg font-bold flex items-center gap-1.5 transition-colors cursor-pointer ${
-              activeTab === 'pipeline'
-                ? 'bg-white dark:bg-zinc-800 text-indigo-600 dark:text-indigo-400 shadow-xs'
-                : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200'
-            }`}
+            className={tabButtonClass('pipeline')}
           >
             <Workflow className="w-3.5 h-3.5" />
             <span>Full Pipeline</span>
@@ -284,13 +277,13 @@ export const BulkHub: React.FC<BulkHubProps> = ({
       {/* TAB 1: UNIVERSAL MULTI-PROMPT GENERATOR */}
       {activeTab === 'prompts' && (
         <div className="space-y-6">
-          <div className="p-5 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm space-y-5">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-zinc-100 dark:border-zinc-800">
+          <div className="rounded-xl border border-[#D8CEBF] dark:border-[#272D30] bg-[#EDE6D8] dark:bg-[#11161A] p-5 sm:p-6 space-y-5">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#D8CEBF] dark:border-[#272D30]">
               <div>
-                <h3 className="font-extrabold text-zinc-950 dark:text-zinc-50 text-sm">
+                <h3 className="font-semibold text-[#1A2024] dark:text-[#F3EDE2] text-sm">
                   Bulk Prompt Batch Configuration
                 </h3>
-                <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-0.5 font-medium">
+                <p className="text-xs text-[#606669] dark:text-[#8C8A86] mt-0.5">
                   Produce up to 30 completely distinct commercial stock prompts around your target subject.
                 </p>
               </div>
@@ -298,7 +291,7 @@ export const BulkHub: React.FC<BulkHubProps> = ({
               <button
                 type="button"
                 onClick={() => setShowAdvanced(!showAdvanced)}
-                className="text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1.5 self-start sm:self-auto cursor-pointer"
+                className="text-xs font-medium text-[#606669] dark:text-[#8C8A86] hover:text-[#1A2024] dark:hover:text-[#F3EDE2] flex items-center gap-1.5 self-start sm:self-auto transition-colors cursor-pointer"
               >
                 <SlidersHorizontal className="w-3.5 h-3.5" />
                 <span>{showAdvanced ? 'Hide Advanced Options' : 'Category & Style Options'}</span>
@@ -306,100 +299,100 @@ export const BulkHub: React.FC<BulkHubProps> = ({
             </div>
 
             {/* Inputs Layout */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
               {/* Left Column: Subject & Instructions */}
               <div className="lg:col-span-7 space-y-4">
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 flex items-center justify-between">
+                  <label className="text-xs font-medium text-[#1A2024] dark:text-[#F3EDE2] flex items-center justify-between">
                     <span>Subject / Core Concept *</span>
-                    <span className="text-[10px] text-zinc-500 font-semibold">Primary stock idea</span>
+                    <span className="text-[10px] text-[#606669] dark:text-[#8C8A86] font-normal">Primary stock idea</span>
                   </label>
                   <input
                     type="text"
                     value={subject}
                     onChange={(e) => setSubject(e.target.value)}
                     placeholder="Enter subject or theme (e.g. Modern AI data center server room with glowing fiber optics)..."
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 text-sm text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 font-medium"
+                    className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3.5 py-2.5 text-sm text-[#1A2024] dark:text-[#F3EDE2] placeholder-[#606669] dark:placeholder-[#606669] focus:outline-none focus:border-[#C74A43] font-medium"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 flex items-center justify-between">
+                  <label className="text-xs font-medium text-[#1A2024] dark:text-[#F3EDE2] flex items-center justify-between">
                     <span>Batch Instructions & Constraints</span>
-                    <span className="text-[10px] text-zinc-500 font-semibold">Commercial rules & mood</span>
+                    <span className="text-[10px] text-[#606669] dark:text-[#8C8A86] font-normal">Commercial rules & mood</span>
                   </label>
                   <textarea
                     value={instructions}
                     onChange={(e) => setInstructions(e.target.value)}
                     placeholder="Directions for the batch (e.g. Clean high-tech aesthetics, generous copy space for text, no logos, diverse perspectives)..."
                     rows={3}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 text-xs text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none font-medium leading-relaxed"
+                    className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3.5 py-2.5 text-xs text-[#1A2024] dark:text-[#F3EDE2] placeholder-[#606669] dark:placeholder-[#606669] focus:outline-none focus:border-[#C74A43] resize-none leading-relaxed"
                   />
                 </div>
 
                 {/* Quick Settings */}
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-1">
                   <div className="space-y-1">
-                    <label className="text-[11px] font-semibold text-zinc-500">Content Type</label>
+                    <label className="text-[11px] font-medium text-[#606669] dark:text-[#8C8A86]">Content Type</label>
                     <select
                       value={style}
                       onChange={(e) => setStyle(e.target.value)}
-                      className="w-full rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 p-2 text-xs text-zinc-900 dark:text-zinc-100"
+                      className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] focus:outline-none focus:border-[#C74A43]"
                     >
                       {['Auto (Default)', 'Photo', 'Illustration', 'Vector', '3D Render', 'Silhouette'].map(t => (
-                        <option key={t} value={t}>{t}</option>
+                        <option key={t} value={t} className="bg-[#11161A] text-[#F3EDE2]">{t}</option>
                       ))}
                     </select>
                   </div>
 
                   <div className="space-y-1">
-                    <label className="text-[11px] font-semibold text-zinc-500">Commercial Use</label>
+                    <label className="text-[11px] font-medium text-[#606669] dark:text-[#8C8A86]">Commercial Use</label>
                     <select
                       value={commercialIntent}
                       onChange={(e) => setCommercialIntent(e.target.value)}
-                      className="w-full rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 p-2 text-xs text-zinc-900 dark:text-zinc-100"
+                      className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] focus:outline-none focus:border-[#C74A43]"
                     >
                       {['Auto (Default)', 'Advertising & B2B Hero', 'Website Hero & Marketing', 'Social Media Campaign', 'E-commerce Lifestyle', 'Editorial Spread'].map(c => (
-                        <option key={c} value={c}>{c}</option>
+                        <option key={c} value={c} className="bg-[#11161A] text-[#F3EDE2]">{c}</option>
                       ))}
                     </select>
                   </div>
 
                   <div className="space-y-1">
-                    <label className="text-[11px] font-semibold text-zinc-500">Variation Strength</label>
+                    <label className="text-[11px] font-medium text-[#606669] dark:text-[#8C8A86]">Variation Strength</label>
                     <select
                       value={variationStrength}
                       onChange={(e) => setVariationStrength(e.target.value as any)}
-                      className="w-full rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 p-2 text-xs text-zinc-900 dark:text-zinc-100"
+                      className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] focus:outline-none focus:border-[#C74A43]"
                     >
                       {['Low', 'Medium', 'High'].map(v => (
-                        <option key={v} value={v}>{v}</option>
+                        <option key={v} value={v} className="bg-[#11161A] text-[#F3EDE2]">{v}</option>
                       ))}
                     </select>
                   </div>
                 </div>
 
                 {showAdvanced && (
-                  <div className="p-3.5 rounded-xl bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs animate-fade-in">
+                  <div className="p-4 rounded-lg bg-[#E9E1D1] dark:bg-[#0C0F12] border border-[#D8CEBF] dark:border-[#272D30] grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs animate-fade-in">
                     <div className="space-y-1">
-                      <label className="text-[11px] font-semibold text-zinc-500">Industry / Category</label>
+                      <label className="text-[11px] font-medium text-[#606669] dark:text-[#8C8A86]">Industry / Category</label>
                       <select
                         value={category}
                         onChange={(e) => setCategory(e.target.value)}
-                        className="w-full rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-2 text-xs text-zinc-900 dark:text-zinc-100"
+                        className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] focus:outline-none focus:border-[#C74A43]"
                       >
-                        {categories.map(c => <option key={c} value={c}>{c}</option>)}
+                        {categories.map(c => <option key={c} value={c} className="bg-[#11161A] text-[#F3EDE2]">{c}</option>)}
                       </select>
                     </div>
 
                     <div className="space-y-1">
-                      <label className="text-[11px] font-semibold text-zinc-500">Negative Space</label>
+                      <label className="text-[11px] font-medium text-[#606669] dark:text-[#8C8A86]">Negative Space</label>
                       <select
                         value={negativeSpace}
                         onChange={(e) => setNegativeSpace(e.target.value)}
-                        className="w-full rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-2 text-xs text-zinc-900 dark:text-zinc-100"
+                        className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] focus:outline-none focus:border-[#C74A43]"
                       >
-                        {['Auto (Default)', 'Left', 'Right', 'Top', 'Bottom', 'Center', 'None'].map(n => <option key={n} value={n}>{n}</option>)}
+                        {['Auto (Default)', 'Left', 'Right', 'Top', 'Bottom', 'Center', 'None'].map(n => <option key={n} value={n} className="bg-[#11161A] text-[#F3EDE2]">{n}</option>)}
                       </select>
                     </div>
                   </div>
@@ -414,9 +407,9 @@ export const BulkHub: React.FC<BulkHubProps> = ({
                   disabled={isGenerating}
                 />
 
-                <div className="p-3.5 rounded-xl bg-zinc-50 dark:bg-zinc-950/60 border border-zinc-200 dark:border-zinc-800 space-y-1 text-xs">
-                  <span className="font-semibold text-zinc-800 dark:text-zinc-200 block">Strict Exact Count Enforcement</span>
-                  <p className="text-[11px] text-zinc-500 dark:text-zinc-400 leading-snug">
+                <div className="p-3.5 rounded-lg bg-[#E9E1D1] dark:bg-[#0C0F12] border border-[#D8CEBF] dark:border-[#272D30] space-y-1 text-xs">
+                  <span className="font-semibold text-[#1A2024] dark:text-[#F3EDE2] block">Strict Exact Count Enforcement</span>
+                  <p className="text-[11px] text-[#606669] dark:text-[#8C8A86] leading-snug">
                     Generates exactly {count} distinct prompts with pairwise similarity auditing to protect your Adobe Stock account from duplicate flags.
                   </p>
                 </div>
@@ -425,7 +418,7 @@ export const BulkHub: React.FC<BulkHubProps> = ({
                   type="button"
                   onClick={handleGenerateUniversalBatch}
                   disabled={isGenerating || !subject.trim()}
-                  className="w-full py-3.5 px-5 rounded-xl bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold text-sm shadow-sm shadow-indigo-600/30 flex items-center justify-center gap-2 transition-all cursor-pointer hover:scale-[1.01]"
+                  className="w-full rounded-lg bg-[#C74A43] hover:bg-[#B53F39] text-[#F3EDE2] font-semibold px-4 py-3 text-sm disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 transition-colors cursor-pointer"
                 >
                   {isGenerating ? (
                     <>
@@ -461,38 +454,38 @@ export const BulkHub: React.FC<BulkHubProps> = ({
       {/* TABS 2, 3, 4: Multi-Line Metadata / Risk / Pipeline */}
       {activeTab !== 'prompts' && (
         <div className="space-y-6">
-          <div className="p-5 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-zinc-100 dark:border-zinc-800">
+          <div className="rounded-xl border border-[#D8CEBF] dark:border-[#272D30] bg-[#EDE6D8] dark:bg-[#11161A] p-5 sm:p-6 space-y-4">
+            <div className="flex items-center justify-between pb-4 border-b border-[#D8CEBF] dark:border-[#272D30]">
               <div>
-                <h3 className="font-extrabold text-zinc-950 dark:text-zinc-50 text-sm">
+                <h3 className="font-semibold text-[#1A2024] dark:text-[#F3EDE2] text-sm">
                   {activeTab === 'metadata' ? 'Bulk Metadata Generation' : activeTab === 'risk' ? 'Bulk IP & Brand Risk Scan' : 'Full Contributor Production Pipeline'}
                 </h3>
-                <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-0.5 font-medium">
+                <p className="text-xs text-[#606669] dark:text-[#8C8A86] mt-0.5">
                   Enter multiple concepts (one per line) to process in batch.
                 </p>
               </div>
 
               {isGenerating && (
-                <span className="text-xs font-mono font-bold text-indigo-600 dark:text-indigo-400">
+                <span className="text-xs font-mono font-semibold text-[#C74A43]">
                   Processing {multiLineProgress.current} / {multiLineProgress.total}
                 </span>
               )}
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300">
+              <label className="text-[11px] font-semibold uppercase tracking-wider text-[#606669] dark:text-[#8C8A86]">
                 Batch Concepts List (One per line)
               </label>
               <textarea
                 value={bulkInput}
                 onChange={(e) => setBulkInput(e.target.value)}
                 rows={5}
-                className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 text-xs font-mono text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 leading-relaxed font-medium"
+                className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3.5 py-2.5 text-xs font-mono text-[#1A2024] dark:text-[#F3EDE2] focus:outline-none focus:border-[#C74A43] leading-relaxed"
               />
             </div>
 
-            <div className="flex items-center justify-between pt-2">
-              <span className="text-xs text-zinc-500 font-medium">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-1">
+              <span className="text-xs text-[#606669] dark:text-[#8C8A86]">
                 {bulkInput.split('\n').filter(Boolean).length} lines ready to process
               </span>
 
@@ -500,7 +493,7 @@ export const BulkHub: React.FC<BulkHubProps> = ({
                 type="button"
                 onClick={handleRunMultiLineMetadataOrRisk}
                 disabled={isGenerating || !bulkInput.trim()}
-                className="py-2.5 px-6 rounded-xl bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white font-bold text-xs flex items-center gap-2 transition-all cursor-pointer shadow-sm shadow-indigo-600/20"
+                className="rounded-lg bg-[#C74A43] hover:bg-[#B53F39] text-[#F3EDE2] font-semibold px-4 py-2.5 text-sm disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 transition-colors cursor-pointer"
               >
                 {isGenerating ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : null}
                 <span>Process Batch Now</span>
@@ -511,45 +504,43 @@ export const BulkHub: React.FC<BulkHubProps> = ({
           {/* Metadata Results Display */}
           {activeTab === 'metadata' && batchMetadata.length > 0 && (
             <div className="space-y-3">
-              <div className="flex items-center justify-between p-3.5 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800">
-                <span className="text-xs font-bold text-zinc-900 dark:text-zinc-100">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-4 rounded-xl bg-[#EDE6D8] dark:bg-[#11161A] border border-[#D8CEBF] dark:border-[#272D30]">
+                <span className="text-xs font-semibold text-[#1A2024] dark:text-[#F3EDE2]">
                   {batchMetadata.length} Metadata Sets Generated
                 </span>
-                <div className="flex items-center gap-2">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      const csvData = batchMetadata.map((m, i) => ({
-                        Item: i + 1,
-                        Topic: m.query,
-                        Title: m.title,
-                        Keywords: m.keywords.join(', '),
-                        Category: m.category,
-                        ContentType: m.contentType
-                      }));
-                      exportToCSV(csvData, 'sweetprompts-bulk-metadata.csv');
-                      onAddToast('Exported metadata CSV');
-                    }}
-                    className="px-3 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 text-xs font-semibold flex items-center gap-1.5 cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-900 text-zinc-800 dark:text-zinc-200"
-                  >
-                    <FileSpreadsheet className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
-                    <span>Download CSV</span>
-                  </button>
-                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const csvData = batchMetadata.map((m, i) => ({
+                      Item: i + 1,
+                      Topic: m.query,
+                      Title: m.title,
+                      Keywords: m.keywords.join(', '),
+                      Category: m.category,
+                      ContentType: m.contentType
+                    }));
+                    exportToCSV(csvData, 'sweetprompts-bulk-metadata.csv');
+                    onAddToast('Exported metadata CSV');
+                  }}
+                  className="border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] text-[#1A2024] dark:text-[#F3EDE2] font-medium rounded-lg px-3 py-1.5 text-xs flex items-center gap-1.5 cursor-pointer transition-colors self-start sm:self-auto"
+                >
+                  <FileSpreadsheet className="w-3.5 h-3.5 text-[#C74A43]" />
+                  <span>Download CSV</span>
+                </button>
               </div>
 
               <div className="space-y-3">
                 {batchMetadata.map((meta, idx) => (
-                  <div key={meta.id || idx} className="p-4 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 space-y-2">
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold text-zinc-900 dark:text-zinc-100">{meta.title}</span>
-                      <span className="text-[10px] px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 font-mono">
+                  <div key={meta.id || idx} className="p-4 rounded-xl bg-[#EDE6D8] dark:bg-[#11161A] border border-[#D8CEBF] dark:border-[#272D30] space-y-2">
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-xs font-semibold text-[#1A2024] dark:text-[#F3EDE2]">{meta.title}</span>
+                      <span className="text-[10px] px-2 py-0.5 rounded bg-[#E9E1D1] dark:bg-[#0C0F12] text-[#606669] dark:text-[#8C8A86] font-mono shrink-0">
                         {meta.keywords.length} tags
                       </span>
                     </div>
                     <div className="flex flex-wrap gap-1 text-[10px]">
                       {meta.keywords.slice(0, 15).map((k: string, kidx: number) => (
-                        <span key={kidx} className="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300">
+                        <span key={kidx} className="px-2 py-0.5 rounded bg-[#E9E1D1] dark:bg-[#0C0F12] text-[#606669] dark:text-[#8C8A86]">
                           {k}
                         </span>
                       ))}
@@ -563,8 +554,8 @@ export const BulkHub: React.FC<BulkHubProps> = ({
           {/* Risk Results Display */}
           {activeTab === 'risk' && batchRisk.length > 0 && (
             <div className="space-y-3">
-              <div className="flex items-center justify-between p-3.5 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800">
-                <span className="text-xs font-bold text-zinc-900 dark:text-zinc-100">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-4 rounded-xl bg-[#EDE6D8] dark:bg-[#11161A] border border-[#D8CEBF] dark:border-[#272D30]">
+                <span className="text-xs font-semibold text-[#1A2024] dark:text-[#F3EDE2]">
                   {batchRisk.length} Scans Completed
                 </span>
                 <button
@@ -579,26 +570,26 @@ export const BulkHub: React.FC<BulkHubProps> = ({
                     exportToCSV(csvData, 'sweetprompts-bulk-risk.csv');
                     onAddToast('Exported risk audit CSV');
                   }}
-                  className="px-3 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 text-xs font-semibold flex items-center gap-1.5 cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-900 text-zinc-800 dark:text-zinc-200"
+                  className="border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] text-[#1A2024] dark:text-[#F3EDE2] font-medium rounded-lg px-3 py-1.5 text-xs flex items-center gap-1.5 cursor-pointer transition-colors self-start sm:self-auto"
                 >
-                  <FileSpreadsheet className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
+                  <FileSpreadsheet className="w-3.5 h-3.5 text-[#C74A43]" />
                   <span>Download CSV</span>
                 </button>
               </div>
 
               <div className="space-y-3">
                 {batchRisk.map((risk, idx) => (
-                  <div key={risk.id || idx} className="p-4 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex items-center justify-between gap-4">
+                  <div key={risk.id || idx} className="p-4 rounded-xl bg-[#EDE6D8] dark:bg-[#11161A] border border-[#D8CEBF] dark:border-[#272D30] flex items-center justify-between gap-4">
                     <div>
-                      <span className="text-xs font-medium text-zinc-900 dark:text-zinc-100 block">{risk.text}</span>
-                      <span className="text-[11px] text-zinc-400">
+                      <span className="text-xs font-medium text-[#1A2024] dark:text-[#F3EDE2] block">{risk.text}</span>
+                      <span className="text-[11px] text-[#606669] dark:text-[#8C8A86]">
                         {risk.findings?.length > 0 ? `${risk.findings.length} signals detected: ${risk.findings.map((f: any) => f.term).join(', ')}` : 'Clean. No protected signals detected.'}
                       </span>
                     </div>
-                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${
+                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border shrink-0 ${
                       risk.overall === 'SAFE' || risk.overall === 'LOW'
-                        ? 'bg-emerald-50 text-emerald-600 border-emerald-300'
-                        : 'bg-amber-50 text-amber-600 border-amber-300'
+                        ? 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/30 dark:text-emerald-400 dark:border-emerald-900/60'
+                        : 'bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/30 dark:text-amber-400 dark:border-amber-900/60'
                     }`}>
                       {risk.overall}
                     </span>
@@ -611,8 +602,8 @@ export const BulkHub: React.FC<BulkHubProps> = ({
           {/* Pipeline Results Display */}
           {activeTab === 'pipeline' && batchPipeline.length > 0 && (
             <div className="space-y-3">
-              <div className="flex items-center justify-between p-3.5 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800">
-                <span className="text-xs font-bold text-zinc-900 dark:text-zinc-100">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-4 rounded-xl bg-[#EDE6D8] dark:bg-[#11161A] border border-[#D8CEBF] dark:border-[#272D30]">
+                <span className="text-xs font-semibold text-[#1A2024] dark:text-[#F3EDE2]">
                   {batchPipeline.length} Complete Stock Pipelines Ready
                 </span>
                 <button
@@ -621,28 +612,28 @@ export const BulkHub: React.FC<BulkHubProps> = ({
                     exportToCSV(batchPipeline, 'sweetprompts-master-workflow.csv');
                     onAddToast('Exported master pipeline CSV');
                   }}
-                  className="px-3 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 text-xs font-semibold flex items-center gap-1.5 cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-900 text-zinc-800 dark:text-zinc-200"
+                  className="border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] text-[#1A2024] dark:text-[#F3EDE2] font-medium rounded-lg px-3 py-1.5 text-xs flex items-center gap-1.5 cursor-pointer transition-colors self-start sm:self-auto"
                 >
-                  <FileSpreadsheet className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
+                  <FileSpreadsheet className="w-3.5 h-3.5 text-[#C74A43]" />
                   <span>Download Master CSV</span>
                 </button>
               </div>
 
               <div className="space-y-3">
                 {batchPipeline.map((pipe, idx) => (
-                  <div key={pipe.id || idx} className="p-4 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 space-y-2">
-                    <div className="flex items-center justify-between">
-                      <span className="font-bold text-xs text-zinc-900 dark:text-zinc-100">{pipe.title}</span>
-                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300">
+                  <div key={pipe.id || idx} className="p-4 rounded-xl bg-[#EDE6D8] dark:bg-[#11161A] border border-[#D8CEBF] dark:border-[#272D30] space-y-2">
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="font-semibold text-xs text-[#1A2024] dark:text-[#F3EDE2]">{pipe.title}</span>
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#E9E1D1] dark:bg-[#0C0F12] text-[#606669] dark:text-[#8C8A86] shrink-0">
                         {pipe.category} • {pipe.contentType}
                       </span>
                     </div>
-                    <p className="text-xs text-zinc-700 dark:text-zinc-300 font-mono bg-zinc-50 dark:bg-zinc-950 p-2.5 rounded-lg border border-zinc-100 dark:border-zinc-800">
+                    <p className="text-xs text-[#1A2024] dark:text-[#F3EDE2] font-mono bg-[#E9E1D1] dark:bg-[#0C0F12] p-2.5 rounded-lg border border-[#D8CEBF] dark:border-[#272D30] leading-relaxed">
                       {pipe.prompt}
                     </p>
                     <div className="flex flex-wrap gap-1 text-[10px] pt-1">
                       {pipe.keywords?.slice(0, 10).map((k: string, kidx: number) => (
-                        <span key={kidx} className="px-1.5 py-0.2 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400">
+                        <span key={kidx} className="px-1.5 py-0.5 rounded bg-[#E9E1D1] dark:bg-[#0C0F12] text-[#606669] dark:text-[#8C8A86]">
                           {k}
                         </span>
                       ))}

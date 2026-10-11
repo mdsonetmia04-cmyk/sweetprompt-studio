@@ -175,16 +175,17 @@ export const JPGCreator: React.FC<JPGCreatorProps> = ({
   return (
     <div className="space-y-6">
       {/* Header Panel */}
-      <div className="p-6 rounded-[8px] bg-[#11161A] border border-[#272D30] space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#1F272B]">
+      <div className="rounded-xl border border-[#D8CEBF] dark:border-[#272D30] bg-[#EDE6D8] dark:bg-[#11161A] p-5 sm:p-6 space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#D8CEBF] dark:border-[#272D30]">
           <div>
-            <div className="text-[10px] font-semibold tracking-widest text-[#8C8A86] uppercase mb-1">
-              PHOTO STUDIO
+            <div className="text-[11px] font-semibold uppercase tracking-wider text-[#606669] dark:text-[#8C8A86] mb-1">
+              Photo Studio
             </div>
-            <h1 className="font-editorial text-2xl sm:text-3xl text-[#F3EDE2] font-normal tracking-tight">
-              JPG Creator (Stock Photography)
+            <h1 className="font-editorial text-2xl sm:text-3xl text-[#1A2024] dark:text-[#F3EDE2] font-normal tracking-tight flex items-center gap-2.5">
+              <Camera className="w-6 h-6 text-[#C74A43]" />
+              <span>JPG Creator (Stock Photography)</span>
             </h1>
-            <p className="text-xs text-[#8C8A86] mt-1 max-w-xl">
+            <p className="text-xs text-[#606669] dark:text-[#8C8A86] mt-1 max-w-xl">
               Engineered for commercial stock photography: realistic depth of field, authentic lighting, and buyer copy space.
             </p>
           </div>
@@ -192,7 +193,7 @@ export const JPGCreator: React.FC<JPGCreatorProps> = ({
           <button
             type="button"
             onClick={() => setShowAdvanced(!showAdvanced)}
-            className="text-xs font-medium text-[#8C8A86] hover:text-[#F3EDE2] flex items-center gap-1.5 self-start sm:self-auto transition-colors cursor-pointer"
+            className="text-xs font-medium text-[#606669] dark:text-[#8C8A86] hover:text-[#1A2024] dark:hover:text-[#F3EDE2] flex items-center gap-1.5 self-start sm:self-auto transition-colors cursor-pointer"
           >
             <SlidersHorizontal className="w-3.5 h-3.5" />
             <span>{showAdvanced ? 'Hide Camera Setup' : 'Camera & Lighting Setup'}</span>
@@ -204,41 +205,41 @@ export const JPGCreator: React.FC<JPGCreatorProps> = ({
           {/* Left Column: Subject & Instructions */}
           <div className="lg:col-span-7 space-y-4">
             <div className="space-y-1.5">
-              <label className="text-xs font-medium text-[#E8E4DC] flex items-center justify-between">
+              <label className="text-xs font-medium text-[#1A2024] dark:text-[#F3EDE2] flex items-center justify-between">
                 <span>Subject / Scene *</span>
-                <span className="text-[10px] text-[#606669] font-normal">Primary photographic subject</span>
+                <span className="text-[10px] text-[#606669] dark:text-[#8C8A86] font-normal">Primary photographic subject</span>
               </label>
               <input
                 type="text"
                 value={subject}
                 onChange={(e) => setSubject(e.target.value)}
                 placeholder="Describe photographic subject (e.g. Minimal ceramic tea set on rustic wooden table with morning light)..."
-                className="w-full px-3.5 py-2.5 rounded-[6px] border border-[#272D30] bg-[#090B0D] text-xs text-[#F3EDE2] placeholder-[#606669] focus:outline-none focus:border-[#C74A43] focus:ring-1 focus:ring-[#C74A43] font-medium"
+                className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3.5 py-2.5 text-xs text-[#1A2024] dark:text-[#F3EDE2] placeholder-[#606669] dark:placeholder-[#606669] focus:outline-none focus:border-[#C74A43] font-medium"
               />
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-medium text-[#E8E4DC] flex items-center justify-between">
+              <label className="text-xs font-medium text-[#1A2024] dark:text-[#F3EDE2] flex items-center justify-between">
                 <span>Photographic Direction & Constraints</span>
-                <span className="text-[10px] text-[#606669] font-normal">Atmosphere & composition</span>
+                <span className="text-[10px] text-[#606669] dark:text-[#8C8A86] font-normal">Atmosphere & composition</span>
               </label>
               <textarea
                 value={instructions}
                 onChange={(e) => setInstructions(e.target.value)}
                 placeholder="Visual direction, perspective, human presence or constraints (e.g. Diffused window daylight, generous left copy space, no logos)..."
                 rows={3}
-                className="w-full px-3.5 py-2.5 rounded-[6px] border border-[#272D30] bg-[#090B0D] text-xs text-[#F3EDE2] placeholder-[#606669] focus:outline-none focus:border-[#C74A43] focus:ring-1 focus:ring-[#C74A43] resize-none leading-relaxed"
+                className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3.5 py-2.5 text-xs text-[#1A2024] dark:text-[#F3EDE2] placeholder-[#606669] dark:placeholder-[#606669] focus:outline-none focus:border-[#C74A43] resize-none leading-relaxed"
               />
             </div>
 
             {/* Quick Settings */}
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-1">
               <div className="space-y-1">
-                <label className="text-[11px] font-medium text-[#8C8A86]">Commercial Use</label>
+                <label className="text-[11px] font-medium text-[#606669] dark:text-[#8C8A86]">Commercial Use</label>
                 <select
                   value={commercialUse}
                   onChange={(e) => setCommercialUse(e.target.value)}
-                  className="w-full rounded-[6px] border border-[#272D30] bg-[#090B0D] p-2 text-xs text-[#E8E4DC] focus:outline-none focus:border-[#C74A43]"
+                  className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] focus:outline-none focus:border-[#C74A43]"
                 >
                   {commercialUseOptions.map(u => (
                     <option key={u} value={u} className="bg-[#11161A] text-[#F3EDE2]">{u}</option>
@@ -247,11 +248,11 @@ export const JPGCreator: React.FC<JPGCreatorProps> = ({
               </div>
 
               <div className="space-y-1">
-                <label className="text-[11px] font-medium text-[#8C8A86]">Copy Space</label>
+                <label className="text-[11px] font-medium text-[#606669] dark:text-[#8C8A86]">Copy Space</label>
                 <select
                   value={negativeSpace}
                   onChange={(e) => setNegativeSpace(e.target.value)}
-                  className="w-full rounded-[6px] border border-[#272D30] bg-[#090B0D] p-2 text-xs text-[#E8E4DC] focus:outline-none focus:border-[#C74A43]"
+                  className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] focus:outline-none focus:border-[#C74A43]"
                 >
                   {copySpaceOptions.map(n => (
                     <option key={n} value={n} className="bg-[#11161A] text-[#F3EDE2]">{n}</option>
@@ -260,11 +261,11 @@ export const JPGCreator: React.FC<JPGCreatorProps> = ({
               </div>
 
               <div className="space-y-1">
-                <label className="text-[11px] font-medium text-[#8C8A86]">Aspect Ratio</label>
+                <label className="text-[11px] font-medium text-[#606669] dark:text-[#8C8A86]">Aspect Ratio</label>
                 <select
                   value={aspectRatio}
                   onChange={(e) => setAspectRatio(e.target.value)}
-                  className="w-full rounded-[6px] border border-[#272D30] bg-[#090B0D] p-2 text-xs text-[#E8E4DC] focus:outline-none focus:border-[#C74A43]"
+                  className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] focus:outline-none focus:border-[#C74A43]"
                 >
                   {aspectRatioOptions.map(r => (
                     <option key={r} value={r} className="bg-[#11161A] text-[#F3EDE2]">{r}</option>
@@ -283,11 +284,11 @@ export const JPGCreator: React.FC<JPGCreatorProps> = ({
             />
 
             <div className="space-y-1.5">
-              <label className="text-xs font-medium text-[#E8E4DC]">Category</label>
+              <label className="text-xs font-medium text-[#1A2024] dark:text-[#F3EDE2]">Category</label>
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                className="w-full rounded-[6px] border border-[#272D30] bg-[#090B0D] p-2 text-xs text-[#E8E4DC] focus:outline-none focus:border-[#C74A43]"
+                className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] focus:outline-none focus:border-[#C74A43]"
               >
                 {categories.map(c => (
                   <option key={c} value={c} className="bg-[#11161A] text-[#F3EDE2]">{c}</option>
@@ -298,7 +299,7 @@ export const JPGCreator: React.FC<JPGCreatorProps> = ({
             <button
               onClick={handleGenerate}
               disabled={isGenerating || !subject.trim()}
-              className="w-full h-[44px] rounded-[7px] bg-[#C74A43] hover:bg-[#B53F39] text-[#F3EDE2] text-xs font-semibold tracking-wide transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full rounded-lg bg-[#C74A43] hover:bg-[#B53F39] text-[#F3EDE2] font-semibold px-4 py-3 text-sm transition-colors flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <span>{isGenerating ? 'Generating Photo Prompts...' : `Generate ${count} Photo Prompts →`}</span>
             </button>
@@ -307,13 +308,13 @@ export const JPGCreator: React.FC<JPGCreatorProps> = ({
 
         {/* Optional Advanced Camera & Optics Drawer */}
         {showAdvanced && (
-          <div className="p-4 rounded-[6px] bg-[#090B0D] border border-[#272D30] grid grid-cols-1 sm:grid-cols-2 gap-4 animate-fade-in text-xs">
+          <div className="p-4 rounded-lg bg-[#E9E1D1] dark:bg-[#0C0F12] border border-[#D8CEBF] dark:border-[#272D30] grid grid-cols-1 sm:grid-cols-2 gap-4 animate-fade-in text-xs">
             <div className="space-y-1">
-              <label className="text-[11px] font-medium text-[#8C8A86]">Camera Lens & Optics</label>
+              <label className="text-[11px] font-medium text-[#606669] dark:text-[#8C8A86]">Camera Lens & Optics</label>
               <select
                 value={cameraLens}
                 onChange={(e) => setCameraLens(e.target.value)}
-                className="w-full rounded-[6px] border border-[#272D30] bg-[#11161A] p-2 text-xs text-[#E8E4DC]"
+                className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] focus:outline-none focus:border-[#C74A43]"
               >
                 {lensOptions.map(l => (
                   <option key={l} value={l} className="bg-[#11161A] text-[#F3EDE2]">{l}</option>
@@ -322,11 +323,11 @@ export const JPGCreator: React.FC<JPGCreatorProps> = ({
             </div>
 
             <div className="space-y-1">
-              <label className="text-[11px] font-medium text-[#8C8A86]">Lighting Atmosphere</label>
+              <label className="text-[11px] font-medium text-[#606669] dark:text-[#8C8A86]">Lighting Atmosphere</label>
               <select
                 value={lighting}
                 onChange={(e) => setLighting(e.target.value)}
-                className="w-full rounded-[6px] border border-[#272D30] bg-[#11161A] p-2 text-xs text-[#E8E4DC]"
+                className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] focus:outline-none focus:border-[#C74A43]"
               >
                 {lightingOptions.map(lit => (
                   <option key={lit} value={lit} className="bg-[#11161A] text-[#F3EDE2]">{lit}</option>
