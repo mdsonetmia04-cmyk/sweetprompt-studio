@@ -10,8 +10,12 @@
  * so this file never becomes an API endpoint.
  */
 
-/** Fallback chain for Gemini text generation (most capable first). */
+/** Fallback chain for Gemini text generation (most capable first).
+ * gemini-3.8-flash leads: Google retired gemini-2.5-flash for new API keys
+ * (404 NOT_FOUND, "use models/gemini-3.8-flash"). Older models stay as
+ * fallbacks for keys that still support them. */
 export const GEMINI_TEXT_FALLBACKS = [
+  'gemini-3.8-flash',
   'gemini-2.5-flash',
   'gemini-2.0-flash',
   'gemini-1.5-flash',
@@ -20,6 +24,7 @@ export const GEMINI_TEXT_FALLBACKS = [
 
 /** Fallback chain for Gemini vision analysis (most capable first). */
 export const GEMINI_VISION_FALLBACKS = [
+  'gemini-3.8-flash',
   'gemini-2.5-flash',
   'gemini-2.0-flash',
   'gemini-1.5-flash',

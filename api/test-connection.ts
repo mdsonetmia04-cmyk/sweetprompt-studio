@@ -16,7 +16,7 @@ export default async function handler(req: any, res: any) {
       }
 
       const client = new GoogleGenAI({ apiKey: activeApiKey });
-      const targetModel = model || 'gemini-2.5-flash';
+      const targetModel = model || 'gemini-3.8-flash';
 
       await client.models.generateContent({
         model: targetModel,

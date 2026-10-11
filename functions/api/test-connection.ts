@@ -47,7 +47,7 @@ export async function onRequest(context: PagesContext): Promise<Response> {
       }
 
       const client = new GoogleGenAI({ apiKey: activeApiKey });
-      const targetModel = model || 'gemini-2.5-flash';
+      const targetModel = model || 'gemini-3.8-flash';
 
       await client.models.generateContent({
         model: targetModel,

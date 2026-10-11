@@ -114,7 +114,7 @@ describe('clientIp', () => {
 
 describe('ported constants and error cleaner', () => {
   it('keeps the same Gemini fallback chains as api/_shared', () => {
-    expect(GEMINI_TEXT_FALLBACKS[0]).toBe('gemini-2.5-flash');
+    expect(GEMINI_TEXT_FALLBACKS[0]).toBe('gemini-3.8-flash');
     expect(GEMINI_VISION_FALLBACKS).toContain('gemini-2.0-flash');
     expect(GEMINI_TEXT_FALLBACKS.length).toBeGreaterThanOrEqual(3);
   });

@@ -4,13 +4,13 @@ import { cleanProviderError, GEMINI_TEXT_FALLBACKS, GEMINI_VISION_FALLBACKS } fr
 describe('fallback model lists', () => {
   it('lists text fallback models, most capable first', () => {
     expect(GEMINI_TEXT_FALLBACKS.length).toBeGreaterThan(1);
-    expect(GEMINI_TEXT_FALLBACKS[0]).toBe('gemini-2.5-flash');
+    expect(GEMINI_TEXT_FALLBACKS[0]).toBe('gemini-3.8-flash');
     expect(GEMINI_TEXT_FALLBACKS.every((m) => typeof m === 'string')).toBe(true);
   });
 
   it('lists vision fallback models, most capable first', () => {
     expect(GEMINI_VISION_FALLBACKS.length).toBeGreaterThan(1);
-    expect(GEMINI_VISION_FALLBACKS[0]).toBe('gemini-2.5-flash');
+    expect(GEMINI_VISION_FALLBACKS[0]).toBe('gemini-3.8-flash');
   });
 });
 
