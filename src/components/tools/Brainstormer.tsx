@@ -131,14 +131,17 @@ export const Brainstormer: React.FC<BrainstormerProps> = ({
   return (
     <div className="space-y-6">
       {/* Header Panel */}
-      <div className="p-5 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm space-y-5">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-zinc-100 dark:border-zinc-800">
+      <div className="rounded-xl border border-[#D8CEBF] dark:border-[#272D30] bg-[#EDE6D8] dark:bg-[#11161A] p-5 sm:p-6 space-y-5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#D8CEBF] dark:border-[#272D30]">
           <div>
-            <h1 className="text-xl font-extrabold text-zinc-950 dark:text-zinc-50 flex items-center gap-2">
-              <Compass className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
-              <span>Brainstormer (Stock Intelligence & Niche Discovery)</span>
+            <div className="text-[11px] font-semibold uppercase tracking-wider text-[#606669] dark:text-[#8C8A86] mb-1">
+              Niche Discovery
+            </div>
+            <h1 className="font-editorial text-2xl sm:text-3xl text-[#1A2024] dark:text-[#F3EDE2] font-normal tracking-tight flex items-center gap-2.5">
+              <Compass className="w-6 h-6 text-[#C74A43]" />
+              <span>Brainstormer</span>
             </h1>
-            <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-1 font-medium">
+            <p className="text-xs text-[#606669] dark:text-[#8C8A86] mt-1 max-w-xl">
               Identify underserved stock niches, uncrowded subject categories, and high-demand commercial themes.
             </p>
           </div>
@@ -146,7 +149,7 @@ export const Brainstormer: React.FC<BrainstormerProps> = ({
           <button
             type="button"
             onClick={() => setShowAdvanced(!showAdvanced)}
-            className="text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1.5 self-start sm:self-auto cursor-pointer"
+            className="text-xs font-medium text-[#606669] dark:text-[#8C8A86] hover:text-[#1A2024] dark:hover:text-[#F3EDE2] flex items-center gap-1.5 self-start sm:self-auto transition-colors cursor-pointer"
           >
             <SlidersHorizontal className="w-3.5 h-3.5" />
             <span>{showAdvanced ? 'Hide Market Filters' : 'Industry & Buyer Filters'}</span>
@@ -154,58 +157,58 @@ export const Brainstormer: React.FC<BrainstormerProps> = ({
         </div>
 
         {/* Inputs Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Left Column: Topic & Instructions */}
           <div className="lg:col-span-7 space-y-4">
             <div className="space-y-1.5">
-              <label className="text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 flex items-center justify-between">
+              <label className="text-xs font-medium text-[#1A2024] dark:text-[#F3EDE2] flex items-center justify-between">
                 <span>Topic / Commercial Focus *</span>
-                <span className="text-[10px] text-zinc-500 font-semibold">Exploration angle</span>
+                <span className="text-[10px] text-[#606669] dark:text-[#8C8A86] font-normal">Exploration angle</span>
               </label>
               <input
                 type="text"
                 value={subject}
                 onChange={(e) => setSubject(e.target.value)}
                 placeholder="Enter topic or market sector (e.g. Modern renewable energy, active senior lifestyles)..."
-                className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 text-sm text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 font-medium"
+                className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3.5 py-2.5 text-sm text-[#1A2024] dark:text-[#F3EDE2] placeholder-[#606669] dark:placeholder-[#606669] focus:outline-none focus:border-[#C74A43] font-medium"
               />
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 flex items-center justify-between">
+              <label className="text-xs font-medium text-[#1A2024] dark:text-[#F3EDE2] flex items-center justify-between">
                 <span>Market Gap Context & Instructions</span>
-                <span className="text-[10px] text-zinc-500 font-semibold">Buyer needs & direction</span>
+                <span className="text-[10px] text-[#606669] dark:text-[#8C8A86] font-normal">Buyer needs & direction</span>
               </label>
               <textarea
                 value={instructions}
                 onChange={(e) => setInstructions(e.target.value)}
                 placeholder="Identify specific buyer requirements (e.g. Focus on practical B2B applications, natural authentic moments, negative space for layout)..."
                 rows={3}
-                className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 text-xs text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none font-medium leading-relaxed"
+                className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3.5 py-2.5 text-xs text-[#1A2024] dark:text-[#F3EDE2] placeholder-[#606669] dark:placeholder-[#606669] focus:outline-none focus:border-[#C74A43] resize-none leading-relaxed"
               />
             </div>
 
             {/* Quick Settings */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
               <div className="space-y-1">
-                <label className="text-[11px] font-bold text-zinc-700 dark:text-zinc-300">Target Industry</label>
+                <label className="text-[11px] font-medium text-[#606669] dark:text-[#8C8A86]">Target Industry</label>
                 <select
                   value={industry}
                   onChange={(e) => setIndustry(e.target.value)}
-                  className="w-full rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 p-2 text-xs text-zinc-900 dark:text-zinc-100"
+                  className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] focus:outline-none focus:border-[#C74A43]"
                 >
-                  {industries.map(i => <option key={i} value={i}>{i}</option>)}
+                  {industries.map(i => <option key={i} value={i} className="bg-[#11161A] text-[#F3EDE2]">{i}</option>)}
                 </select>
               </div>
 
               <div className="space-y-1">
-                <label className="text-[11px] font-bold text-zinc-700 dark:text-zinc-300">Target Buyer Persona</label>
+                <label className="text-[11px] font-medium text-[#606669] dark:text-[#8C8A86]">Target Buyer Persona</label>
                 <select
                   value={buyerType}
                   onChange={(e) => setBuyerType(e.target.value)}
-                  className="w-full rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 p-2 text-xs text-zinc-900 dark:text-zinc-100"
+                  className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] focus:outline-none focus:border-[#C74A43]"
                 >
-                  {buyerOptions.map(b => <option key={b} value={b}>{b}</option>)}
+                  {buyerOptions.map(b => <option key={b} value={b} className="bg-[#11161A] text-[#F3EDE2]">{b}</option>)}
                 </select>
               </div>
             </div>
@@ -219,9 +222,9 @@ export const Brainstormer: React.FC<BrainstormerProps> = ({
               disabled={isGenerating}
             />
 
-            <div className="p-3.5 rounded-xl bg-zinc-50 dark:bg-zinc-950/60 border border-zinc-200 dark:border-zinc-800 space-y-1 text-xs">
-              <span className="font-bold text-zinc-900 dark:text-zinc-100 block">Niche Market Intelligence</span>
-              <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-snug">
+            <div className="p-3.5 rounded-lg bg-[#E9E1D1] dark:bg-[#0C0F12] border border-[#D8CEBF] dark:border-[#272D30] space-y-1 text-xs">
+              <span className="font-semibold text-[#1A2024] dark:text-[#F3EDE2] block">Niche Market Intelligence</span>
+              <p className="text-[11px] text-[#606669] dark:text-[#8C8A86] leading-snug">
                 Filters out saturated generic concepts and surfaces authentic, high-converting visual setups in high buyer demand.
               </p>
             </div>
@@ -230,7 +233,7 @@ export const Brainstormer: React.FC<BrainstormerProps> = ({
               type="button"
               onClick={handleBrainstorm}
               disabled={isGenerating || !subject.trim()}
-              className="w-full py-3.5 px-5 rounded-xl bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold text-sm shadow-sm shadow-indigo-600/30 flex items-center justify-center gap-2 transition-all cursor-pointer hover:scale-[1.01]"
+              className="w-full rounded-lg bg-[#C74A43] hover:bg-[#B53F39] text-[#F3EDE2] font-semibold px-4 py-3 text-sm disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 transition-colors cursor-pointer"
             >
               {isGenerating ? (
                 <>

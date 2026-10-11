@@ -213,28 +213,31 @@ Return JSON strictly in this structure:
 
   return (
     <div className="space-y-6">
-      <div className="pb-4 border-b border-zinc-200 dark:border-zinc-800">
-        <h1 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
-          <GitCompare className="w-5 h-5 text-indigo-600" />
+      <div className="pb-4 border-b border-[#D8CEBF] dark:border-[#272D30]">
+        <div className="text-[11px] font-semibold uppercase tracking-wider text-[#606669] dark:text-[#8C8A86] mb-1">
+          Portfolio Health
+        </div>
+        <h1 className="text-xl font-bold text-[#1A2024] dark:text-[#F3EDE2] flex items-center gap-2">
+          <GitCompare className="w-5 h-5 text-[#C74A43]" />
           <span>Similarity & Portfolio Diversity Checker</span>
         </h1>
-        <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
+        <p className="text-xs text-[#606669] dark:text-[#8C8A86] mt-1">
           Adobe Stock penalizes and rejects accounts for submitting near-duplicate prompts or repetitive batches. Scan your prompts or upload stock images to guarantee healthy portfolio diversity.
         </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         <div className="lg:col-span-5 space-y-4">
-          <div className="bg-white dark:bg-zinc-900 rounded-xl p-5 border border-zinc-200 dark:border-zinc-800 shadow-sm space-y-4">
+          <div className="bg-[#EDE6D8] dark:bg-[#11161A] rounded-xl p-5 border border-[#D8CEBF] dark:border-[#272D30] space-y-4">
             
             {/* Input Mode Selector */}
-            <div className="flex rounded-lg bg-zinc-100 dark:bg-zinc-800 p-1 text-xs">
+            <div className="flex rounded-lg bg-[#E9E1D1] dark:bg-[#0C0F12] p-1 text-xs">
               <button
                 onClick={() => setInputMode('prompts')}
                 className={`flex-1 py-1.5 px-3 rounded-md font-medium flex items-center justify-center gap-1.5 transition-colors cursor-pointer ${
                   inputMode === 'prompts' 
-                    ? 'bg-white dark:bg-zinc-700 text-zinc-900 dark:text-zinc-100 shadow-sm' 
-                    : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200'
+                    ? 'bg-[#F5F0E6] dark:bg-[#0C0F12] text-[#1A2024] dark:text-[#F3EDE2]' 
+                    : 'text-[#606669] dark:text-[#8C8A86] hover:text-[#1A2024] dark:hover:text-[#E8E4DC]'
                 }`}
               >
                 <FileText className="w-3.5 h-3.5" />
@@ -244,11 +247,11 @@ Return JSON strictly in this structure:
                 onClick={() => setInputMode('images')}
                 className={`flex-1 py-1.5 px-3 rounded-md font-medium flex items-center justify-center gap-1.5 transition-colors cursor-pointer ${
                   inputMode === 'images' 
-                    ? 'bg-white dark:bg-zinc-700 text-indigo-600 dark:text-indigo-400 shadow-sm' 
-                    : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200'
+                    ? 'bg-[#F5F0E6] dark:bg-[#0C0F12] text-[#C74A43]' 
+                    : 'text-[#606669] dark:text-[#8C8A86] hover:text-[#1A2024] dark:hover:text-[#E8E4DC]'
                 }`}
               >
-                <ImageIcon className="w-3.5 h-3.5 text-indigo-500" />
+                <ImageIcon className="w-3.5 h-3.5" />
                 <span>Upload Images</span>
               </button>
             </div>
@@ -256,12 +259,12 @@ Return JSON strictly in this structure:
             {inputMode === 'prompts' ? (
               <div>
                 <div className="flex items-center justify-between mb-1.5">
-                  <label className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
+                  <label className="text-xs font-semibold text-[#1A2024] dark:text-[#E8E4DC]">
                     Batch Prompts (One prompt per line) *
                   </label>
                   <button
                     onClick={() => setPromptsText(sampleBatch)}
-                    className="text-[11px] text-indigo-600 dark:text-indigo-400 hover:underline"
+                    className="text-[11px] text-[#C74A43] hover:underline"
                   >
                     Load Sample Batch
                   </button>
@@ -271,19 +274,19 @@ Return JSON strictly in this structure:
                   onChange={(e) => setPromptsText(e.target.value)}
                   placeholder="Paste multiple prompts here, one per line..."
                   rows={9}
-                  className="w-full text-xs p-3 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-mono"
+                  className="w-full text-xs p-3 rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] text-[#1A2024] dark:text-[#F3EDE2] focus:outline-none focus:ring-2 focus:ring-[#C74A43]/40 font-mono"
                 />
               </div>
             ) : (
               <div className="space-y-3">
-                <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300">
+                <label className="block text-xs font-semibold text-[#1A2024] dark:text-[#E8E4DC]">
                   Upload Stock Images to Compare *
                 </label>
 
                 <div 
                   onDragOver={(e) => e.preventDefault()}
                   onDrop={handleDrop}
-                  className="border-2 border-dashed border-zinc-300 dark:border-zinc-700 hover:border-indigo-500/60 dark:hover:border-indigo-500/60 bg-zinc-50 dark:bg-zinc-800/50 hover:bg-indigo-50/20 dark:hover:bg-indigo-950/10 rounded-xl p-5 text-center transition-all cursor-pointer relative"
+                  className="border-2 border-dashed border-[#D8CEBF] dark:border-[#272D30] hover:border-[#C74A43]/60 dark:hover:border-[#C74A43]/60 bg-[#F5F0E6]/60 dark:bg-[#0C0F12]/60 hover:bg-[#C74A43]/5 rounded-xl p-5 text-center transition-all cursor-pointer relative"
                 >
                   <input
                     type="file"
@@ -292,27 +295,27 @@ Return JSON strictly in this structure:
                     onChange={handleFileUpload}
                     className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
                   />
-                  <div className="w-10 h-10 rounded-xl bg-indigo-100 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 mx-auto flex items-center justify-center mb-2">
+                  <div className="w-10 h-10 rounded-xl bg-[#C74A43]/10 text-[#C74A43] mx-auto flex items-center justify-center mb-2">
                     <Upload className="w-5 h-5" />
                   </div>
-                  <p className="text-xs font-semibold text-zinc-800 dark:text-zinc-200">
+                  <p className="text-xs font-semibold text-[#1A2024] dark:text-[#E8E4DC]">
                     Click to browse or Drag & Drop stock images
                   </p>
-                  <p className="text-[11px] text-zinc-500 dark:text-zinc-400 mt-1">
+                  <p className="text-[11px] text-[#606669] dark:text-[#8C8A86] mt-1">
                     Upload 2 or more images to inspect visual similarity & duplicate risk
                   </p>
                 </div>
 
                 {uploadedImages.length > 0 && (
                   <div className="space-y-2">
-                    <div className="flex items-center justify-between text-xs text-zinc-500 dark:text-zinc-400">
+                    <div className="flex items-center justify-between text-xs text-[#606669] dark:text-[#8C8A86]">
                       <span>Images Queue ({uploadedImages.length}):</span>
                     </div>
                     <div className="grid grid-cols-4 gap-2 max-h-40 overflow-y-auto p-1">
                       {uploadedImages.map((img) => (
                         <div
                           key={img.id}
-                          className="group relative rounded-lg overflow-hidden border border-zinc-200 dark:border-zinc-800 aspect-square bg-zinc-900"
+                          className="group relative rounded-lg overflow-hidden border border-[#D8CEBF] dark:border-[#272D30] aspect-square bg-[#090B0D]"
                         >
                           <img src={img.url} alt={img.name} className="w-full h-full object-cover" />
                           <button
@@ -321,7 +324,7 @@ Return JSON strictly in this structure:
                           >
                             <X className="w-3 h-3" />
                           </button>
-                          <div className="absolute bottom-0 inset-x-0 bg-black/60 text-[9px] text-zinc-200 truncate px-1 py-0.5">
+                          <div className="absolute bottom-0 inset-x-0 bg-black/60 text-[9px] text-[#E8E4DC] truncate px-1 py-0.5">
                             {img.name}
                           </div>
                         </div>
@@ -335,7 +338,7 @@ Return JSON strictly in this structure:
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               <button
                 onClick={handleEvaluate}
-                className="py-2.5 px-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-xs flex items-center justify-center gap-2 shadow-md shadow-indigo-600/20 transition-all cursor-pointer"
+                className="py-2.5 px-3 rounded-lg bg-[#C74A43] hover:bg-[#B53F39] text-[#F3EDE2] font-semibold text-xs flex items-center justify-center gap-2 transition-colors cursor-pointer"
               >
                 <GitCompare className="w-4 h-4" />
                 <span>Evaluate Diversity</span>
@@ -344,7 +347,7 @@ Return JSON strictly in this structure:
               <button
                 onClick={handleAiAudit}
                 disabled={isAiAnalyzing}
-                className="py-2.5 px-3 rounded-xl bg-purple-600 hover:bg-purple-500 disabled:opacity-50 text-white font-medium text-xs flex items-center justify-center gap-2 shadow-md shadow-purple-600/20 transition-all cursor-pointer"
+                className="py-2.5 px-3 rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#EDE6D8] dark:bg-[#11161A] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] disabled:opacity-50 text-[#1A2024] dark:text-[#F3EDE2] font-medium text-xs flex items-center justify-center gap-2 transition-colors cursor-pointer"
               >
                 {isAiAnalyzing ? <RefreshCw className="w-4 h-4 animate-spin" /> : null}
                 <span>{isAiAnalyzing ? 'Auditing...' : 'Semantic Audit'}</span>
@@ -354,19 +357,19 @@ Return JSON strictly in this structure:
         </div>
 
         <div className="lg:col-span-7 space-y-4">
-          <h2 className="text-sm font-bold text-zinc-900 dark:text-zinc-100">
+          <h2 className="text-sm font-bold text-[#1A2024] dark:text-[#F3EDE2]">
             Portfolio Diversity Report
           </h2>
 
           {!result && (
-            <div className="rounded-xl border border-dashed border-zinc-300 dark:border-zinc-800 p-12 text-center bg-white/50 dark:bg-zinc-900/50 space-y-3">
-              <div className="w-12 h-12 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 mx-auto flex items-center justify-center">
+            <div className="rounded-xl border border-dashed border-[#D8CEBF] dark:border-[#272D30] p-12 text-center bg-[#F5F0E6]/50 dark:bg-[#090B0D]/50 space-y-3">
+              <div className="w-12 h-12 rounded-xl bg-[#C74A43]/10 text-[#C74A43] mx-auto flex items-center justify-center">
                 <GitCompare className="w-6 h-6" />
               </div>
-              <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 text-sm">
+              <h3 className="font-semibold text-[#1A2024] dark:text-[#F3EDE2] text-sm">
                 Ready to Evaluate Diversity
               </h3>
-              <p className="text-xs text-zinc-500 dark:text-zinc-400 max-w-sm mx-auto">
+              <p className="text-xs text-[#606669] dark:text-[#8C8A86] max-w-sm mx-auto">
                 Paste 2 or more prompts on the left to check for redundant concepts, identical angles, or repetitive spam risks.
               </p>
             </div>
@@ -375,9 +378,9 @@ Return JSON strictly in this structure:
           {result && (
             <div className="space-y-4">
               {/* Score Card */}
-              <div className="bg-white dark:bg-zinc-900 rounded-xl p-5 border border-zinc-200 dark:border-zinc-800 shadow-sm flex items-center justify-between">
+              <div className="bg-[#EDE6D8] dark:bg-[#11161A] rounded-xl p-5 border border-[#D8CEBF] dark:border-[#272D30] flex items-center justify-between">
                 <div className="flex items-center gap-4">
-                  <div className={`w-14 h-14 rounded-2xl flex items-center justify-center font-bold text-2xl text-white shadow-md ${
+                  <div className={`w-14 h-14 rounded-xl flex items-center justify-center font-bold text-2xl text-white ${
                     result.rating === 'HIGH'
                       ? 'bg-emerald-600'
                       : result.rating === 'MEDIUM'
@@ -388,7 +391,7 @@ Return JSON strictly in this structure:
                   </div>
                   <div>
                     <div className="flex items-center gap-2">
-                      <span className="text-sm font-bold text-zinc-900 dark:text-zinc-100">
+                      <span className="text-sm font-bold text-[#1A2024] dark:text-[#F3EDE2]">
                         Concept Diversity Index
                       </span>
                       <span className={`text-xs px-2 py-0.5 rounded font-bold uppercase ${
@@ -401,7 +404,7 @@ Return JSON strictly in this structure:
                         {result.rating} DIVERSITY
                       </span>
                     </div>
-                    <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
+                    <p className="text-xs text-[#606669] dark:text-[#8C8A86] mt-0.5">
                       {result.summary}
                     </p>
                   </div>
@@ -410,7 +413,7 @@ Return JSON strictly in this structure:
 
               {/* Warning Notice if Low/Medium */}
               {result.warningMessage && (
-                <div className="p-4 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 text-amber-900 dark:text-amber-100 text-xs flex items-start gap-3">
+                <div className="p-4 rounded-xl bg-amber-500/5 dark:bg-amber-500/10 border border-amber-500/25 text-amber-800 dark:text-amber-200 text-xs flex items-start gap-3">
                   <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
                   <div className="space-y-1">
                     <span className="font-bold">Adobe Stock Spam Risk Warning:</span>
@@ -421,22 +424,22 @@ Return JSON strictly in this structure:
 
               {/* Flagged Similarity Pairs */}
               {result.flaggedPairs.length > 0 ? (
-                <div className="bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-800 overflow-hidden shadow-sm">
-                  <div className="p-3.5 bg-zinc-50 dark:bg-zinc-800/60 border-b border-zinc-200 dark:border-zinc-800 font-bold text-xs text-zinc-900 dark:text-zinc-100">
+                <div className="bg-[#EDE6D8] dark:bg-[#11161A] rounded-xl border border-[#D8CEBF] dark:border-[#272D30] overflow-hidden">
+                  <div className="p-3.5 bg-[#E9E1D1] dark:bg-[#0C0F12] border-b border-[#D8CEBF] dark:border-[#272D30] font-bold text-xs text-[#1A2024] dark:text-[#F3EDE2]">
                     Flagged Near-Duplicate Pairs ({result.flaggedPairs.length})
                   </div>
-                  <div className="divide-y divide-zinc-100 dark:divide-zinc-800">
+                  <div className="divide-y divide-[#D8CEBF] dark:divide-[#272D30]">
                     {result.flaggedPairs.map((pair, idx) => (
                       <div key={idx} className="p-4 space-y-2 text-xs">
                         <div className="flex items-center justify-between">
-                          <span className="font-bold text-zinc-900 dark:text-zinc-100">
+                          <span className="font-bold text-[#1A2024] dark:text-[#F3EDE2]">
                             Prompt #{pair.indexA} vs Prompt #{pair.indexB}
                           </span>
                           <span className="px-2 py-0.5 rounded bg-rose-100 dark:bg-rose-950 text-rose-700 dark:text-rose-300 font-semibold text-[11px]">
                             {pair.score}% Overlap — {pair.similarityType}
                           </span>
                         </div>
-                        <p className="text-[11px] text-zinc-500 dark:text-zinc-400 bg-zinc-50 dark:bg-zinc-800/40 p-2.5 rounded border border-zinc-100 dark:border-zinc-800">
+                        <p className="text-[11px] text-[#606669] dark:text-[#8C8A86] bg-[#F5F0E6] dark:bg-[#0C0F12] p-2.5 rounded border border-[#D8CEBF] dark:border-[#272D30]">
                           <strong>Stock Recommendation:</strong> {pair.suggestion}
                         </p>
                       </div>
@@ -444,7 +447,7 @@ Return JSON strictly in this structure:
                   </div>
                 </div>
               ) : (
-                <div className="p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-900 dark:text-emerald-100 text-xs flex items-center gap-3">
+                <div className="p-4 rounded-xl bg-emerald-500/5 dark:bg-emerald-500/10 border border-[#C74A43]/25 text-emerald-800 dark:text-emerald-200 text-xs flex items-center gap-3">
                   <CheckCircle2 className="w-5 h-5 text-emerald-600" />
                   <span>All prompts in this batch have distinct subjects, compositions, and lighting. Safe to upload!</span>
                 </div>
@@ -452,35 +455,35 @@ Return JSON strictly in this structure:
 
               {/* AI Deep Semantic Divergence Report */}
               {aiReport && (
-                <div className="bg-purple-50/60 dark:bg-purple-950/30 rounded-xl p-4 border border-purple-200 dark:border-purple-800/60 space-y-3">
+                <div className="bg-[#EDE6D8] dark:bg-[#11161A] rounded-xl p-4 border border-[#D8CEBF] dark:border-[#272D30] space-y-3">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <GitCompare className="w-4 h-4 text-purple-600 dark:text-purple-400" />
-                      <span className="text-xs font-bold text-purple-950 dark:text-purple-200">
+                      <GitCompare className="w-4 h-4 text-[#C74A43]" />
+                      <span className="text-xs font-bold text-[#1A2024] dark:text-[#F3EDE2]">
                         Semantic Divergence Analysis
                       </span>
                     </div>
                     <span className={`text-[10px] font-bold px-2 py-0.5 rounded uppercase ${
                       aiReport.duplicationRisk === 'LOW' 
-                        ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300'
+                        ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400'
                         : aiReport.duplicationRisk === 'MEDIUM'
-                        ? 'bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-300'
-                        : 'bg-rose-100 text-rose-700 dark:bg-rose-950 dark:text-rose-300'
+                        ? 'bg-amber-500/10 text-amber-700 dark:text-amber-400'
+                        : 'bg-rose-500/10 text-rose-700 dark:text-rose-400'
                     }`}>
                       {aiReport.duplicationRisk} Duplication Risk
                     </span>
                   </div>
 
-                  <p className="text-xs text-purple-900/90 dark:text-purple-200/90 leading-relaxed">
+                  <p className="text-xs text-[#1A2024] dark:text-[#E8E4DC] leading-relaxed">
                     {aiReport.overallHealth}
                   </p>
 
                   {aiReport.cannibalizationClusters && aiReport.cannibalizationClusters.length > 0 && (
                     <div className="space-y-1">
-                      <span className="text-[11px] font-bold text-purple-950 dark:text-purple-300">
+                      <span className="text-[11px] font-bold text-[#1A2024] dark:text-[#F3EDE2]">
                         Potential Overlap Clusters:
                       </span>
-                      <ul className="list-disc pl-4 text-xs text-purple-900/80 dark:text-purple-300/80 space-y-0.5">
+                      <ul className="list-disc pl-4 text-xs text-[#606669] dark:text-[#8C8A86] space-y-0.5">
                         {aiReport.cannibalizationClusters.map((c, i) => (
                           <li key={i}>{c}</li>
                         ))}
@@ -490,10 +493,10 @@ Return JSON strictly in this structure:
 
                   {aiReport.diversificationAdvice && aiReport.diversificationAdvice.length > 0 && (
                     <div className="space-y-1">
-                      <span className="text-[11px] font-bold text-purple-950 dark:text-purple-300">
+                      <span className="text-[11px] font-bold text-[#1A2024] dark:text-[#F3EDE2]">
                         Diversification Strategies:
                       </span>
-                      <ul className="list-disc pl-4 text-xs text-purple-900/80 dark:text-purple-300/80 space-y-0.5">
+                      <ul className="list-disc pl-4 text-xs text-[#606669] dark:text-[#8C8A86] space-y-0.5">
                         {aiReport.diversificationAdvice.map((a, i) => (
                           <li key={i}>{a}</li>
                         ))}
@@ -506,14 +509,14 @@ Return JSON strictly in this structure:
           )}
 
           {!result && aiReport && (
-            <div className="bg-purple-50/60 dark:bg-purple-950/30 rounded-xl p-5 border border-purple-200 dark:border-purple-800/60 space-y-3">
+            <div className="bg-[#EDE6D8] dark:bg-[#11161A] rounded-xl p-5 border border-[#D8CEBF] dark:border-[#272D30] space-y-3">
               <div className="flex items-center gap-2">
-                <GitCompare className="w-5 h-5 text-purple-600 dark:text-purple-400" />
-                <span className="text-sm font-bold text-purple-950 dark:text-purple-200">
+                <GitCompare className="w-5 h-5 text-[#C74A43]" />
+                <span className="text-sm font-bold text-[#1A2024] dark:text-[#F3EDE2]">
                   Semantic Divergence Analysis
                 </span>
               </div>
-              <p className="text-xs text-purple-900/90 dark:text-purple-200/90">
+              <p className="text-xs text-[#1A2024] dark:text-[#E8E4DC]">
                 {aiReport.overallHealth}
               </p>
             </div>

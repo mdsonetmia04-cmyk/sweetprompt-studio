@@ -428,13 +428,16 @@ Recommended Fix: ${res?.recommendedFixes.join(' | ') || 'None'}
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="pb-4 border-b border-zinc-200 dark:border-zinc-800 flex flex-wrap items-center justify-between gap-4">
+      <div className="pb-4 border-b border-[#D8CEBF] dark:border-[#272D30] flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
-            <ShieldAlert className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+          <div className="text-[11px] font-semibold uppercase tracking-wider text-[#606669] dark:text-[#8C8A86] mb-1">
+            Compliance & Submission Readiness
+          </div>
+          <h1 className="text-xl font-bold text-[#1A2024] dark:text-[#F3EDE2] flex items-center gap-2">
+            <ShieldAlert className="w-5 h-5 text-[#C74A43]" />
             <span>Pre-Submission Stock Compliance & Risk Checker</span>
           </h1>
-          <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
+          <p className="text-xs text-[#606669] dark:text-[#8C8A86] mt-1">
             Bulk upload image assets and run automated 14-point compliance & AI Vision risk analysis before submitting to Adobe Stock.
           </p>
         </div>
@@ -444,14 +447,14 @@ Recommended Fix: ${res?.recommendedFixes.join(' | ') || 'None'}
             <button
               onClick={scanAllImages}
               disabled={isBulkScanning}
-              className="py-2 px-3.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 disabled:opacity-50 text-white font-semibold text-xs flex items-center gap-2 shadow-md transition-all cursor-pointer"
+              className="bg-[#C74A43] hover:bg-[#B53F39] disabled:opacity-50 text-[#F3EDE2] font-semibold rounded-lg px-4 py-2 text-xs flex items-center gap-2 transition-colors cursor-pointer"
             >
               {isBulkScanning ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Zap className="w-4 h-4" />}
               <span>{isBulkScanning ? `Scanning Bulk Images...` : `Scan All (${uploadedImages.length}) Images`}</span>
             </button>
             <button
               onClick={clearAllImages}
-              className="py-2 px-3 rounded-xl border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-600 dark:text-zinc-400 text-xs font-medium transition-all cursor-pointer"
+              className="border border-[#D8CEBF] dark:border-[#272D30] bg-[#EDE6D8] dark:bg-[#11161A] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] text-[#1A2024] dark:text-[#F3EDE2] font-medium rounded-lg px-4 py-2 text-xs transition-colors cursor-pointer"
             >
               Clear All
             </button>
@@ -460,15 +463,15 @@ Recommended Fix: ${res?.recommendedFixes.join(' | ') || 'None'}
       </div>
 
       {/* Bulk Image Upload Drag & Drop Section */}
-      <div className="bg-white dark:bg-zinc-900 rounded-xl p-5 border border-zinc-200 dark:border-zinc-800 shadow-sm space-y-4">
+      <div className="bg-[#EDE6D8] dark:bg-[#11161A] rounded-xl p-5 border border-[#D8CEBF] dark:border-[#272D30] space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <ImageIcon className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
-            <h2 className="text-xs font-bold text-zinc-900 dark:text-zinc-100 uppercase tracking-wider">
+            <ImageIcon className="w-4 h-4 text-[#C74A43]" />
+            <h2 className="text-xs font-bold text-[#1A2024] dark:text-[#F3EDE2] uppercase tracking-wider">
               Bulk Image Risk Upload Section ({uploadedImages.length} Images Loaded)
             </h2>
           </div>
-          <span className="text-[11px] text-zinc-400">
+          <span className="text-[11px] text-[#8C8A86]">
             Drag & drop multiple files or click browse
           </span>
         </div>
@@ -481,8 +484,8 @@ Recommended Fix: ${res?.recommendedFixes.join(' | ') || 'None'}
           onClick={() => fileInputRef.current?.click()}
           className={`border-2 border-dashed rounded-xl p-6 text-center cursor-pointer transition-all ${
             isDragOver 
-              ? 'border-indigo-500 bg-indigo-50/50 dark:bg-indigo-950/30 scale-[1.005]' 
-              : 'border-zinc-300 dark:border-zinc-800 hover:border-indigo-400 dark:hover:border-indigo-600 bg-zinc-50/60 dark:bg-zinc-800/40'
+              ? 'border-[#C74A43] bg-[#C74A43]/5 scale-[1.005]' 
+              : 'border-[#D8CEBF] dark:border-[#272D30] hover:border-[#C74A43] bg-[#F5F0E6]/60 dark:bg-[#0C0F12]/40'
           }`}
         >
           <input
@@ -494,14 +497,14 @@ Recommended Fix: ${res?.recommendedFixes.join(' | ') || 'None'}
             className="hidden"
           />
           <div className="flex flex-col items-center justify-center gap-2">
-            <div className="w-10 h-10 rounded-full bg-indigo-100 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-full bg-[#C74A43]/10 text-[#C74A43] flex items-center justify-center">
               <Upload className="w-5 h-5" />
             </div>
             <div>
-              <p className="text-xs font-semibold text-zinc-800 dark:text-zinc-200">
-                Click or Drop <span className="text-indigo-600 dark:text-indigo-400 font-bold">Multiple Images</span> Here
+              <p className="text-xs font-semibold text-[#1A2024] dark:text-[#E8E4DC]">
+                Click or Drop <span className="text-[#C74A43] font-bold">Multiple Images</span> Here
               </p>
-              <p className="text-[11px] text-zinc-500 dark:text-zinc-400 mt-0.5">
+              <p className="text-[11px] text-[#606669] dark:text-[#8C8A86] mt-0.5">
                 Upload JPG, PNG or WebP files for instant Vision AI IP & Trademark Risk Scan
               </p>
             </div>
@@ -511,15 +514,15 @@ Recommended Fix: ${res?.recommendedFixes.join(' | ') || 'None'}
         {/* Uploaded Image Thumbnails Grid & Bulk IP Dashboard Controls */}
         {uploadedImages.length > 0 && (
           <div className="space-y-3 pt-2">
-            <div className="flex flex-wrap items-center justify-between gap-2 bg-zinc-50 dark:bg-zinc-800/60 p-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800">
+            <div className="flex flex-wrap items-center justify-between gap-2 bg-[#F5F0E6] dark:bg-[#0C0F12] p-2.5 rounded-xl border border-[#D8CEBF] dark:border-[#272D30]">
               {/* Filter Tabs */}
               <div className="flex items-center gap-1.5">
                 <button
                   onClick={() => setFilterMode('ALL')}
                   className={`py-1 px-2.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                     filterMode === 'ALL'
-                      ? 'bg-indigo-600 text-white shadow-sm'
-                      : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-700'
+                      ? 'bg-[#C74A43] text-[#F3EDE2]'
+                      : 'text-[#606669] dark:text-[#8C8A86] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24]'
                   }`}
                 >
                   All ({uploadedImages.length})
@@ -528,8 +531,8 @@ Recommended Fix: ${res?.recommendedFixes.join(' | ') || 'None'}
                   onClick={() => setFilterMode('IP_RISK')}
                   className={`py-1 px-2.5 rounded-lg text-xs font-semibold transition-all cursor-pointer flex items-center gap-1 ${
                     filterMode === 'IP_RISK'
-                      ? 'bg-rose-600 text-white shadow-sm'
-                      : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-700'
+                      ? 'bg-rose-600 text-white'
+                      : 'text-[#606669] dark:text-[#8C8A86] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24]'
                   }`}
                 >
                   <ShieldAlert className="w-3 h-3" />
@@ -539,8 +542,8 @@ Recommended Fix: ${res?.recommendedFixes.join(' | ') || 'None'}
                   onClick={() => setFilterMode('CLEAN')}
                   className={`py-1 px-2.5 rounded-lg text-xs font-semibold transition-all cursor-pointer flex items-center gap-1 ${
                     filterMode === 'CLEAN'
-                      ? 'bg-emerald-600 text-white shadow-sm'
-                      : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-700'
+                      ? 'bg-emerald-600 text-white'
+                      : 'text-[#606669] dark:text-[#8C8A86] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24]'
                   }`}
                 >
                   <CheckCircle2 className="w-3 h-3" />
@@ -553,9 +556,9 @@ Recommended Fix: ${res?.recommendedFixes.join(' | ') || 'None'}
                 {scannedImages.length > 0 && (
                   <button
                     onClick={copyBulkIPReport}
-                    className="py-1.5 px-3 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-medium flex items-center gap-1.5 transition-all cursor-pointer"
+                    className="py-1.5 px-3 rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#EDE6D8] dark:bg-[#11161A] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] text-[#1A2024] dark:text-[#F3EDE2] text-xs font-medium flex items-center gap-1.5 transition-colors cursor-pointer"
                   >
-                    <Copy className="w-3.5 h-3.5 text-indigo-400" />
+                    <Copy className="w-3.5 h-3.5 text-[#C74A43]" />
                     <span>Copy Bulk IP Report</span>
                   </button>
                 )}
@@ -573,10 +576,10 @@ Recommended Fix: ${res?.recommendedFixes.join(' | ') || 'None'}
                   <div
                     key={img.id}
                     onClick={() => setSelectedImageId(img.id)}
-                    className={`relative group rounded-xl overflow-hidden border transition-all cursor-pointer bg-zinc-900 aspect-square ${
+                    className={`relative group rounded-xl overflow-hidden border transition-all cursor-pointer bg-[#090B0D] aspect-square ${
                       isSelected 
-                        ? 'ring-2 ring-indigo-500 border-indigo-500 shadow-md scale-[1.02]' 
-                        : 'border-zinc-200 dark:border-zinc-800 opacity-90 hover:opacity-100'
+                        ? 'ring-2 ring-[#C74A43] border-[#C74A43] scale-[1.02]' 
+                        : 'border-[#D8CEBF] dark:border-[#272D30] opacity-90 hover:opacity-100'
                     }`}
                   >
                     <img
@@ -585,13 +588,13 @@ Recommended Fix: ${res?.recommendedFixes.join(' | ') || 'None'}
                       className="w-full h-full object-cover"
                     />
 
-                    {/* Gradient Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20" />
+                    {/* Overlay */}
+                    <div className="absolute inset-0 bg-black/40" />
 
                     {/* Top Badges */}
                     <div className="absolute top-1.5 left-1.5 right-1.5 flex items-center justify-between gap-1">
                       {img.isScanning ? (
-                        <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-indigo-600 text-white flex items-center gap-1">
+                        <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-[#C74A43] text-[#F3EDE2] flex items-center gap-1">
                           <RefreshCw className="w-2.5 h-2.5 animate-spin" /> Scanning
                         </span>
                       ) : hasResult ? (
@@ -605,7 +608,7 @@ Recommended Fix: ${res?.recommendedFixes.join(' | ') || 'None'}
                           {riskLevel} RISK
                         </span>
                       ) : (
-                        <span className="px-1.5 py-0.5 rounded text-[9px] font-semibold bg-black/60 text-zinc-300">
+                        <span className="px-1.5 py-0.5 rounded text-[9px] font-semibold bg-black/60 text-[#E8E4DC]">
                           Unscanned
                         </span>
                       )}
@@ -635,19 +638,19 @@ Recommended Fix: ${res?.recommendedFixes.join(' | ') || 'None'}
 
             {/* Bulk IP Scan Summary Matrix Table */}
             {scannedImages.length > 0 && (
-              <div className="mt-4 bg-zinc-900 rounded-xl border border-zinc-800 overflow-hidden shadow-sm">
-                <div className="p-3 bg-zinc-800/80 border-b border-zinc-700/80 flex items-center justify-between">
-                  <span className="text-xs font-bold text-zinc-100 flex items-center gap-2">
-                    <ShieldAlert className="w-4 h-4 text-indigo-400" />
+              <div className="mt-4 bg-[#EDE6D8] dark:bg-[#11161A] rounded-xl border border-[#D8CEBF] dark:border-[#272D30] overflow-hidden">
+                <div className="p-3 bg-[#E9E1D1] dark:bg-[#0C0F12] border-b border-[#D8CEBF] dark:border-[#272D30] flex items-center justify-between">
+                  <span className="text-xs font-bold text-[#1A2024] dark:text-[#F3EDE2] flex items-center gap-2">
+                    <ShieldAlert className="w-4 h-4 text-[#C74A43]" />
                     Bulk IP & Trademark Risk Summary Matrix ({scannedImages.length} Scanned)
                   </span>
-                  <span className="text-[11px] text-zinc-400">
+                  <span className="text-[11px] text-[#8C8A86]">
                     {ipRiskImages.length} Warning(s) • {cleanImages.length} Clean
                   </span>
                 </div>
                 <div className="overflow-x-auto">
-                  <table className="w-full text-left text-xs text-zinc-300">
-                    <thead className="bg-zinc-800/50 text-[10px] uppercase font-bold text-zinc-400 border-b border-zinc-800">
+                  <table className="w-full text-left text-xs text-[#1A2024] dark:text-[#E8E4DC]">
+                    <thead className="bg-[#E9E1D1] dark:bg-[#0C0F12] text-[10px] uppercase font-bold text-[#606669] dark:text-[#8C8A86] border-b border-[#D8CEBF] dark:border-[#272D30]">
                       <tr>
                         <th className="p-2.5">Image Name</th>
                         <th className="p-2.5">IP / Trademark Risk</th>
@@ -656,50 +659,50 @@ Recommended Fix: ${res?.recommendedFixes.join(' | ') || 'None'}
                         <th className="p-2.5 text-right">Action</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-zinc-800">
+                    <tbody className="divide-y divide-[#D8CEBF] dark:divide-[#272D30]">
                       {scannedImages.map((img) => {
                         const res = img.scanResult;
                         const hasLogos = res?.copyrightLogosDetected && res.copyrightLogosDetected.length > 0 && !res.copyrightLogosDetected.includes('None');
                         return (
-                          <tr key={img.id} className="hover:bg-zinc-800/40 transition-colors">
-                            <td className="p-2.5 font-medium text-zinc-200 max-w-[180px] truncate">
+                          <tr key={img.id} className="hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] transition-colors">
+                            <td className="p-2.5 font-medium text-[#1A2024] dark:text-[#E8E4DC] max-w-[180px] truncate">
                               {img.name}
                             </td>
                             <td className="p-2.5">
                               <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
                                 res?.riskLevel === 'LOW' 
-                                  ? 'bg-emerald-950 text-emerald-400 border border-emerald-800' 
+                                  ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/25' 
                                   : res?.riskLevel === 'MEDIUM' 
-                                  ? 'bg-amber-950 text-amber-400 border border-amber-800' 
-                                  : 'bg-rose-950 text-rose-400 border border-rose-800'
+                                  ? 'bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/25' 
+                                  : 'bg-rose-500/10 text-rose-700 dark:text-rose-400 border border-rose-500/25'
                               }`}>
                                 {res?.riskLevel} RISK ({res?.acceptanceProbability}%)
                               </span>
                             </td>
-                            <td className="p-2.5 text-zinc-300 text-[11px]">
+                            <td className="p-2.5 text-[#1A2024] dark:text-[#E8E4DC] text-[11px]">
                               {hasLogos ? (
-                                <span className="text-rose-400 font-semibold">
+                                <span className="text-rose-700 dark:text-rose-400 font-semibold">
                                   🚨 {res?.copyrightLogosDetected.join(', ')}
                                 </span>
                               ) : (
-                                <span className="text-emerald-400">✓ No logos detected</span>
+                                <span className="text-emerald-700 dark:text-emerald-400">✓ No logos detected</span>
                               )}
                             </td>
                             <td className="p-2.5 text-[11px]">
                               {res?.modelReleaseRequired || res?.propertyReleaseRequired ? (
-                                <span className="text-amber-400 font-medium">
+                                <span className="text-amber-700 dark:text-amber-400 font-medium">
                                   {res?.modelReleaseRequired ? 'Model ' : ''}
                                   {res?.propertyReleaseRequired ? 'Property ' : ''}
                                   Release Needed
                                 </span>
                               ) : (
-                                <span className="text-zinc-500">None</span>
+                                <span className="text-[#606669] dark:text-[#8C8A86]">None</span>
                               )}
                             </td>
                             <td className="p-2.5 text-right">
                               <button
                                 onClick={() => setSelectedImageId(img.id)}
-                                className="px-2 py-1 rounded bg-indigo-600 hover:bg-indigo-500 text-white text-[10px] font-semibold transition-all cursor-pointer"
+                                className="px-2 py-1 rounded bg-[#C74A43] hover:bg-[#B53F39] text-[#F3EDE2] text-[10px] font-semibold transition-colors cursor-pointer"
                               >
                                 View Details
                               </button>
@@ -718,17 +721,17 @@ Recommended Fix: ${res?.recommendedFixes.join(' | ') || 'None'}
 
       {/* Selected Image Vision Risk Detail Card */}
       {selectedImage && (
-        <div className="bg-indigo-950/20 dark:bg-indigo-950/40 rounded-xl p-5 border border-indigo-200 dark:border-indigo-800/60 space-y-4">
-          <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-indigo-200/60 dark:border-indigo-800/60">
+        <div className="bg-[#EDE6D8] dark:bg-[#11161A] rounded-xl p-5 border border-[#D8CEBF] dark:border-[#272D30] space-y-4">
+          <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-[#D8CEBF] dark:border-[#272D30]">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-lg overflow-hidden border border-indigo-300 dark:border-indigo-700 bg-black shrink-0">
+              <div className="w-12 h-12 rounded-lg overflow-hidden border border-[#D8CEBF] dark:border-[#272D30] bg-black shrink-0">
                 <img src={selectedImage.previewUrl} alt={selectedImage.name} className="w-full h-full object-cover" />
               </div>
               <div>
-                <h3 className="text-xs font-bold text-zinc-900 dark:text-zinc-100 truncate max-w-xs sm:max-w-md">
+                <h3 className="text-xs font-bold text-[#1A2024] dark:text-[#F3EDE2] truncate max-w-xs sm:max-w-md">
                   Active Image: {selectedImage.name}
                 </h3>
-                <p className="text-[11px] text-zinc-500 dark:text-zinc-400">
+                <p className="text-[11px] text-[#606669] dark:text-[#8C8A86]">
                   {selectedImage.width}x{selectedImage.height} px • {selectedImage.sizeFormatted}
                 </p>
               </div>
@@ -738,7 +741,7 @@ Recommended Fix: ${res?.recommendedFixes.join(' | ') || 'None'}
               <button
                 onClick={() => scanImageById(selectedImage.id)}
                 disabled={selectedImage.isScanning}
-                className="py-1.5 px-3 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-xs flex items-center gap-1.5 shadow-sm transition-all cursor-pointer"
+                className="py-1.5 px-3 rounded-lg bg-[#C74A43] hover:bg-[#B53F39] text-white font-medium text-xs flex items-center gap-1.5 transition-all cursor-pointer"
               >
                 {selectedImage.isScanning ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Eye className="w-3.5 h-3.5" />}
                 <span>{selectedImage.isScanning ? 'Inspecting...' : selectedImage.scanResult ? 'Re-Inspect Image' : 'Run Vision Risk Scan'}</span>
@@ -750,8 +753,8 @@ Recommended Fix: ${res?.recommendedFixes.join(' | ') || 'None'}
           {selectedImage.scanResult && (
             <div className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                <div className="p-3 rounded-xl bg-white dark:bg-zinc-900 border border-indigo-100 dark:border-indigo-900/40 space-y-1">
-                  <span className="text-[10px] uppercase font-bold text-zinc-400">Rejection Risk Level</span>
+                <div className="p-3 rounded-xl bg-[#F5F0E6] dark:bg-[#090B0D] border border-[#D8CEBF] dark:border-[#272D30] space-y-1">
+                  <span className="text-[10px] uppercase font-bold text-[#8C8A86]">Rejection Risk Level</span>
                   <div className="flex items-center gap-1.5">
                     {selectedImage.scanResult.riskLevel === 'LOW' && <CheckCircle2 className="w-4 h-4 text-emerald-500" />}
                     {selectedImage.scanResult.riskLevel === 'MEDIUM' && <AlertTriangle className="w-4 h-4 text-amber-500" />}
@@ -765,31 +768,31 @@ Recommended Fix: ${res?.recommendedFixes.join(' | ') || 'None'}
                   </div>
                 </div>
 
-                <div className="p-3 rounded-xl bg-white dark:bg-zinc-900 border border-indigo-100 dark:border-indigo-900/40 space-y-1">
-                  <span className="text-[10px] uppercase font-bold text-zinc-400">Acceptance Probability</span>
-                  <p className="text-xs font-extrabold text-indigo-600 dark:text-indigo-400">
+                <div className="p-3 rounded-xl bg-[#F5F0E6] dark:bg-[#090B0D] border border-[#D8CEBF] dark:border-[#272D30] space-y-1">
+                  <span className="text-[10px] uppercase font-bold text-[#8C8A86]">Acceptance Probability</span>
+                  <p className="text-xs font-extrabold text-[#C74A43]">
                     {selectedImage.scanResult.acceptanceProbability}% Ready
                   </p>
                 </div>
 
-                <div className="p-3 rounded-xl bg-white dark:bg-zinc-900 border border-indigo-100 dark:border-indigo-900/40 space-y-1">
-                  <span className="text-[10px] uppercase font-bold text-zinc-400">Visual Quality Score</span>
-                  <p className="text-xs font-extrabold text-purple-600 dark:text-purple-400">
+                <div className="p-3 rounded-xl bg-[#F5F0E6] dark:bg-[#090B0D] border border-[#D8CEBF] dark:border-[#272D30] space-y-1">
+                  <span className="text-[10px] uppercase font-bold text-[#8C8A86]">Visual Quality Score</span>
+                  <p className="text-xs font-extrabold text-[#C74A43]">
                     {selectedImage.scanResult.visualQualityScore} / 100
                   </p>
                 </div>
               </div>
 
               {/* Summary Notes */}
-              <p className="text-xs text-zinc-700 dark:text-zinc-300 bg-white/80 dark:bg-zinc-900/80 p-3 rounded-lg border border-indigo-100 dark:border-indigo-900/50 leading-relaxed">
+              <p className="text-xs text-[#1A2024] dark:text-[#E8E4DC] bg-[#F5F0E6] dark:bg-[#090B0D] p-3 rounded-lg border border-[#D8CEBF] dark:border-[#272D30] leading-relaxed">
                 {selectedImage.scanResult.summaryNotes}
               </p>
 
               {/* IP & AI Glitch Warnings */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
                 {/* Copyright / Logos */}
-                <div className="p-3 rounded-lg bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 space-y-1.5">
-                  <span className="font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-1.5 text-xs">
+                <div className="p-3 rounded-lg bg-[#EDE6D8] dark:bg-[#11161A] border border-[#D8CEBF] dark:border-[#272D30] space-y-1.5">
+                  <span className="font-bold text-[#1A2024] dark:text-[#F3EDE2] flex items-center gap-1.5 text-xs">
                     <ShieldAlert className="w-4 h-4 text-rose-500" />
                     Trademarks & Copyright Logos:
                   </span>
@@ -807,8 +810,8 @@ Recommended Fix: ${res?.recommendedFixes.join(' | ') || 'None'}
                 </div>
 
                 {/* AI Artifacts */}
-                <div className="p-3 rounded-lg bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 space-y-1.5">
-                  <span className="font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-1.5 text-xs">
+                <div className="p-3 rounded-lg bg-[#EDE6D8] dark:bg-[#11161A] border border-[#D8CEBF] dark:border-[#272D30] space-y-1.5">
+                  <span className="font-bold text-[#1A2024] dark:text-[#F3EDE2] flex items-center gap-1.5 text-xs">
                     <AlertTriangle className="w-4 h-4 text-amber-500" />
                     AI Artifacts & Visual Errors:
                   </span>
@@ -828,12 +831,12 @@ Recommended Fix: ${res?.recommendedFixes.join(' | ') || 'None'}
 
               {/* Recommended Fixes */}
               {selectedImage.scanResult.recommendedFixes.length > 0 && (
-                <div className="p-3 rounded-lg bg-indigo-50/80 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800/80 space-y-1.5">
-                  <span className="font-bold text-indigo-950 dark:text-indigo-200 text-xs flex items-center gap-1">
-                    <Sparkles className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
+                <div className="p-3 rounded-lg bg-[#F5F0E6] dark:bg-[#090B0D] border border-[#D8CEBF] dark:border-[#272D30] space-y-1.5">
+                  <span className="font-bold text-[#1A2024] dark:text-[#F3EDE2] text-xs flex items-center gap-1">
+                    <Sparkles className="w-3.5 h-3.5 text-[#C74A43]" />
                     Actionable Fixes Before Adobe Stock Submission:
                   </span>
-                  <ul className="list-disc pl-4 text-indigo-900 dark:text-indigo-300 text-[11px] space-y-0.5">
+                  <ul className="list-disc pl-4 text-[#606669] dark:text-[#8C8A86] text-[11px] space-y-0.5">
                     {selectedImage.scanResult.recommendedFixes.map((fix, idx) => (
                       <li key={idx}>{fix}</li>
                     ))}
@@ -844,7 +847,7 @@ Recommended Fix: ${res?.recommendedFixes.join(' | ') || 'None'}
           )}
 
           {selectedImage.scanError && (
-            <p className="text-xs text-rose-500 bg-rose-50 dark:bg-rose-950/50 p-3 rounded-lg border border-rose-200 dark:border-rose-800">
+            <p className="text-xs text-rose-500 bg-rose-50 dark:bg-rose-950/50 p-3 rounded-lg border border-rose-500/25">
               {selectedImage.scanError}
             </p>
           )}
@@ -854,9 +857,9 @@ Recommended Fix: ${res?.recommendedFixes.join(' | ') || 'None'}
       {/* Main Audit Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         <div className="lg:col-span-5 space-y-4">
-          <div className="bg-white dark:bg-zinc-900 rounded-xl p-5 border border-zinc-200 dark:border-zinc-800 shadow-sm space-y-4">
+          <div className="bg-[#EDE6D8] dark:bg-[#11161A] rounded-xl p-5 border border-[#D8CEBF] dark:border-[#272D30] space-y-4">
             <div>
-              <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5">
+              <label className="block text-xs font-semibold text-[#1A2024] dark:text-[#E8E4DC] mb-1.5">
                 Image Generation Prompt Context *
               </label>
               <textarea
@@ -864,12 +867,12 @@ Recommended Fix: ${res?.recommendedFixes.join(' | ') || 'None'}
                 onChange={(e) => setPrompt(e.target.value)}
                 placeholder="Paste the prompt used to create this image asset..."
                 rows={3}
-                className="w-full text-xs p-3 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
+                className="w-full text-xs p-3 rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] text-[#1A2024] dark:text-[#F3EDE2] focus:outline-none focus:ring-2 focus:ring-[#C74A43]/40"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5">
+              <label className="block text-xs font-semibold text-[#1A2024] dark:text-[#E8E4DC] mb-1.5">
                 Adobe Stock Title
               </label>
               <input
@@ -877,15 +880,15 @@ Recommended Fix: ${res?.recommendedFixes.join(' | ') || 'None'}
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="e.g. Female architect reviewing blueprints in modern office"
-                className="w-full text-xs p-2.5 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100"
+                className="w-full text-xs p-2.5 rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] text-[#1A2024] dark:text-[#F3EDE2]"
               />
-              <span className="text-[10px] text-zinc-400 mt-1 block">
+              <span className="text-[10px] text-[#8C8A86] mt-1 block">
                 {title.length} characters (Recommended: 30 - 70 characters)
               </span>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5">
+              <label className="block text-xs font-semibold text-[#1A2024] dark:text-[#E8E4DC] mb-1.5">
                 Keywords / Tags (Comma or line separated)
               </label>
               <textarea
@@ -893,36 +896,36 @@ Recommended Fix: ${res?.recommendedFixes.join(' | ') || 'None'}
                 onChange={(e) => setKeywordsText(e.target.value)}
                 placeholder="business, architect, blueprints, office, modern, female..."
                 rows={3}
-                className="w-full text-xs p-3 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100"
+                className="w-full text-xs p-3 rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] text-[#1A2024] dark:text-[#F3EDE2]"
               />
             </div>
 
             {/* Checkbox Options */}
-            <div className="space-y-2 pt-2 border-t border-zinc-100 dark:border-zinc-800 text-xs">
-              <label className="flex items-center gap-2 cursor-pointer text-zinc-700 dark:text-zinc-300">
+            <div className="space-y-2 pt-2 border-t border-[#D8CEBF] dark:border-[#272D30] text-xs">
+              <label className="flex items-center gap-2 cursor-pointer text-[#1A2024] dark:text-[#E8E4DC]">
                 <input
                   type="checkbox"
                   checked={isAIContent}
                   onChange={(e) => setIsAIContent(e.target.checked)}
-                  className="rounded text-indigo-600 focus:ring-indigo-500"
+                  className="rounded text-[#C74A43] focus:ring-[#C74A43]"
                 />
                 <span>Generated with Generative AI (Requires AI checkbox on submission)</span>
               </label>
-              <label className="flex items-center gap-2 cursor-pointer text-zinc-700 dark:text-zinc-300">
+              <label className="flex items-center gap-2 cursor-pointer text-[#1A2024] dark:text-[#E8E4DC]">
                 <input
                   type="checkbox"
                   checked={hasPeople}
                   onChange={(e) => setHasPeople(e.target.checked)}
-                  className="rounded text-indigo-600 focus:ring-indigo-500"
+                  className="rounded text-[#C74A43] focus:ring-[#C74A43]"
                 />
                 <span>Features recognizable people or realistic portraits</span>
               </label>
-              <label className="flex items-center gap-2 cursor-pointer text-zinc-700 dark:text-zinc-300">
+              <label className="flex items-center gap-2 cursor-pointer text-[#1A2024] dark:text-[#E8E4DC]">
                 <input
                   type="checkbox"
                   checked={hasProperty}
                   onChange={(e) => setHasProperty(e.target.checked)}
-                  className="rounded text-indigo-600 focus:ring-indigo-500"
+                  className="rounded text-[#C74A43] focus:ring-[#C74A43]"
                 />
                 <span>Features recognizable private real estate, interiors, or vehicles</span>
               </label>
@@ -931,7 +934,7 @@ Recommended Fix: ${res?.recommendedFixes.join(' | ') || 'None'}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               <button
                 onClick={handleAudit}
-                className="py-2.5 px-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-xs flex items-center justify-center gap-2 shadow-md shadow-indigo-600/20 transition-all cursor-pointer"
+                className="py-2.5 px-3 rounded-lg bg-[#C74A43] hover:bg-[#B53F39] text-[#F3EDE2] font-semibold text-xs flex items-center justify-center gap-2 transition-colors cursor-pointer"
               >
                 <FileCheck className="w-4 h-4" />
                 <span>14-Point Audit</span>
@@ -940,7 +943,7 @@ Recommended Fix: ${res?.recommendedFixes.join(' | ') || 'None'}
               <button
                 onClick={handleAiReview}
                 disabled={isAiAuditing}
-                className="py-2.5 px-3 rounded-xl bg-purple-600 hover:bg-purple-500 disabled:opacity-50 text-white font-medium text-xs flex items-center justify-center gap-2 shadow-md shadow-purple-600/20 transition-all cursor-pointer"
+                className="py-2.5 px-3 rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#EDE6D8] dark:bg-[#11161A] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] disabled:opacity-50 text-[#1A2024] dark:text-[#F3EDE2] font-medium text-xs flex items-center justify-center gap-2 transition-colors cursor-pointer"
               >
                 {isAiAuditing ? <RefreshCw className="w-4 h-4 animate-spin" /> : null}
                 <span>{isAiAuditing ? 'Simulating...' : 'Inspector Simulation'}</span>
@@ -951,19 +954,19 @@ Recommended Fix: ${res?.recommendedFixes.join(' | ') || 'None'}
 
         {/* Audit Results */}
         <div className="lg:col-span-7 space-y-4">
-          <h2 className="text-sm font-bold text-zinc-900 dark:text-zinc-100">
+          <h2 className="text-sm font-bold text-[#1A2024] dark:text-[#F3EDE2]">
             Compliance Audit Report
           </h2>
 
           {!report && (
-            <div className="rounded-xl border border-dashed border-zinc-300 dark:border-zinc-800 p-12 text-center bg-white/50 dark:bg-zinc-900/50 space-y-3">
-              <div className="w-12 h-12 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 mx-auto flex items-center justify-center">
+            <div className="rounded-xl border border-dashed border-[#D8CEBF] dark:border-[#272D30] p-12 text-center bg-[#F5F0E6]/50 dark:bg-[#090B0D]/50 space-y-3">
+              <div className="w-12 h-12 rounded-xl bg-[#C74A43]/10 text-[#C74A43] mx-auto flex items-center justify-center">
                 <FileCheck className="w-6 h-6" />
               </div>
-              <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 text-sm">
+              <h3 className="font-semibold text-[#1A2024] dark:text-[#F3EDE2] text-sm">
                 Ready for Compliance Audit
               </h3>
-              <p className="text-xs text-zinc-500 dark:text-zinc-400 max-w-sm mx-auto">
+              <p className="text-xs text-[#606669] dark:text-[#8C8A86] max-w-sm mx-auto">
                 Upload image(s) above and fill in prompt/title to evaluate trademark safety, title quality, release obligations, and commercial viability.
               </p>
             </div>
@@ -974,10 +977,10 @@ Recommended Fix: ${res?.recommendedFixes.join(' | ') || 'None'}
               {/* Overall Status Banner */}
               <div className={`p-4 rounded-xl border flex items-start gap-3 ${
                 report.overallStatus === 'GREEN'
-                  ? 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-200 dark:border-emerald-800 text-emerald-900 dark:text-emerald-100'
+                  ? 'bg-emerald-500/5 dark:bg-emerald-500/10 border-[#C74A43]/25 text-emerald-800 dark:text-emerald-200'
                   : report.overallStatus === 'YELLOW'
-                  ? 'bg-amber-50 dark:bg-amber-950/40 border-amber-200 dark:border-amber-800 text-amber-900 dark:text-amber-100'
-                  : 'bg-rose-50 dark:bg-rose-950/40 border-rose-200 dark:border-rose-800 text-rose-900 dark:text-rose-100'
+                  ? 'bg-amber-500/5 dark:bg-amber-500/10 border-amber-500/25 text-amber-800 dark:text-amber-200'
+                  : 'bg-rose-500/5 dark:bg-rose-500/10 border-rose-500/25 text-rose-800 dark:text-rose-200'
               }`}>
                 {report.overallStatus === 'GREEN' && <CheckCircle2 className="w-6 h-6 text-emerald-600 shrink-0 mt-0.5" />}
                 {report.overallStatus === 'YELLOW' && <AlertTriangle className="w-6 h-6 text-amber-600 shrink-0 mt-0.5" />}
@@ -995,46 +998,46 @@ Recommended Fix: ${res?.recommendedFixes.join(' | ') || 'None'}
               {/* Legal & Release Advisories */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                 {report.aiLabelRequired && (
-                  <div className="p-3 rounded-lg bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-200 dark:border-zinc-700/60 space-y-1">
-                    <span className="font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-1.5">
-                      <Layers className="w-3.5 h-3.5 text-indigo-500" /> Generative AI Label
+                  <div className="p-3 rounded-lg bg-[#F5F0E6] dark:bg-[#0C0F12] border border-[#D8CEBF] dark:border-[#272D30] space-y-1">
+                    <span className="font-bold text-[#1A2024] dark:text-[#F3EDE2] flex items-center gap-1.5">
+                      <Layers className="w-3.5 h-3.5 text-[#C74A43]" /> Generative AI Label
                     </span>
-                    <p className="text-[11px] text-zinc-500 dark:text-zinc-400">
+                    <p className="text-[11px] text-[#606669] dark:text-[#8C8A86]">
                       Adobe Stock requires checking "Created using generative AI tools" during asset submission.
                     </p>
                   </div>
                 )}
-                <div className="p-3 rounded-lg bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-200 dark:border-zinc-700/60 space-y-1">
-                  <span className="font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-1.5">
-                    <Info className="w-3.5 h-3.5 text-zinc-500" /> Model / Property Releases
+                <div className="p-3 rounded-lg bg-[#F5F0E6] dark:bg-[#0C0F12] border border-[#D8CEBF] dark:border-[#272D30] space-y-1">
+                  <span className="font-bold text-[#1A2024] dark:text-[#F3EDE2] flex items-center gap-1.5">
+                    <Info className="w-3.5 h-3.5 text-[#606669] dark:text-[#8C8A86]" /> Model / Property Releases
                   </span>
-                  <p className="text-[11px] text-zinc-500 dark:text-zinc-400">
+                  <p className="text-[11px] text-[#606669] dark:text-[#8C8A86]">
                     {report.modelReleaseNotice}
                   </p>
                 </div>
               </div>
 
               {/* 14-Point Itemized Checklist */}
-              <div className="bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-800 overflow-hidden shadow-sm">
-                <div className="p-3.5 bg-zinc-50 dark:bg-zinc-800/60 border-b border-zinc-200 dark:border-zinc-800 font-bold text-xs text-zinc-900 dark:text-zinc-100 flex items-center justify-between">
+              <div className="bg-[#EDE6D8] dark:bg-[#11161A] rounded-xl border border-[#D8CEBF] dark:border-[#272D30] overflow-hidden">
+                <div className="p-3.5 bg-[#E9E1D1] dark:bg-[#0C0F12] border-b border-[#D8CEBF] dark:border-[#272D30] font-bold text-xs text-[#1A2024] dark:text-[#F3EDE2] flex items-center justify-between">
                   <span>14-Point Pre-Submission Audit Criteria</span>
-                  <span className="text-[11px] text-zinc-500 font-normal">
+                  <span className="text-[11px] text-[#606669] dark:text-[#8C8A86] font-normal">
                     {report.items.filter(i => i.status === 'PASS').length} / {report.items.length} Passed
                   </span>
                 </div>
-                <div className="divide-y divide-zinc-100 dark:divide-zinc-800">
+                <div className="divide-y divide-[#D8CEBF] dark:divide-[#272D30]">
                   {report.items.map((item) => (
                     <div key={item.id} className="p-3 flex items-start justify-between gap-3 text-xs">
                       <div className="space-y-0.5">
                         <div className="flex items-center gap-2">
-                          <span className="font-semibold text-zinc-900 dark:text-zinc-100">
+                          <span className="font-semibold text-[#1A2024] dark:text-[#F3EDE2]">
                             {item.label}
                           </span>
-                          <span className="text-[10px] uppercase font-mono px-1.5 py-0.2 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-500">
+                          <span className="text-[10px] uppercase font-mono px-1.5 py-0.2 rounded bg-[#E9E1D1] dark:bg-[#0C0F12] text-[#606669] dark:text-[#8C8A86]">
                             {item.category}
                           </span>
                         </div>
-                        <p className="text-[11px] text-zinc-500 dark:text-zinc-400">
+                        <p className="text-[11px] text-[#606669] dark:text-[#8C8A86]">
                           {item.detail}
                         </p>
                       </div>
@@ -1063,15 +1066,15 @@ Recommended Fix: ${res?.recommendedFixes.join(' | ') || 'None'}
 
               {/* AI Inspector Simulation Card */}
               {aiReview && (
-                <div className="bg-purple-50/60 dark:bg-purple-950/30 rounded-xl p-5 border border-purple-200 dark:border-purple-800/60 space-y-4">
+                <div className="bg-[#EDE6D8] dark:bg-[#11161A] rounded-xl p-5 border border-[#D8CEBF] dark:border-[#272D30] space-y-4">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <FileCheck className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+                      <FileCheck className="w-5 h-5 text-[#C74A43]" />
                       <div>
-                        <span className="text-xs font-bold text-purple-950 dark:text-purple-200">
+                        <span className="text-xs font-bold text-[#1A2024] dark:text-[#F3EDE2]">
                           Simulated Adobe Stock Inspector Review
                         </span>
-                        <p className="text-[11px] text-purple-800/80 dark:text-purple-300/80">
+                        <p className="text-[11px] text-[#606669] dark:text-[#8C8A86]">
                           Moderation simulation by senior contributor heuristics
                         </p>
                       </div>
@@ -1079,17 +1082,17 @@ Recommended Fix: ${res?.recommendedFixes.join(' | ') || 'None'}
                     <div className="flex items-center gap-2">
                       <span className={`text-xs px-2.5 py-1 rounded-full font-bold ${
                         aiReview.acceptanceProbability >= 85
-                          ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300'
+                          ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400'
                           : aiReview.acceptanceProbability >= 65
-                          ? 'bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-300'
-                          : 'bg-rose-100 text-rose-700 dark:bg-rose-950 dark:text-rose-300'
+                          ? 'bg-amber-500/10 text-amber-700 dark:text-amber-400'
+                          : 'bg-rose-500/10 text-rose-700 dark:text-rose-400'
                       }`}>
                         {aiReview.acceptanceProbability}% Acceptance Prob.
                       </span>
                     </div>
                   </div>
 
-                  <p className="text-xs text-purple-900/90 dark:text-purple-200/90 bg-white/60 dark:bg-zinc-900/60 p-3 rounded-lg border border-purple-100 dark:border-purple-900/50 leading-relaxed">
+                  <p className="text-xs text-[#1A2024] dark:text-[#E8E4DC] bg-[#F5F0E6] dark:bg-[#090B0D] p-3 rounded-lg border border-[#D8CEBF] dark:border-[#272D30] leading-relaxed">
                     {aiReview.reviewerNotes}
                   </p>
 
@@ -1099,7 +1102,7 @@ Recommended Fix: ${res?.recommendedFixes.join(' | ') || 'None'}
                         <AlertTriangle className="w-3.5 h-3.5" />
                         Critical Inspection Flags:
                       </span>
-                      <ul className="list-disc pl-4 text-xs text-purple-950 dark:text-purple-200 space-y-0.5">
+                      <ul className="list-disc pl-4 text-xs text-[#1A2024] dark:text-[#E8E4DC] space-y-0.5">
                         {aiReview.criticalFlags.map((flag, idx) => (
                           <li key={idx}>{flag}</li>
                         ))}
@@ -1109,10 +1112,10 @@ Recommended Fix: ${res?.recommendedFixes.join(' | ') || 'None'}
 
                   {aiReview.optimizationTips && aiReview.optimizationTips.length > 0 && (
                     <div className="space-y-1.5">
-                      <span className="text-[11px] font-bold text-purple-900 dark:text-purple-300">
+                      <span className="text-[11px] font-bold text-[#1A2024] dark:text-[#F3EDE2]">
                         Commercial Optimization Tips:
                       </span>
-                      <ul className="list-disc pl-4 text-xs text-purple-900/90 dark:text-purple-300/90 space-y-0.5">
+                      <ul className="list-disc pl-4 text-xs text-[#606669] dark:text-[#8C8A86] space-y-0.5">
                         {aiReview.optimizationTips.map((tip, idx) => (
                           <li key={idx}>{tip}</li>
                         ))}
@@ -1125,11 +1128,11 @@ Recommended Fix: ${res?.recommendedFixes.join(' | ') || 'None'}
           )}
 
           {!report && aiReview && (
-            <div className="bg-purple-50/60 dark:bg-purple-950/30 rounded-xl p-5 border border-purple-200 dark:border-purple-800/60 space-y-4">
+            <div className="bg-[#EDE6D8] dark:bg-[#11161A] rounded-xl p-5 border border-[#D8CEBF] dark:border-[#272D30] space-y-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <FileCheck className="w-5 h-5 text-purple-600 dark:text-purple-400" />
-                  <span className="text-xs font-bold text-purple-950 dark:text-purple-200">
+                  <FileCheck className="w-5 h-5 text-[#C74A43]" />
+                  <span className="text-xs font-bold text-[#1A2024] dark:text-[#F3EDE2]">
                     Simulated Adobe Stock Inspector Review
                   </span>
                 </div>
@@ -1137,7 +1140,7 @@ Recommended Fix: ${res?.recommendedFixes.join(' | ') || 'None'}
                   {aiReview.acceptanceProbability}% Acceptance
                 </span>
               </div>
-              <p className="text-xs text-purple-900 dark:text-purple-200">{aiReview.reviewerNotes}</p>
+              <p className="text-xs text-[#1A2024] dark:text-[#E8E4DC]">{aiReview.reviewerNotes}</p>
             </div>
           )}
         </div>
