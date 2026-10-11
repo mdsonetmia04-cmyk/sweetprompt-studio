@@ -37,7 +37,7 @@ export class ModelRouter {
       case 'prompt-variations':
       case 'prompt-expander':
         // Favor ultra-fast high-throughput models when available
-        if (provider === 'gemini') return 'gemini-2.5-flash';
+        if (provider === 'gemini') return 'gemini-3.8-flash';
         if (provider === 'groq') return 'llama-3.1-8b-instant';
         if (provider === 'mistral') return 'mistral-small-latest';
         if (provider === 'cerebras') return 'llama3.1-8b';
@@ -46,7 +46,7 @@ export class ModelRouter {
       case 'metadata-generation':
       case 'compliance-audit':
         // Favor high precision structured models
-        if (provider === 'gemini') return 'gemini-2.5-flash';
+        if (provider === 'gemini') return 'gemini-3.8-flash';
         if (provider === 'groq') return 'llama-3.3-70b-versatile';
         if (provider === 'mistral') return 'mistral-large-latest';
         if (provider === 'cerebras') return 'llama3.3-70b';

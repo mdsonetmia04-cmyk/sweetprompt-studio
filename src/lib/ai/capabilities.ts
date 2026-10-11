@@ -10,15 +10,15 @@ export const PROVIDER_CAPABILITIES: Record<AIProviderName, ProviderCapabilities>
     supportsStructuredJson: true,
     speedTier: 'fast',
     freeOrLowCostTier: true,
-    defaultTextModel: 'gemini-2.5-flash',
-    defaultVisionModel: 'gemini-2.5-flash',
-    defaultStructuredModel: 'gemini-2.5-flash',
+    defaultTextModel: 'gemini-3.8-flash',
+    defaultVisionModel: 'gemini-3.8-flash',
+    defaultStructuredModel: 'gemini-3.8-flash',
     supportedModels: [
-      'gemini-2.5-flash',
+      'gemini-3.8-flash',
       'gemini-3.8-flash',
       'gemini-3.1-flash-lite',
       'gemini-flash-latest',
-      'gemini-2.5-flash-lite',
+      'gemini-3.8-flash-lite',
       'gemini-3.1-pro-preview'
     ]
   },

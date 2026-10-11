@@ -64,7 +64,7 @@ export async function testAIConnection(
  */
 export function getDefaultModel(provider: AIProviderName): string {
   const caps = PROVIDER_CAPABILITIES[provider];
-  return caps ? caps.defaultTextModel : 'gemini-2.5-flash';
+  return caps ? caps.defaultTextModel : 'gemini-3.8-flash';
 }
 
 /**

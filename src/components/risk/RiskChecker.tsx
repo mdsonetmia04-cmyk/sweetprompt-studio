@@ -213,7 +213,7 @@ Output strict JSON in this exact structure:
       summary: scanResult.summary,
       data: scanResult,
       provider: 'gemini',
-      model: 'gemini-2.5-flash',
+      model: 'gemini-3.8-flash',
     });
 
     showToast(`Risk scan completed: ${scanResult.overall} risk level`);
@@ -297,7 +297,7 @@ Return strictly JSON matching:
         summary: `${res.findings.length} findings in "${line.slice(0, 40)}..."`,
         data: item,
         provider: 'gemini',
-        model: 'gemini-2.5-flash',
+        model: 'gemini-3.8-flash',
       });
     });
 

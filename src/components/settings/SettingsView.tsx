@@ -124,7 +124,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
     setTestingProvider(prov);
     try {
       const caps = PROVIDER_CAPABILITIES[prov];
-      const autoModel = caps?.defaultTextModel || 'gemini-2.5-flash';
+      const autoModel = caps?.defaultTextModel || 'gemini-3.8-flash';
 
       // Live test connection ping
       const res = await AIManager.testConnection(prov, keyToSave, autoModel);
@@ -168,7 +168,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
         provider: prov,
         apiKey: keyToSave,
         apiKeys: updatedKeys,
-        model: 'gemini-2.5-flash',
+        model: 'gemini-3.8-flash',
         autoModel: true,
         commercialMode: true,
         theme,
