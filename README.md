@@ -100,6 +100,30 @@ Copy `.env.example` to `.env` for local development (never commit real keys).
 - `vercel.json` already contains an SPA rewrite that **excludes `/api/*`**, so the functions stay reachable while all other routes serve `index.html`.
 - The browser-direct mode remains as a fallback if no server keys are configured.
 
+## Deploying on Cloudflare Pages
+
+SweetPrompt Studio also runs on **Cloudflare Pages** with the same server-proxy mode, via **Pages Functions** in `functions/` (a faithful port of the `api/` Vercel handlers — `api/` itself is untouched and keeps working on Vercel).
+
+**Dashboard setup (Git integration, like the owner's other Cloudflare project):**
+
+1. In the Cloudflare dashboard go to **Workers & Pages → Create → Pages → Connect to Git** and select the `sweetprompt-studio` repository.
+2. Build settings — Framework preset **Vite** (or custom):
+   - Build command: `npm run build`
+   - Build output directory: `dist`
+   - Production branch: `main`
+3. (Optional) After creation, go to **Settings → Environment Variables** and add any of `GEMINI_API_KEY`, `GROQ_API_KEY`, `MISTRAL_API_KEY`, `OPENROUTER_API_KEY`, `HUGGINGFACE_API_KEY`, `CEREBRAS_API_KEY` so the Pages Functions proxy can use them server-side. **Never use `VITE_`-prefixed names** — Vite bakes those into the public JS bundle. You can also set `APP_URL` (used as the `HTTP-Referer` header for OpenRouter).
+4. **Save and Deploy.** Every push to `main` redeploys automatically.
+
+**How it works on Pages:**
+
+- `functions/api/generate.ts`, `functions/api/vision.ts`, `functions/api/test-connection.ts` become Pages Functions serving `/api/*` — same validation, same provider logic and model fallbacks, same error cleaning, same rate limits (60/min per IP per endpoint, 20/min for vision — enforced per isolate, so approximate under load), same 25 MB body cap. Env vars are read from the Function's `env` (dashboard).
+- `public/_routes.json` (`{"include": ["/api/*"]}`) means only `/api/*` requests invoke Functions; all static assets stay on Pages' unlimited free tier.
+- The shared logic lives in `functions/_shared.ts` (port of `api/_shared.ts`, adapted for `context.env`).
+- Routing note: Pages Functions take precedence over the `/* → /index.html` SPA rewrite in `public/_redirects`, so `/api/*` always reaches the Functions (verified locally with `wrangler pages dev`). Note the Netlify-specific `/api/* → 404!` rule in that file is ignored by Pages (Pages only allows 200/301/302/303/307/308) — which is exactly what we want when Functions are deployed.
+- If you deploy Pages **without** Functions (not the default here), the app behaves like on Netlify: `/api/*` misses and the `proxyClient` falls back to **100% direct browser-side AI execution** with a user-supplied key in Settings.
+
+No `wrangler.toml` is needed: `@google/genai` ships a pure-`fetch` web build that runs in Workers without `nodejs_compat`, and Pages Functions need no build config beyond the dashboard settings above.
+
 ## Netlify / static hosts
 
 On Netlify and other static hosts (GitHub Pages, etc.) there is **no backend**:

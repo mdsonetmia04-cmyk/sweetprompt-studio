@@ -1,0 +1,1 @@
+{"description":"Only /api/* requests invoke Pages Functions. All other routes serve static assets (SPA fallback via _redirects). This keeps static requests on Pages' unlimited free tier.","exclude":[],"include":["/api/*"],"version":1}
