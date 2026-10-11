@@ -127,16 +127,16 @@ export const PromptStudio: React.FC<PromptStudioProps> = ({
   return (
     <div className="space-y-6">
       {/* Studio Header & Form */}
-      <div className="p-6 rounded-[8px] bg-[#11161A] border border-[#272D30] space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#1F272B]">
+      <div className="rounded-xl border border-[#D8CEBF] dark:border-[#272D30] bg-[#EDE6D8] dark:bg-[#11161A] p-5 sm:p-6 space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#D8CEBF] dark:border-[#272D30]">
           <div>
-            <div className="text-[10px] font-semibold tracking-widest text-[#8C8A86] uppercase mb-1">
-              PROMPT WORKSPACE
+            <div className="text-[11px] font-semibold uppercase tracking-wider text-[#606669] dark:text-[#8C8A86] mb-1">
+              Prompt Workspace
             </div>
-            <h1 className="font-editorial text-2xl sm:text-3xl text-[#F3EDE2] font-normal tracking-tight">
+            <h1 className="font-editorial text-2xl sm:text-3xl text-[#1A2024] dark:text-[#F3EDE2] font-normal tracking-tight">
               Prompt Studio
             </h1>
-            <p className="text-xs text-[#8C8A86] mt-1 max-w-xl">
+            <p className="text-xs text-[#606669] dark:text-[#8C8A86] mt-1 max-w-xl">
               Create commercially viable, brand-safe stock prompts with full Adobe Stock compliance.
             </p>
           </div>
@@ -144,7 +144,7 @@ export const PromptStudio: React.FC<PromptStudioProps> = ({
           <button
             type="button"
             onClick={() => setShowAdvanced(!showAdvanced)}
-            className="text-xs font-medium text-[#8C8A86] hover:text-[#F3EDE2] flex items-center gap-1.5 self-start sm:self-auto transition-colors cursor-pointer"
+            className="text-xs font-medium text-[#606669] dark:text-[#8C8A86] hover:text-[#1A2024] dark:hover:text-[#F3EDE2] flex items-center gap-1.5 self-start sm:self-auto transition-colors cursor-pointer"
           >
             <SlidersHorizontal className="w-3.5 h-3.5" />
             <span>{showAdvanced ? 'Hide Parameters' : 'Parameters'}</span>
@@ -157,31 +157,31 @@ export const PromptStudio: React.FC<PromptStudioProps> = ({
           <div className="lg:col-span-7 space-y-4">
             {/* Subject */}
             <div className="space-y-1.5">
-              <label className="text-xs font-medium text-[#E8E4DC] flex items-center justify-between">
+              <label className="text-xs font-medium text-[#1A2024] dark:text-[#F3EDE2] flex items-center justify-between">
                 <span>Subject / Concept *</span>
-                <span className="text-[10px] text-[#606669] font-normal">Core commercial concept</span>
+                <span className="text-[10px] text-[#606669] dark:text-[#8C8A86] font-normal">Core commercial concept</span>
               </label>
               <input
                 type="text"
                 value={subject}
                 onChange={(e) => setSubject(e.target.value)}
                 placeholder="e.g. Minimalist ceramic coffee mug on textured stone surface with morning sunlight..."
-                className="w-full px-3.5 py-2.5 rounded-[6px] border border-[#272D30] bg-[#090B0D] text-xs text-[#F3EDE2] placeholder-[#606669] focus:outline-none focus:border-[#C74A43] focus:ring-1 focus:ring-[#C74A43] font-medium"
+                className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3.5 py-2.5 text-xs text-[#1A2024] dark:text-[#F3EDE2] placeholder-[#606669] dark:placeholder-[#606669] focus:outline-none focus:border-[#C74A43] font-medium"
               />
             </div>
 
             {/* Additional Instructions */}
             <div className="space-y-1.5">
-              <label className="text-xs font-medium text-[#E8E4DC] flex items-center justify-between">
+              <label className="text-xs font-medium text-[#1A2024] dark:text-[#F3EDE2] flex items-center justify-between">
                 <span>Additional Direction</span>
-                <span className="text-[10px] text-[#606669] font-normal">Mood, composition & negative constraints</span>
+                <span className="text-[10px] text-[#606669] dark:text-[#8C8A86] font-normal">Mood, composition & negative constraints</span>
               </label>
               <textarea
                 value={instructions}
                 onChange={(e) => setInstructions(e.target.value)}
                 placeholder="e.g. Editorial lighting, copy space on left, no human faces, no recognizable brand logos..."
                 rows={3}
-                className="w-full px-3.5 py-2.5 rounded-[6px] border border-[#272D30] bg-[#090B0D] text-xs text-[#F3EDE2] placeholder-[#606669] focus:outline-none focus:border-[#C74A43] focus:ring-1 focus:ring-[#C74A43] resize-none leading-relaxed"
+                className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3.5 py-2.5 text-xs text-[#1A2024] dark:text-[#F3EDE2] placeholder-[#606669] dark:placeholder-[#606669] focus:outline-none focus:border-[#C74A43] resize-none leading-relaxed"
               />
             </div>
 
@@ -189,11 +189,11 @@ export const PromptStudio: React.FC<PromptStudioProps> = ({
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
               {/* Visual Type */}
               <div className="space-y-1">
-                <label className="text-[11px] font-medium text-[#8C8A86]">Content Type</label>
+                <label className="text-[11px] font-medium text-[#606669] dark:text-[#8C8A86]">Content Type</label>
                 <select
                   value={visualType}
                   onChange={(e) => setVisualType(e.target.value as any)}
-                  className="w-full rounded-[6px] border border-[#272D30] bg-[#090B0D] p-2 text-xs text-[#E8E4DC] focus:outline-none focus:border-[#C74A43]"
+                  className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] focus:outline-none focus:border-[#C74A43]"
                 >
                   {visualTypes.map(t => <option key={t} value={t} className="bg-[#11161A] text-[#F3EDE2]">{t}</option>)}
                 </select>
@@ -201,11 +201,11 @@ export const PromptStudio: React.FC<PromptStudioProps> = ({
 
               {/* Commercial Intent */}
               <div className="space-y-1">
-                <label className="text-[11px] font-medium text-[#8C8A86]">Commercial Use</label>
+                <label className="text-[11px] font-medium text-[#606669] dark:text-[#8C8A86]">Commercial Use</label>
                 <select
                   value={commercialIntent}
                   onChange={(e) => setCommercialIntent(e.target.value)}
-                  className="w-full rounded-[6px] border border-[#272D30] bg-[#090B0D] p-2 text-xs text-[#E8E4DC] focus:outline-none focus:border-[#C74A43]"
+                  className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] focus:outline-none focus:border-[#C74A43]"
                 >
                   {commercialIntents.map(i => <option key={i} value={i} className="bg-[#11161A] text-[#F3EDE2]">{i}</option>)}
                 </select>
@@ -213,11 +213,11 @@ export const PromptStudio: React.FC<PromptStudioProps> = ({
 
               {/* Aspect Ratio */}
               <div className="space-y-1">
-                <label className="text-[11px] font-medium text-[#8C8A86]">Aspect Ratio</label>
+                <label className="text-[11px] font-medium text-[#606669] dark:text-[#8C8A86]">Aspect Ratio</label>
                 <select
                   value={aspectRatio}
                   onChange={(e) => setAspectRatio(e.target.value)}
-                  className="w-full rounded-[6px] border border-[#272D30] bg-[#090B0D] p-2 text-xs text-[#E8E4DC] focus:outline-none focus:border-[#C74A43]"
+                  className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] focus:outline-none focus:border-[#C74A43]"
                 >
                   {aspectRatios.map(r => <option key={r} value={r} className="bg-[#11161A] text-[#F3EDE2]">{r}</option>)}
                 </select>
@@ -225,11 +225,11 @@ export const PromptStudio: React.FC<PromptStudioProps> = ({
 
               {/* Negative Space */}
               <div className="space-y-1">
-                <label className="text-[11px] font-medium text-[#8C8A86]">Copy Space</label>
+                <label className="text-[11px] font-medium text-[#606669] dark:text-[#8C8A86]">Copy Space</label>
                 <select
                   value={negativeSpace}
                   onChange={(e) => setNegativeSpace(e.target.value)}
-                  className="w-full rounded-[6px] border border-[#272D30] bg-[#090B0D] p-2 text-xs text-[#E8E4DC] focus:outline-none focus:border-[#C74A43]"
+                  className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] focus:outline-none focus:border-[#C74A43]"
                 >
                   {negativeSpaceOptions.map(n => <option key={n} value={n} className="bg-[#11161A] text-[#F3EDE2]">{n}</option>)}
                 </select>
@@ -247,11 +247,11 @@ export const PromptStudio: React.FC<PromptStudioProps> = ({
 
             {/* Category Select */}
             <div className="space-y-1.5">
-              <label className="text-xs font-medium text-[#E8E4DC]">Category</label>
+              <label className="text-xs font-medium text-[#1A2024] dark:text-[#F3EDE2]">Category</label>
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                className="w-full rounded-[6px] border border-[#272D30] bg-[#090B0D] p-2 text-xs text-[#E8E4DC] focus:outline-none focus:border-[#C74A43]"
+                className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] focus:outline-none focus:border-[#C74A43]"
               >
                 {categories.map(c => <option key={c} value={c} className="bg-[#11161A] text-[#F3EDE2]">{c}</option>)}
               </select>
@@ -261,7 +261,7 @@ export const PromptStudio: React.FC<PromptStudioProps> = ({
             <button
               onClick={handleGenerate}
               disabled={isGenerating || !subject.trim()}
-              className="w-full h-[44px] rounded-[7px] bg-[#C74A43] hover:bg-[#B53F39] text-[#F3EDE2] text-xs font-semibold tracking-wide transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full rounded-lg bg-[#C74A43] hover:bg-[#B53F39] text-[#F3EDE2] font-semibold px-4 py-3 text-sm transition-colors flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <span>{isGenerating ? 'Crafting Prompts...' : `Generate ${count} Prompts →`}</span>
             </button>
@@ -270,20 +270,20 @@ export const PromptStudio: React.FC<PromptStudioProps> = ({
 
         {/* Optional Advanced Drawer */}
         {showAdvanced && (
-          <div className="p-4 rounded-[6px] bg-[#090B0D] border border-[#272D30] grid grid-cols-1 sm:grid-cols-2 gap-4 animate-fade-in text-xs">
+          <div className="p-4 rounded-lg bg-[#E9E1D1] dark:bg-[#0C0F12] border border-[#D8CEBF] dark:border-[#272D30] grid grid-cols-1 sm:grid-cols-2 gap-4 animate-fade-in text-xs">
             <div className="space-y-1">
-              <label className="text-[11px] font-medium text-[#8C8A86]">Lighting Style</label>
+              <label className="text-[11px] font-medium text-[#606669] dark:text-[#8C8A86]">Lighting Style</label>
               <input
                 type="text"
                 value={lighting}
                 onChange={(e) => setLighting(e.target.value)}
                 placeholder="e.g. Diffused morning window light, high key studio..."
-                className="w-full px-3 py-1.5 rounded-[4px] border border-[#272D30] bg-[#11161A] text-xs text-[#E8E4DC]"
+                className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] placeholder-[#606669] dark:placeholder-[#606669] focus:outline-none focus:border-[#C74A43]"
               />
             </div>
             <div className="space-y-1">
-              <label className="text-[11px] font-medium text-[#8C8A86]">Model Engine</label>
-              <div className="px-3 py-1.5 rounded-[4px] border border-[#272D30] bg-[#11161A] text-xs text-[#8C8A86] font-mono">
+              <label className="text-[11px] font-medium text-[#606669] dark:text-[#8C8A86]">Model Engine</label>
+              <div className="rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3 py-2 text-xs text-[#606669] dark:text-[#8C8A86] font-mono">
                 {settings.model || 'gemini-2.5-flash'} (Universal Stock Engine)
               </div>
             </div>

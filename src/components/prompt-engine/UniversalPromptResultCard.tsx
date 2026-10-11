@@ -74,30 +74,32 @@ export const UniversalPromptResultCard: React.FC<UniversalPromptResultCardProps>
 
   const numStr = String(promptItem.number).padStart(2, '0');
 
-  // Compliance styling (muted teal for low risk, warm amber/coral for review, muted red for high risk)
+  // Compliance styling: emerald for low risk, amber for review, rose for high risk
   const getRiskStyle = (risk: string) => {
     if (risk === 'LOW RISK' || risk === 'SAFE' || risk === 'LOW') {
-      return 'text-[#4E8793] border-[#21434B] bg-[#21434B]/20';
+      return 'text-emerald-700 dark:text-emerald-400 border-emerald-500/30 bg-emerald-500/10';
     }
     if (risk === 'HIGH RISK' || risk === 'REJECT' || risk === 'CRITICAL') {
-      return 'text-[#C74A43] border-[#C74A43]/40 bg-[#C74A43]/15';
+      return 'text-rose-700 dark:text-rose-400 border-rose-500/30 bg-rose-500/10';
     }
-    return 'text-[#D9672E] border-[#D9672E]/40 bg-[#D9672E]/15';
+    return 'text-amber-700 dark:text-amber-400 border-amber-500/30 bg-amber-500/10';
   };
 
+  const outlineBtn = 'px-2.5 py-1.5 rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#E9E1D1] dark:bg-[#0C0F12] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] text-[#1A2024] dark:text-[#F3EDE2] text-xs flex items-center gap-1.5 transition-colors cursor-pointer focus-visible:outline-none';
+
   return (
-    <div className={`p-4 rounded-[6px] border transition-colors ${
+    <div className={`p-4 rounded-lg border transition-colors ${
       isSelected
-        ? 'bg-[#171E24] border-[#C74A43]'
-        : 'bg-[#11161A] border-[#272D30] hover:border-[#383E41]'
+        ? 'bg-[#EDE6D8] dark:bg-[#171E24] border-[#C74A43]'
+        : 'bg-[#EDE6D8] dark:bg-[#11161A] border-[#D8CEBF] dark:border-[#272D30] hover:border-[#C74A43]/40'
     }`}>
       {/* Top row: Number, Title, Metadata */}
-      <div className="flex flex-wrap items-center justify-between gap-2 mb-2.5 pb-2 border-b border-[#1F272B]">
+      <div className="flex flex-wrap items-center justify-between gap-2 mb-2.5 pb-2 border-b border-[#D8CEBF] dark:border-[#272D30]">
         <div className="flex items-center gap-2.5">
           <button
             type="button"
             onClick={() => onToggleSelect(promptItem.id)}
-            className="text-[#606669] hover:text-[#C74A43] cursor-pointer"
+            className="text-[#606669] dark:text-[#8C8A86] hover:text-[#C74A43] cursor-pointer focus-visible:outline-none"
             aria-label={`Select prompt ${numStr}`}
           >
             {isSelected ? (
@@ -107,32 +109,32 @@ export const UniversalPromptResultCard: React.FC<UniversalPromptResultCardProps>
             )}
           </button>
 
-          <span className="font-mono text-xs font-semibold text-[#8C8A86]">
+          <span className="font-mono text-xs font-semibold text-[#606669] dark:text-[#8C8A86]">
             {numStr}
           </span>
 
-          <span className="text-xs font-semibold text-[#F3EDE2] tracking-wide truncate max-w-xs">
+          <span className="text-xs font-semibold text-[#1A2024] dark:text-[#F3EDE2] tracking-wide truncate max-w-xs">
             {promptItem.subject}
           </span>
         </div>
 
         {/* Status Metadata (Clean Unboxed & Muted Badges) */}
         <div className="flex items-center gap-2 text-[11px]">
-          <span className="text-[#8C8A86]">{promptItem.contentType}</span>
-          <span className="text-[#383E41]">·</span>
-          <span className={`px-2 py-0.5 rounded-[4px] font-mono text-[10px] font-semibold border ${getRiskStyle(promptItem.ipRisk || 'LOW RISK')}`}>
+          <span className="text-[#606669] dark:text-[#8C8A86]">{promptItem.contentType}</span>
+          <span className="text-[#D8CEBF] dark:text-[#383E41]">·</span>
+          <span className={`px-2 py-0.5 rounded font-mono text-[10px] font-semibold border ${getRiskStyle(promptItem.ipRisk || 'LOW RISK')}`}>
             {promptItem.ipRisk || 'LOW RISK'}
           </span>
-          <span className="text-[#383E41]">·</span>
-          <span className="text-[#8C8A86] font-mono text-[10px]">
+          <span className="text-[#D8CEBF] dark:text-[#383E41]">·</span>
+          <span className="text-[#606669] dark:text-[#8C8A86] font-mono text-[10px]">
             {promptItem.similarityStatus || 'DISTINCT'}
           </span>
         </div>
       </div>
 
       {/* Prompt Text Body */}
-      <div className="bg-[#090B0D] p-3 rounded-[4px] border border-[#1C2428] mb-3">
-        <p className="text-xs text-[#E8E4DC] leading-relaxed select-all font-mono">
+      <div className="bg-[#E9E1D1] dark:bg-[#090B0D] p-3 rounded-lg border border-[#D8CEBF] dark:border-[#272D30] mb-3">
+        <p className="text-xs text-[#1A2024] dark:text-[#F3EDE2] leading-relaxed select-all font-mono">
           {promptItem.prompt}
         </p>
       </div>
@@ -141,12 +143,12 @@ export const UniversalPromptResultCard: React.FC<UniversalPromptResultCardProps>
       <div className="flex flex-wrap items-center justify-between gap-2 pt-1 text-xs">
         <div className="flex items-center gap-2">
           {promptItem.aspectRatio && (
-            <span className="text-[11px] text-[#606669] font-mono">
+            <span className="text-[11px] text-[#606669] dark:text-[#8C8A86] font-mono">
               AR: {promptItem.aspectRatio}
             </span>
           )}
           {promptItem.commercialUse && (
-            <span className="text-[11px] text-[#606669]">
+            <span className="text-[11px] text-[#606669] dark:text-[#8C8A86]">
               · {promptItem.commercialUse}
             </span>
           )}
@@ -156,18 +158,18 @@ export const UniversalPromptResultCard: React.FC<UniversalPromptResultCardProps>
           <button
             type="button"
             onClick={handleCopy}
-            className="px-2.5 py-1 rounded-[4px] border border-[#272D30] hover:border-[#383E41] bg-[#11161A] text-[#E8E4DC] hover:text-[#F3EDE2] text-[11px] flex items-center gap-1.5 transition-colors cursor-pointer"
+            className={outlineBtn}
           >
-            {copied ? <Check className="w-3 h-3 text-[#4E8793]" /> : <Copy className="w-3 h-3 text-[#8C8A86]" />}
+            {copied ? <Check className="w-3 h-3 text-emerald-700 dark:text-emerald-400" /> : <Copy className="w-3 h-3 text-[#606669] dark:text-[#8C8A86]" />}
             <span>{copied ? 'Copied' : 'Copy'}</span>
           </button>
 
           <button
             type="button"
             onClick={handleSave}
-            className="px-2.5 py-1 rounded-[4px] border border-[#272D30] hover:border-[#383E41] bg-[#11161A] text-[#E8E4DC] hover:text-[#F3EDE2] text-[11px] flex items-center gap-1.5 transition-colors cursor-pointer"
+            className={outlineBtn}
           >
-            <Bookmark className={`w-3 h-3 ${saved ? 'text-[#C74A43]' : 'text-[#8C8A86]'}`} />
+            <Bookmark className={`w-3 h-3 ${saved ? 'text-[#C74A43]' : 'text-[#606669] dark:text-[#8C8A86]'}`} />
             <span>{saved ? 'Saved' : 'Save'}</span>
           </button>
 
@@ -175,9 +177,9 @@ export const UniversalPromptResultCard: React.FC<UniversalPromptResultCardProps>
             <button
               type="button"
               onClick={() => onSendToMetadata(promptItem.prompt, promptItem.subject, promptItem.category)}
-              className="px-2.5 py-1 rounded-[4px] border border-[#272D30] hover:border-[#383E41] bg-[#11161A] text-[#E8E4DC] hover:text-[#F3EDE2] text-[11px] flex items-center gap-1.5 transition-colors cursor-pointer"
+              className={outlineBtn}
             >
-              <Tag className="w-3 h-3 text-[#8C8A86]" />
+              <Tag className="w-3 h-3 text-[#606669] dark:text-[#8C8A86]" />
               <span>Metadata</span>
             </button>
           )}
@@ -186,9 +188,9 @@ export const UniversalPromptResultCard: React.FC<UniversalPromptResultCardProps>
             <button
               type="button"
               onClick={() => onSendToRisk(promptItem.prompt)}
-              className="px-2.5 py-1 rounded-[4px] border border-[#272D30] hover:border-[#383E41] bg-[#11161A] text-[#E8E4DC] hover:text-[#F3EDE2] text-[11px] flex items-center gap-1.5 transition-colors cursor-pointer"
+              className={outlineBtn}
             >
-              <ShieldAlert className="w-3 h-3 text-[#8C8A86]" />
+              <ShieldAlert className="w-3 h-3 text-[#606669] dark:text-[#8C8A86]" />
               <span>IP Check</span>
             </button>
           )}
@@ -198,7 +200,7 @@ export const UniversalPromptResultCard: React.FC<UniversalPromptResultCardProps>
               type="button"
               onClick={handleRegenerate}
               disabled={regenerating}
-              className="p-1 rounded-[4px] border border-[#272D30] hover:border-[#383E41] text-[#8C8A86] hover:text-[#F3EDE2] transition-colors cursor-pointer disabled:opacity-50"
+              className="p-1.5 rounded-lg border border-[#D8CEBF] dark:border-[#272D30] text-[#606669] dark:text-[#8C8A86] hover:text-[#1A2024] dark:hover:text-[#F3EDE2] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] transition-colors cursor-pointer disabled:opacity-50 focus-visible:outline-none"
               title="Regenerate single prompt"
             >
               <RefreshCw className={`w-3 h-3 ${regenerating ? 'animate-spin text-[#C74A43]' : ''}`} />

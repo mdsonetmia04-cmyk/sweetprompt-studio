@@ -41,48 +41,48 @@ export const UniversalPromptHeader: React.FC<UniversalPromptHeaderProps> = ({
   return (
     <div className="space-y-6">
       {/* Title & Description Header */}
-      <div className="pb-4 border-b border-zinc-200 dark:border-zinc-800">
-        <h1 className="text-xl sm:text-2xl font-extrabold text-zinc-950 dark:text-zinc-50 flex items-center gap-2.5">
-          {Icon ? <Icon className="w-5 h-5 text-indigo-600 dark:text-indigo-400" /> : <Layers className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />}
+      <div className="pb-4 border-b border-[#D8CEBF] dark:border-[#272D30]">
+        <h1 className="text-xl sm:text-2xl font-extrabold text-[#1A2024] dark:text-[#F3EDE2] flex items-center gap-2.5">
+          {Icon ? <Icon className="w-5 h-5 text-[#C74A43]" /> : <Layers className="w-5 h-5 text-[#C74A43]" />}
           <span>{title}</span>
         </h1>
-        <p className="text-xs sm:text-sm font-medium text-zinc-600 dark:text-zinc-300 mt-1.5 max-w-3xl leading-relaxed">
+        <p className="text-xs sm:text-sm font-medium text-[#606669] dark:text-[#8C8A86] mt-1.5 max-w-3xl leading-relaxed">
           {description}
         </p>
       </div>
 
       {/* Main Unified Input Panel */}
-      <div className="p-5 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm space-y-5">
+      <div className="p-4 sm:p-5 rounded-xl bg-[#EDE6D8] dark:bg-[#11161A] border border-[#D8CEBF] dark:border-[#272D30] space-y-5">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
           {/* Left Column: Subject & Instructions */}
           <div className="lg:col-span-7 space-y-4">
             {/* Subject Input */}
             <div className="space-y-1.5">
-              <label className="text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 flex items-center justify-between">
+              <label className="text-xs font-bold uppercase tracking-wider text-[#1A2024] dark:text-[#F3EDE2] flex items-center justify-between">
                 <span>Subject / Topic *</span>
-                <span className="text-[10px] text-zinc-500 font-normal">Core commercial concept</span>
+                <span className="text-[10px] text-[#606669] dark:text-[#8C8A86] font-normal">Core commercial concept</span>
               </label>
               <input
                 type="text"
                 value={subject}
                 onChange={(e) => onSubjectChange(e.target.value)}
                 placeholder={subjectPlaceholder}
-                className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 text-sm text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 font-medium"
+                className="w-full px-3.5 py-2.5 rounded-xl border border-[#D8CEBF] dark:border-[#272D30] bg-[#E9E1D1] dark:bg-[#0C0F12] text-sm text-[#1A2024] dark:text-[#F3EDE2] placeholder:text-[#8C8A86] focus:outline-none focus:ring-2 focus:ring-[#C74A43] font-medium"
               />
             </div>
 
             {/* Instructions Textarea */}
             <div className="space-y-1.5">
-              <label className="text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 flex items-center justify-between">
+              <label className="text-xs font-bold uppercase tracking-wider text-[#1A2024] dark:text-[#F3EDE2] flex items-center justify-between">
                 <span>Additional Instructions</span>
-                <span className="text-[10px] text-zinc-500 font-normal">Visual direction, style & constraints</span>
+                <span className="text-[10px] text-[#606669] dark:text-[#8C8A86] font-normal">Visual direction, style & constraints</span>
               </label>
               <textarea
                 value={instructions}
                 onChange={(e) => onInstructionsChange(e.target.value)}
                 placeholder={instructionsPlaceholder}
                 rows={3}
-                className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 text-xs text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none font-medium leading-relaxed"
+                className="w-full px-3.5 py-2.5 rounded-xl border border-[#D8CEBF] dark:border-[#272D30] bg-[#E9E1D1] dark:bg-[#0C0F12] text-xs text-[#1A2024] dark:text-[#F3EDE2] placeholder:text-[#8C8A86] focus:outline-none focus:ring-2 focus:ring-[#C74A43] resize-none font-medium leading-relaxed"
               />
             </div>
           </div>
@@ -98,7 +98,7 @@ export const UniversalPromptHeader: React.FC<UniversalPromptHeaderProps> = ({
 
             {/* Section-Specific Settings Slot */}
             {children && (
-              <div className="space-y-3 pt-2 border-t border-zinc-100 dark:border-zinc-800/80">
+              <div className="space-y-3 pt-2 border-t border-[#D8CEBF] dark:border-[#272D30]">
                 {children}
               </div>
             )}
@@ -109,7 +109,7 @@ export const UniversalPromptHeader: React.FC<UniversalPromptHeaderProps> = ({
                 type="button"
                 onClick={onGenerate}
                 disabled={isGenerating || !subject.trim()}
-                className="w-full py-3.5 px-5 rounded-xl bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold text-sm shadow-sm shadow-indigo-600/30 flex items-center justify-center gap-2 transition-all cursor-pointer hover:scale-[1.01]"
+                className="w-full py-3.5 px-5 rounded-xl bg-[#C74A43] hover:bg-[#B53F39] disabled:opacity-50 disabled:cursor-not-allowed text-[#F3EDE2] font-bold text-sm flex items-center justify-center gap-2 transition-colors cursor-pointer focus-visible:outline-none"
               >
                 {isGenerating ? (
                   <>

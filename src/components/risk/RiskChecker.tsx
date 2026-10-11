@@ -360,25 +360,28 @@ Return strictly JSON matching:
 
   return (
     <div className="space-y-6">
-      {/* Mode Switcher Banner */}
-      <div className="flex items-center justify-between bg-white dark:bg-zinc-900 p-3 rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-xs">
-        <div className="flex items-center gap-3">
-          <div className="p-2 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400">
-            <ShieldAlert className="w-5 h-5" />
-          </div>
-          <div>
-            <h3 className="text-sm font-bold text-zinc-900 dark:text-zinc-100">IP & Trademark Risk Validator</h3>
-            <p className="text-xs text-zinc-500 dark:text-zinc-400">Scan prompts and titles against brands, trademarks, and copyright rules</p>
-          </div>
+      {/* Page Header */}
+      <div className="pb-4 border-b border-[#D8CEBF] dark:border-[#272D30]">
+        <div className="text-[11px] font-semibold uppercase tracking-wider text-[#606669] dark:text-[#8C8A86] mb-1">
+          Compliance & IP Safety
         </div>
+        <h1 className="text-xl font-bold text-[#1A2024] dark:text-[#F3EDE2] flex items-center gap-2">
+          <ShieldAlert className="w-5 h-5 text-[#C74A43]" />
+          <span>IP & Trademark Risk Validator</span>
+        </h1>
+        <p className="text-xs text-[#606669] dark:text-[#8C8A86] mt-1">
+          Scan prompts and titles against brands, trademarks, and copyright rules
+        </p>
+      </div>
 
-        <div className="flex items-center bg-zinc-100 dark:bg-zinc-800 p-1 rounded-xl text-xs font-semibold">
+      {/* Mode Switcher */}
+      <div className="flex items-center bg-[#E9E1D1] dark:bg-[#0C0F12] p-1 rounded-lg text-xs font-semibold w-fit max-w-full overflow-x-auto">
           <button
             onClick={() => setMode('single')}
             className={`px-3.5 py-1.5 rounded-lg transition-colors cursor-pointer ${
               mode === 'single'
-                ? 'bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 shadow-xs'
-                : 'text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100'
+                ? 'bg-[#F5F0E6] dark:bg-[#090B0D] text-[#C74A43]'
+                : 'text-[#606669] dark:text-[#8C8A86] hover:text-[#1A2024] dark:hover:text-[#F3EDE2]'
             }`}
           >
             Single Prompt Scan
@@ -387,8 +390,8 @@ Return strictly JSON matching:
             onClick={() => setMode('bulk')}
             className={`px-3.5 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 cursor-pointer ${
               mode === 'bulk'
-                ? 'bg-white dark:bg-zinc-900 text-emerald-600 dark:text-emerald-400 shadow-xs'
-                : 'text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100'
+                ? 'bg-[#F5F0E6] dark:bg-[#090B0D] text-[#C74A43]'
+                : 'text-[#606669] dark:text-[#8C8A86] hover:text-[#1A2024] dark:hover:text-[#F3EDE2]'
             }`}
           >
             <Layers className="w-3.5 h-3.5" />
@@ -398,27 +401,26 @@ Return strictly JSON matching:
             onClick={() => setMode('image')}
             className={`px-3.5 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 cursor-pointer ${
               mode === 'image'
-                ? 'bg-white dark:bg-zinc-900 text-purple-600 dark:text-purple-400 shadow-xs'
-                : 'text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100'
+                ? 'bg-[#F5F0E6] dark:bg-[#090B0D] text-[#C74A43]'
+                : 'text-[#606669] dark:text-[#8C8A86] hover:text-[#1A2024] dark:hover:text-[#F3EDE2]'
             }`}
           >
-            <ImageIcon className="w-3.5 h-3.5 text-purple-500" />
+            <ImageIcon className="w-3.5 h-3.5" />
             <span>Image Upload Risk Scan</span>
           </button>
         </div>
-      </div>
 
       {mode === 'image' ? (
         /* IMAGE RISK SCAN MODE */
         <div className="space-y-6">
-          <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-6 shadow-xs space-y-4">
+          <div className="bg-[#EDE6D8] dark:bg-[#11161A] border border-[#D8CEBF] dark:border-[#272D30] rounded-xl p-6 space-y-4">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 flex items-center gap-2 text-base">
-                  <ImageIcon className="w-5 h-5 text-purple-600" />
+                <h3 className="font-semibold text-[#1A2024] dark:text-[#F3EDE2] flex items-center gap-2 text-base">
+                  <ImageIcon className="w-5 h-5 text-[#C74A43]" />
                   <span>Upload Stock Images for IP & Trademark Inspection</span>
                 </h3>
-                <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
+                <p className="text-xs text-[#606669] dark:text-[#8C8A86] mt-1">
                   Upload single or bulk images to scan for visible corporate logos, trademarked designs, model releases, and property release requirements.
                 </p>
               </div>
@@ -427,7 +429,7 @@ Return strictly JSON matching:
                 <button
                   onClick={scanImagesRisk}
                   disabled={isScanningImages}
-                  className="py-2.5 px-4 bg-purple-600 hover:bg-purple-700 disabled:opacity-50 text-white font-semibold text-xs rounded-xl shadow-xs shadow-purple-600/30 flex items-center gap-2 transition-all cursor-pointer shrink-0"
+                  className="py-2 px-4 bg-[#C74A43] hover:bg-[#B53F39] disabled:opacity-50 text-[#F3EDE2] font-semibold text-xs rounded-lg flex items-center gap-2 transition-colors cursor-pointer shrink-0"
                 >
                   <RefreshCw className={`w-4 h-4 ${isScanningImages ? 'animate-spin' : ''}`} />
                   <span>{isScanningImages ? 'Scanning Images...' : `Scan All Images (${uploadedImages.length})`}</span>
@@ -439,7 +441,7 @@ Return strictly JSON matching:
             <div 
               onDragOver={(e) => e.preventDefault()}
               onDrop={handleImageDrop}
-              className="border-2 border-dashed border-zinc-300 dark:border-zinc-700 hover:border-purple-500/60 dark:hover:border-purple-500/60 bg-zinc-50 dark:bg-zinc-950/60 hover:bg-purple-50/10 dark:hover:bg-purple-950/10 rounded-xl p-8 text-center transition-all cursor-pointer relative"
+              className="border-2 border-dashed border-[#D8CEBF] dark:border-[#272D30] hover:border-[#C74A43]/60 bg-[#F5F0E6] dark:bg-[#090B0D]/60 hover:bg-[#C74A43]/5 rounded-xl p-8 text-center transition-all cursor-pointer relative"
             >
               <input
                 type="file"
@@ -448,13 +450,13 @@ Return strictly JSON matching:
                 onChange={handleImageUpload}
                 className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
               />
-              <div className="w-12 h-12 rounded-2xl bg-purple-100 dark:bg-purple-950/80 text-purple-600 dark:text-purple-400 mx-auto flex items-center justify-center mb-3 shadow-xs">
+              <div className="w-12 h-12 rounded-xl bg-[#C74A43]/10 text-[#C74A43] mx-auto flex items-center justify-center mb-3">
                 <Upload className="w-6 h-6" />
               </div>
-              <p className="text-sm font-bold text-zinc-900 dark:text-zinc-100">
+              <p className="text-sm font-bold text-[#1A2024] dark:text-[#F3EDE2]">
                 Click to browse or Drag & Drop stock images here
               </p>
-              <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
+              <p className="text-xs text-[#606669] dark:text-[#8C8A86] mt-1">
                 Supports JPG, PNG, WEBP (Supports Single or Bulk Uploads)
               </p>
             </div>
@@ -462,8 +464,8 @@ Return strictly JSON matching:
             {/* Uploaded Images List & Risk Reports */}
             {uploadedImages.length > 0 && (
               <div className="space-y-4 pt-2">
-                <div className="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pb-2">
-                  <span className="text-xs font-bold text-zinc-700 dark:text-zinc-300 uppercase tracking-wider">
+                <div className="flex items-center justify-between border-b border-[#D8CEBF] dark:border-[#272D30] pb-2">
+                  <span className="text-xs font-bold text-[#1A2024] dark:text-[#E8E4DC] uppercase tracking-wider">
                     Uploaded Image Queue ({uploadedImages.length})
                   </span>
                   <button
@@ -478,16 +480,16 @@ Return strictly JSON matching:
                   {uploadedImages.map((img) => (
                     <div 
                       key={img.id}
-                      className="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 space-y-3 relative overflow-hidden"
+                      className="p-4 rounded-xl bg-[#F5F0E6] dark:bg-[#090B0D] border border-[#D8CEBF] dark:border-[#272D30] space-y-3 relative overflow-hidden"
                     >
                       <div className="flex gap-3 items-start">
-                        <img src={img.url} alt={img.name} className="w-20 h-20 object-cover rounded-lg border border-zinc-200 dark:border-zinc-800 shrink-0 bg-zinc-900" />
+                        <img src={img.url} alt={img.name} className="w-20 h-20 object-cover rounded-lg border border-[#D8CEBF] dark:border-[#272D30] shrink-0 bg-[#090B0D]" />
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center justify-between gap-1">
-                            <span className="text-xs font-bold text-zinc-900 dark:text-zinc-100 truncate">{img.name}</span>
+                            <span className="text-xs font-bold text-[#1A2024] dark:text-[#F3EDE2] truncate">{img.name}</span>
                             <button
                               onClick={(e) => removeImageItem(img.id, e)}
-                              className="p-1 text-zinc-400 hover:text-rose-600 rounded-lg hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-colors"
+                              className="p-1 text-[#8C8A86] hover:text-rose-600 rounded-lg hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] dark:hover:bg-[#171E24] transition-colors"
                             >
                               <X className="w-3.5 h-3.5" />
                             </button>
@@ -495,20 +497,20 @@ Return strictly JSON matching:
 
                           <div className="mt-1 flex items-center gap-2 flex-wrap">
                             {img.status === 'Idle' && (
-                              <span className="text-[10px] px-2 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-semibold">
+                              <span className="text-[10px] px-2 py-0.5 rounded bg-[#E9E1D1] dark:bg-[#0C0F12] text-[#1A2024] dark:text-[#E8E4DC] font-semibold">
                                 Ready to Scan
                               </span>
                             )}
                             {img.status === 'Scanning' && (
-                              <span className="text-[10px] px-2 py-0.5 rounded bg-purple-100 text-purple-700 dark:bg-purple-950 dark:text-purple-300 font-semibold flex items-center gap-1">
+                              <span className="text-[10px] px-2 py-0.5 rounded bg-[#C74A43]/10 text-[#C74A43] font-semibold flex items-center gap-1">
                                 <RefreshCw className="w-3 h-3 animate-spin" /> Scanning...
                               </span>
                             )}
                             {img.status === 'Done' && img.report && (
                               <span className={`text-[10px] px-2 py-0.5 rounded font-bold uppercase ${
-                                img.report.overallRisk === 'LOW' ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300' :
-                                img.report.overallRisk === 'MEDIUM' ? 'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300' :
-                                'bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-300'
+                                img.report.overallRisk === 'LOW' ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400' :
+                                img.report.overallRisk === 'MEDIUM' ? 'bg-amber-500/10 text-amber-700 dark:text-amber-400' :
+                                'bg-rose-500/10 text-rose-700 dark:text-rose-400'
                               }`}>
                                 {img.report.overallRisk} RISK
                               </span>
@@ -519,19 +521,19 @@ Return strictly JSON matching:
 
                       {/* Scan Report Result if Done */}
                       {img.report && (
-                        <div className="pt-2 border-t border-zinc-200 dark:border-zinc-800 space-y-2 text-xs">
-                          <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed font-medium">
+                        <div className="pt-2 border-t border-[#D8CEBF] dark:border-[#272D30] space-y-2 text-xs">
+                          <p className="text-[#1A2024] dark:text-[#E8E4DC] leading-relaxed font-medium">
                             {img.report.legalSummary}
                           </p>
 
                           {img.report.detectedLogos.length > 0 && (
-                            <div className="p-2 rounded-lg bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/50 text-rose-800 dark:text-rose-300 space-y-0.5">
+                            <div className="p-2 rounded-lg bg-rose-500/5 dark:bg-rose-500/10 border border-rose-200 dark:border-rose-900/50 text-rose-800 dark:text-rose-300 space-y-0.5">
                               <span className="font-bold flex items-center gap-1">
                                 <Tag className="w-3.5 h-3.5 text-rose-600" /> Detected Trademarks / Logos:
                               </span>
                               <div className="flex flex-wrap gap-1 pt-1">
                                 {img.report.detectedLogos.map((logo, lIdx) => (
-                                  <span key={lIdx} className="px-1.5 py-0.5 bg-rose-200 dark:bg-rose-900 text-rose-900 dark:text-rose-100 rounded text-[10px] font-mono font-bold">
+                                  <span key={lIdx} className="px-1.5 py-0.5 bg-rose-200 dark:bg-rose-900 text-rose-800 dark:text-rose-200 rounded text-[10px] font-mono font-bold">
                                     {logo}
                                   </span>
                                 ))}
@@ -539,7 +541,7 @@ Return strictly JSON matching:
                             </div>
                           )}
 
-                          <div className="flex items-center gap-3 text-[11px] text-zinc-600 dark:text-zinc-400">
+                          <div className="flex items-center gap-3 text-[11px] text-[#606669] dark:text-[#8C8A86]">
                             <span className={`flex items-center gap-1 ${img.report.modelReleaseRequired ? 'text-amber-600 dark:text-amber-400 font-bold' : ''}`}>
                               <UserCheck className="w-3.5 h-3.5" /> Model Release: {img.report.modelReleaseRequired ? 'Required' : 'Not Needed'}
                             </span>
@@ -549,7 +551,7 @@ Return strictly JSON matching:
                             </span>
                           </div>
 
-                          <div className="p-2.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/30 text-emerald-800 dark:text-emerald-300 font-medium text-[11px]">
+                          <div className="p-2.5 rounded-lg bg-emerald-500/5 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 font-medium text-[11px]">
                             <span className="font-bold">Actionable Fix: </span> {img.report.actionableFix}
                           </div>
                         </div>
@@ -565,30 +567,30 @@ Return strictly JSON matching:
         /* SINGLE SCAN MODE */
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           <div className="lg:col-span-5 space-y-6">
-            <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-6 shadow-xs space-y-4">
+            <div className="bg-[#EDE6D8] dark:bg-[#11161A] border border-[#D8CEBF] dark:border-[#272D30] rounded-xl p-6 space-y-4">
               <div className="flex items-center justify-between">
-                <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
-                  <ShieldAlert className="w-4 h-4 text-emerald-600" />
+                <h3 className="font-semibold text-[#1A2024] dark:text-[#F3EDE2] flex items-center gap-2">
+                  <ShieldAlert className="w-4 h-4 text-[#C74A43]" />
                   <span>IP & Trademark Scanner</span>
                 </h3>
-                <span className="text-xs text-zinc-400 font-mono">Brand Safety</span>
+                <span className="text-xs text-[#8C8A86] font-mono">Brand Safety</span>
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold uppercase tracking-wider text-zinc-500">Prompt or Description to Scan *</label>
+                <label className="text-xs font-semibold uppercase tracking-wider text-[#606669] dark:text-[#8C8A86]">Prompt or Description to Scan *</label>
                 <textarea
                   value={text}
                   onChange={(e) => setText(e.target.value)}
                   placeholder="Paste your prompt, title, or keywords here to check for protected trademarks, celebrity likeness, and brand names..."
                   rows={6}
-                  className="w-full rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 p-3.5 text-sm text-zinc-900 dark:text-zinc-100 resize-none focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full rounded-xl border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] p-3.5 text-sm text-[#1A2024] dark:text-[#F3EDE2] resize-none focus:outline-none focus:ring-2 focus:ring-[#C74A43]/40"
                 />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 <button
                   onClick={handleScanSingle}
-                  className="py-3 px-3 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-xl shadow-xs shadow-emerald-600/30 flex items-center justify-center gap-2 transition-all cursor-pointer text-xs"
+                  className="py-2.5 px-3 bg-[#C74A43] hover:bg-[#B53F39] text-[#F3EDE2] font-semibold rounded-lg flex items-center justify-center gap-2 transition-colors cursor-pointer text-xs"
                 >
                   <Search className="w-4 h-4" />
                   <span>Rule-Based Scan</span>
@@ -597,7 +599,7 @@ Return strictly JSON matching:
                 <button
                   onClick={handleAiScan}
                   disabled={isAiScanning}
-                  className="py-3 px-3 bg-purple-600 hover:bg-purple-700 disabled:opacity-50 text-white font-medium rounded-xl shadow-xs shadow-purple-600/30 flex items-center justify-center gap-2 transition-all cursor-pointer text-xs"
+                  className="py-2.5 px-3 border border-[#D8CEBF] dark:border-[#272D30] bg-[#EDE6D8] dark:bg-[#11161A] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] disabled:opacity-50 text-[#1A2024] dark:text-[#F3EDE2] font-medium rounded-lg flex items-center justify-center gap-2 transition-colors cursor-pointer text-xs"
                 >
                   <RefreshCw className={`w-4 h-4 ${isAiScanning ? 'animate-spin' : ''}`} />
                   <span>{isAiScanning ? 'Auditing IP...' : 'AI Deep Legal Audit'}</span>
@@ -607,25 +609,25 @@ Return strictly JSON matching:
           </div>
 
           <div className="lg:col-span-7 space-y-6">
-            <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-6 shadow-xs flex flex-col h-full min-h-[500px]">
-              <div className="flex items-center justify-between pb-4 border-b border-zinc-200 dark:border-zinc-800">
-                <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
-                  <FileText className="w-4 h-4 text-emerald-600" />
+            <div className="bg-[#EDE6D8] dark:bg-[#11161A] border border-[#D8CEBF] dark:border-[#272D30] rounded-xl p-6 flex flex-col h-full min-h-[500px]">
+              <div className="flex items-center justify-between pb-4 border-b border-[#D8CEBF] dark:border-[#272D30]">
+                <h3 className="font-semibold text-[#1A2024] dark:text-[#F3EDE2] flex items-center gap-2">
+                  <FileText className="w-4 h-4 text-[#C74A43]" />
                   <span>Risk Validation Report</span>
                 </h3>
                 {result && (
                   <div className="flex items-center gap-2">
                     <span className={`text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wider ${
-                      result.overall === 'SAFE' ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300' :
-                      result.overall === 'LOW' ? 'bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300' :
-                      result.overall === 'MEDIUM' ? 'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300' :
-                      'bg-red-100 text-red-800 dark:bg-red-950 dark:text-red-300'
+                      result.overall === 'SAFE' ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400' :
+                      result.overall === 'LOW' ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400' :
+                      result.overall === 'MEDIUM' ? 'bg-amber-500/10 text-amber-700 dark:text-amber-400' :
+                      'bg-rose-500/10 text-rose-700 dark:text-rose-400'
                     }`}>
                       {result.overall} RISK
                     </span>
                     <button
                       onClick={() => exportToCSV([result], `risk-scan-${Date.now()}.csv`)}
-                      className="px-2.5 py-1 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 text-zinc-700 dark:text-zinc-300 text-xs rounded-lg flex items-center gap-1 cursor-pointer"
+                      className="px-2.5 py-1 bg-[#E9E1D1] dark:bg-[#0C0F12] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] text-[#1A2024] dark:text-[#E8E4DC] text-xs rounded-lg flex items-center gap-1 cursor-pointer"
                       title="Export CSV"
                     >
                       <Download className="w-3.5 h-3.5" />
@@ -637,19 +639,19 @@ Return strictly JSON matching:
 
               {result ? (
                 <div className="flex-1 py-4 space-y-5">
-                  <div className="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 flex items-center gap-3">
+                  <div className="p-4 rounded-xl bg-[#F5F0E6] dark:bg-[#090B0D] border border-[#D8CEBF] dark:border-[#272D30] flex items-center gap-3">
                     {result.overall === 'SAFE' ? (
                       <CheckCircle2 className="w-6 h-6 text-emerald-600 shrink-0" />
                     ) : result.overall === 'LOW' ? (
-                      <CheckCircle2 className="w-6 h-6 text-blue-600 shrink-0" />
+                      <CheckCircle2 className="w-6 h-6 text-emerald-600 shrink-0" />
                     ) : result.overall === 'MEDIUM' ? (
                       <AlertTriangle className="w-6 h-6 text-amber-600 shrink-0" />
                     ) : (
                       <XCircle className="w-6 h-6 text-red-600 shrink-0" />
                     )}
                     <div>
-                      <h4 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">{result.summary}</h4>
-                      <p className="text-xs text-zinc-500 mt-0.5">
+                      <h4 className="text-sm font-semibold text-[#1A2024] dark:text-[#F3EDE2]">{result.summary}</h4>
+                      <p className="text-xs text-[#606669] dark:text-[#8C8A86] mt-0.5">
                         {result.findings.length === 0
                           ? 'This concept does not reference known restricted brands or copyrighted franchises.'
                           : 'Review detected signals to ensure marketplace compliance and avoid trademark rejections.'}
@@ -658,34 +660,34 @@ Return strictly JSON matching:
                   </div>
 
                   <div className="space-y-3">
-                    <h4 className="text-xs font-semibold uppercase tracking-wider text-zinc-400">Detailed Findings ({result.findings.length})</h4>
+                    <h4 className="text-xs font-semibold uppercase tracking-wider text-[#8C8A86]">Detailed Findings ({result.findings.length})</h4>
                     {result.findings.length === 0 ? (
-                      <div className="p-6 rounded-xl border border-dashed border-zinc-200 dark:border-zinc-800 text-center text-xs text-zinc-500">
+                      <div className="p-6 rounded-xl border border-dashed border-[#D8CEBF] dark:border-[#272D30] text-center text-xs text-[#606669] dark:text-[#8C8A86]">
                         No high-risk trademarks, logos, or celebrity likeness detected in text.
                       </div>
                     ) : (
                       result.findings.map((finding, idx) => (
                         <div
                           key={idx}
-                          className="p-4 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-2xs space-y-2"
+                          className="p-4 rounded-xl bg-[#EDE6D8] dark:bg-[#11161A] border border-[#D8CEBF] dark:border-[#272D30] space-y-2"
                         >
                           <div className="flex items-center justify-between">
-                            <span className="font-semibold text-sm text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
+                            <span className="font-semibold text-sm text-[#1A2024] dark:text-[#F3EDE2] flex items-center gap-2">
                               <span>"{finding.term}"</span>
-                              <span className="text-[10px] px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 font-mono">
+                              <span className="text-[10px] px-2 py-0.5 rounded bg-[#E9E1D1] dark:bg-[#0C0F12] text-[#606669] dark:text-[#8C8A86] font-mono">
                                 {finding.category}
                               </span>
                             </span>
                             <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold uppercase ${
-                              finding.level === 'HIGH' ? 'bg-red-100 text-red-800 dark:bg-red-950 dark:text-red-300' :
-                              finding.level === 'MEDIUM' ? 'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300' :
-                              'bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300'
+                              finding.level === 'HIGH' ? 'bg-rose-500/10 text-rose-700 dark:text-rose-400' :
+                              finding.level === 'MEDIUM' ? 'bg-amber-500/10 text-amber-700 dark:text-amber-400' :
+                              'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400'
                             }`}>
                               {finding.level}
                             </span>
                           </div>
-                          <p className="text-xs text-zinc-600 dark:text-zinc-400">{finding.reason}</p>
-                          <div className="p-2.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/30 text-emerald-800 dark:text-emerald-300 text-xs font-medium">
+                          <p className="text-xs text-[#606669] dark:text-[#8C8A86]">{finding.reason}</p>
+                          <div className="p-2.5 rounded-lg bg-emerald-500/5 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 text-xs font-medium">
                             <span className="font-bold">Recommendation: </span>
                             {finding.recommendation}
                           </div>
@@ -696,26 +698,26 @@ Return strictly JSON matching:
 
                   {/* AI Deep Legal Audit Report */}
                   {aiReport && (
-                    <div className="mt-6 pt-5 border-t border-purple-200 dark:border-purple-800/60 bg-purple-50/50 dark:bg-purple-950/20 rounded-xl p-4 space-y-3">
+                    <div className="mt-6 pt-5 border-t border-[#D8CEBF] dark:border-[#272D30] rounded-xl p-4 space-y-3 bg-[#EDE6D8] dark:bg-[#11161A] border border-[#D8CEBF] dark:border-[#272D30]">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
-                          <ShieldAlert className="w-4 h-4 text-purple-600 dark:text-purple-400" />
-                          <span className="text-xs font-bold text-purple-950 dark:text-purple-200">
+                          <ShieldAlert className="w-4 h-4 text-[#C74A43]" />
+                          <span className="text-xs font-bold text-[#1A2024] dark:text-[#F3EDE2]">
                             AI Deep Legal & Trademark Audit
                           </span>
                         </div>
                         <span className={`text-[10px] font-bold px-2 py-0.5 rounded uppercase ${
                           aiReport.overallRisk === 'LOW' 
-                            ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300'
+                            ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400'
                             : aiReport.overallRisk === 'MEDIUM'
-                            ? 'bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-300'
-                            : 'bg-rose-100 text-rose-700 dark:bg-rose-950 dark:text-rose-300'
+                            ? 'bg-amber-500/10 text-amber-700 dark:text-amber-400'
+                            : 'bg-rose-500/10 text-rose-700 dark:text-rose-400'
                         }`}>
                           {aiReport.overallRisk} Legal Risk
                         </span>
                       </div>
 
-                      <p className="text-xs text-purple-900/90 dark:text-purple-200/90 leading-relaxed bg-white/70 dark:bg-zinc-900/70 p-3 rounded-lg border border-purple-100 dark:border-purple-900/40">
+                      <p className="text-xs text-[#1A2024] dark:text-[#E8E4DC] leading-relaxed bg-[#F5F0E6] dark:bg-[#090B0D] p-3 rounded-lg border border-[#D8CEBF] dark:border-[#272D30]">
                         {aiReport.legalSummary}
                       </p>
 
@@ -730,18 +732,18 @@ Return strictly JSON matching:
 
                       {aiReport.detectedRisks && aiReport.detectedRisks.length > 0 && (
                         <div className="space-y-2 mt-2">
-                          <span className="text-[11px] font-bold text-purple-950 dark:text-purple-300">
+                          <span className="text-[11px] font-bold text-[#1A2024] dark:text-[#F3EDE2]">
                             AI Identified IP & Policy Liabilities ({aiReport.detectedRisks.length}):
                           </span>
                           {aiReport.detectedRisks.map((risk, idx) => (
-                            <div key={idx} className="p-3 bg-white/80 dark:bg-zinc-900/80 rounded-lg border border-purple-200/70 dark:border-purple-800/40 text-xs space-y-1">
-                              <div className="flex items-center justify-between font-bold text-purple-950 dark:text-purple-200">
+                            <div key={idx} className="p-3 bg-[#F5F0E6] dark:bg-[#090B0D] rounded-lg border border-[#D8CEBF] dark:border-[#272D30] text-xs space-y-1">
+                              <div className="flex items-center justify-between font-bold text-[#1A2024] dark:text-[#F3EDE2]">
                                 <span>"{risk.target}"</span>
-                                <span className="text-[10px] px-2 py-0.5 rounded bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300">
+                                <span className="text-[10px] px-2 py-0.5 rounded bg-[#C74A43]/10 text-[#C74A43]">
                                   {risk.riskCategory}
                                 </span>
                               </div>
-                              <p className="text-zinc-600 dark:text-zinc-400 text-[11px]">{risk.explanation}</p>
+                              <p className="text-[#606669] dark:text-[#8C8A86] text-[11px]">{risk.explanation}</p>
                               <div className="text-[11px] font-medium text-emerald-700 dark:text-emerald-400">
                                 <strong>Safe Commercial Replacement: </strong>{risk.safeAlternative}
                               </div>
@@ -754,26 +756,26 @@ Return strictly JSON matching:
                 </div>
               ) : aiReport ? (
                 <div className="flex-1 space-y-4">
-                  <div className="bg-purple-50/50 dark:bg-purple-950/20 rounded-xl p-4 space-y-3 border border-purple-200 dark:border-purple-800/60">
+                  <div className="rounded-xl p-4 space-y-3 bg-[#EDE6D8] dark:bg-[#11161A] border border-[#D8CEBF] dark:border-[#272D30]">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <ShieldAlert className="w-4 h-4 text-purple-600 dark:text-purple-400" />
-                        <span className="text-xs font-bold text-purple-950 dark:text-purple-200">
+                        <ShieldAlert className="w-4 h-4 text-[#C74A43]" />
+                        <span className="text-xs font-bold text-[#1A2024] dark:text-[#F3EDE2]">
                           AI Deep Legal & Trademark Audit
                         </span>
                       </div>
-                      <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300">
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#C74A43]/10 text-[#C74A43]">
                         {aiReport.overallRisk} Risk
                       </span>
                     </div>
-                    <p className="text-xs text-purple-900 dark:text-purple-200">{aiReport.legalSummary}</p>
+                    <p className="text-xs text-[#1A2024] dark:text-[#E8E4DC]">{aiReport.legalSummary}</p>
                   </div>
                 </div>
               ) : (
-                <div className="flex-1 flex flex-col items-center justify-center text-center p-8 text-zinc-400">
-                  <ShieldAlert className="w-12 h-12 text-zinc-400 mb-3" />
-                  <p className="font-medium text-zinc-700 dark:text-zinc-300">No prompt scanned yet</p>
-                  <p className="text-xs text-zinc-500 max-w-xs mt-1">
+                <div className="flex-1 flex flex-col items-center justify-center text-center p-8 text-[#8C8A86]">
+                  <ShieldAlert className="w-12 h-12 text-[#8C8A86] mb-3" />
+                  <p className="font-medium text-[#1A2024] dark:text-[#E8E4DC]">No prompt scanned yet</p>
+                  <p className="text-xs text-[#606669] dark:text-[#8C8A86] max-w-xs mt-1">
                     Enter your prompt or keyword list to perform IP & trademark safety validation.
                   </p>
                 </div>
@@ -785,17 +787,17 @@ Return strictly JSON matching:
         /* BULK SCAN & BULK EXPORT MODE */
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           <div className="lg:col-span-5 space-y-6">
-            <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-6 shadow-xs space-y-4">
+            <div className="bg-[#EDE6D8] dark:bg-[#11161A] border border-[#D8CEBF] dark:border-[#272D30] rounded-xl p-6 space-y-4">
               <div className="flex items-center justify-between">
-                <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
-                  <Layers className="w-4 h-4 text-emerald-600" />
+                <h3 className="font-semibold text-[#1A2024] dark:text-[#F3EDE2] flex items-center gap-2">
+                  <Layers className="w-4 h-4 text-[#C74A43]" />
                   <span>Batch Scan Prompts (One per line)</span>
                 </h3>
-                <span className="text-xs text-emerald-600 dark:text-emerald-400 font-medium">Bulk Mode</span>
+                <span className="text-xs text-[#C74A43] font-medium">Bulk Mode</span>
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold uppercase tracking-wider text-zinc-500">
+                <label className="text-xs font-semibold uppercase tracking-wider text-[#606669] dark:text-[#8C8A86]">
                   Paste Multiple Prompts or Titles
                 </label>
                 <textarea
@@ -803,9 +805,9 @@ Return strictly JSON matching:
                   onChange={(e) => setBulkInput(e.target.value)}
                   rows={8}
                   placeholder="Enter concepts one per line..."
-                  className="w-full rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 p-3.5 text-xs font-mono text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full rounded-xl border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] p-3.5 text-xs font-mono text-[#1A2024] dark:text-[#F3EDE2] focus:outline-none focus:ring-2 focus:ring-[#C74A43]/40"
                 />
-                <p className="text-[11px] text-zinc-400">
+                <p className="text-[11px] text-[#8C8A86]">
                   Count: {bulkInput.split('\n').filter(l => l.trim()).length} items queued for scan.
                 </p>
               </div>
@@ -813,7 +815,7 @@ Return strictly JSON matching:
               <button
                 onClick={handleScanBulk}
                 disabled={bulkLoading}
-                className="w-full py-3.5 px-4 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-xl shadow-xs shadow-emerald-600/30 flex items-center justify-center gap-2 transition-all disabled:opacity-50 cursor-pointer"
+                className="w-full py-2.5 px-4 bg-[#C74A43] hover:bg-[#B53F39] text-[#F3EDE2] font-semibold rounded-lg text-sm flex items-center justify-center gap-2 transition-colors disabled:opacity-50 cursor-pointer"
               >
                 {bulkLoading ? (
                   <>
@@ -832,25 +834,25 @@ Return strictly JSON matching:
 
           {/* Bulk Results & Export Section */}
           <div className="lg:col-span-7 space-y-6">
-            <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-6 shadow-xs flex flex-col h-full min-h-[500px]">
+            <div className="bg-[#EDE6D8] dark:bg-[#11161A] border border-[#D8CEBF] dark:border-[#272D30] rounded-xl p-6 flex flex-col h-full min-h-[500px]">
               {/* Bulk Export Toolbar */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-zinc-200 dark:border-zinc-800 gap-3">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-[#D8CEBF] dark:border-[#272D30] gap-3">
                 <div className="flex items-center gap-2">
-                  <FileSpreadsheet className="w-4 h-4 text-emerald-600" />
-                  <span className="font-semibold text-zinc-900 dark:text-zinc-100">
+                  <FileSpreadsheet className="w-4 h-4 text-[#C74A43]" />
+                  <span className="font-semibold text-[#1A2024] dark:text-[#F3EDE2]">
                     Bulk Risk Results ({bulkResults.length} Items)
                   </span>
                 </div>
 
                 {bulkResults.length > 0 && (
                   <div className="flex flex-wrap items-center gap-2">
-                    <div className="flex items-center bg-zinc-100 dark:bg-zinc-800 rounded-lg p-0.5 text-xs">
+                    <div className="flex items-center bg-[#E9E1D1] dark:bg-[#0C0F12] rounded-lg p-0.5 text-xs">
                       {['all', 'safe', 'low', 'medium', 'high'].map(lvl => (
                         <button
                           key={lvl}
                           onClick={() => setRiskFilter(lvl)}
                           className={`px-2 py-1 rounded capitalize font-medium cursor-pointer ${
-                            riskFilter === lvl ? 'bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 shadow-2xs' : 'text-zinc-500'
+                            riskFilter === lvl ? 'bg-[#EDE6D8] dark:bg-[#11161A] text-[#1A2024] dark:text-[#F3EDE2]' : 'text-[#606669] dark:text-[#8C8A86]'
                           }`}
                         >
                           {lvl}
@@ -860,7 +862,7 @@ Return strictly JSON matching:
 
                     <button
                       onClick={handleBulkExportCSV}
-                      className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-medium flex items-center gap-1.5 shadow-2xs cursor-pointer"
+                      className="px-3 py-1.5 bg-[#C74A43] hover:bg-[#B53F39] text-white rounded-lg text-xs font-medium flex items-center gap-1.5 cursor-pointer"
                       title="Export CSV"
                     >
                       <Download className="w-3.5 h-3.5" />
@@ -868,13 +870,13 @@ Return strictly JSON matching:
                     </button>
                     <button
                       onClick={handleBulkExportJSON}
-                      className="px-3 py-1.5 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 text-zinc-800 dark:text-zinc-200 rounded-lg text-xs font-medium flex items-center gap-1 cursor-pointer"
+                      className="px-3 py-1.5 bg-[#E9E1D1] dark:bg-[#0C0F12] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] text-[#1A2024] dark:text-[#E8E4DC] rounded-lg text-xs font-medium flex items-center gap-1 cursor-pointer"
                     >
                       <span>JSON</span>
                     </button>
                     <button
                       onClick={handleBulkExportTXT}
-                      className="px-3 py-1.5 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 text-zinc-800 dark:text-zinc-200 rounded-lg text-xs font-medium flex items-center gap-1 cursor-pointer"
+                      className="px-3 py-1.5 bg-[#E9E1D1] dark:bg-[#0C0F12] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] text-[#1A2024] dark:text-[#E8E4DC] rounded-lg text-xs font-medium flex items-center gap-1 cursor-pointer"
                     >
                       <span>TXT</span>
                     </button>
@@ -885,10 +887,10 @@ Return strictly JSON matching:
               {/* Bulk Results List */}
               <div className="flex-1 py-4 space-y-4 max-h-[620px] overflow-y-auto pr-1">
                 {bulkResults.length === 0 ? (
-                  <div className="flex-1 flex flex-col items-center justify-center text-center p-12 text-zinc-400">
-                    <ShieldAlert className="w-12 h-12 mx-auto mb-3 opacity-30 text-emerald-600" />
-                    <p className="font-medium text-zinc-700 dark:text-zinc-300">No bulk scan performed yet</p>
-                    <p className="text-xs text-zinc-500 max-w-sm mt-1">
+                  <div className="flex-1 flex flex-col items-center justify-center text-center p-12 text-[#8C8A86]">
+                    <ShieldAlert className="w-12 h-12 mx-auto mb-3 opacity-30 text-[#C74A43]" />
+                    <p className="font-medium text-[#1A2024] dark:text-[#E8E4DC]">No bulk scan performed yet</p>
+                    <p className="text-xs text-[#606669] dark:text-[#8C8A86] max-w-sm mt-1">
                       Paste a list of concepts on the left and click "Scan Bulk Items" to inspect them all and export the findings.
                     </p>
                   </div>
@@ -896,24 +898,24 @@ Return strictly JSON matching:
                   filteredBulkResults.map((item, idx) => (
                     <div
                       key={item.id}
-                      className="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 space-y-2.5"
+                      className="p-4 rounded-xl bg-[#F5F0E6] dark:bg-[#090B0D] border border-[#D8CEBF] dark:border-[#272D30] space-y-2.5"
                     >
                       <div className="flex items-center justify-between">
-                        <span className="text-xs font-bold text-zinc-900 dark:text-zinc-100 max-w-[70%] truncate">
+                        <span className="text-xs font-bold text-[#1A2024] dark:text-[#F3EDE2] max-w-[70%] truncate">
                           #{idx + 1} • "{item.text}"
                         </span>
                         <div className="flex items-center gap-2">
                           <span className={`text-[10px] px-2.5 py-0.5 rounded-full font-bold uppercase ${
-                            item.overall === 'SAFE' ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300' :
-                            item.overall === 'LOW' ? 'bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300' :
-                            item.overall === 'MEDIUM' ? 'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300' :
-                            'bg-red-100 text-red-800 dark:bg-red-950 dark:text-red-300'
+                            item.overall === 'SAFE' ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400' :
+                            item.overall === 'LOW' ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400' :
+                            item.overall === 'MEDIUM' ? 'bg-amber-500/10 text-amber-700 dark:text-amber-400' :
+                            'bg-rose-500/10 text-rose-700 dark:text-rose-400'
                           }`}>
                             {item.overall}
                           </span>
                           <button
                             onClick={() => handleCopy(item.text, item.id)}
-                            className="p-1 text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200 cursor-pointer"
+                            className="p-1 text-[#606669] dark:text-[#8C8A86] hover:text-[#1A2024] dark:hover:text-[#E8E4DC] cursor-pointer"
                           >
                             {copiedId === item.id ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
                           </button>
@@ -923,9 +925,9 @@ Return strictly JSON matching:
                       {item.findings.length > 0 ? (
                         <div className="space-y-1.5">
                           {item.findings.map((f, fidx) => (
-                            <div key={fidx} className="p-2 rounded-lg bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-xs flex items-start gap-2">
+                            <div key={fidx} className="p-2 rounded-lg bg-[#EDE6D8] dark:bg-[#11161A] border border-[#D8CEBF] dark:border-[#272D30] text-xs flex items-start gap-2">
                               <span className="font-semibold text-red-600 dark:text-red-400 font-mono">"{f.term}"</span>
-                              <span className="text-zinc-500 text-[11px]">— {f.reason}</span>
+                              <span className="text-[#606669] dark:text-[#8C8A86] text-[11px]">— {f.reason}</span>
                             </div>
                           ))}
                         </div>
