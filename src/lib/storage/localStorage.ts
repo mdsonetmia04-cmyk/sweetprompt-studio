@@ -14,7 +14,7 @@ export const DEFAULT_SETTINGS: AISettings = {
     huggingface: '',
     cerebras: '',
   },
-  model: 'gemini-2.5-flash',
+  model: 'gemini-3.8-flash',
   temperature: 0.7,
   maxTokens: 1000,
   defaultPromptCount: 5,

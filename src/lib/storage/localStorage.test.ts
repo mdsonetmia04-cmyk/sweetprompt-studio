@@ -68,7 +68,7 @@ function makeHistoryInput(overrides: Partial<Omit<HistoryItem, 'id' | 'createdAt
     summary: 'Test summary',
     data: { foo: 'bar' },
     provider: 'gemini' as const,
-    model: 'gemini-2.5-flash',
+    model: 'gemini-3.8-flash',
     ...overrides,
   };
 }

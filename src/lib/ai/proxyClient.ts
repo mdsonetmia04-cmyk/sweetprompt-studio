@@ -148,7 +148,7 @@ async function executeDirectClientGenerate(payload: GeneratePayload): Promise<st
       throw new Error('Google Gemini API Key is missing. Please enter your Gemini API Key in Settings.');
     }
     const client = new GoogleGenAI({ apiKey: activeKey });
-    const targetModel = model || 'gemini-2.5-flash';
+    const targetModel = model || 'gemini-3.8-flash';
 
     try {
       const response = await client.models.generateContent({
@@ -445,7 +445,7 @@ export async function executeApiVision(payload: VisionPayload): Promise<string> 
   if (provider === 'gemini') {
     if (!apiKey) throw new Error('Gemini API Key missing for vision analysis. Please enter your key in Settings.');
     const client = new GoogleGenAI({ apiKey });
-    const targetModel = model || 'gemini-2.5-flash';
+    const targetModel = model || 'gemini-3.8-flash';
     const response = await client.models.generateContent({
       model: targetModel,
       contents: [
