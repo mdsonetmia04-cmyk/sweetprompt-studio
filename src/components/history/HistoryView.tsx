@@ -121,29 +121,29 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
   return (
     <div className="space-y-6">
       {/* Header & Controls */}
-      <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-6 shadow-xs space-y-4">
+      <div className="bg-[#EDE6D8] dark:bg-[#11161A] border border-[#D8CEBF] dark:border-[#272D30] rounded-[8px] p-4 sm:p-5 space-y-4">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="relative w-full sm:w-80">
-            <Search className="absolute left-3.5 top-3 w-4 h-4 text-zinc-400" />
+            <Search className="absolute left-3.5 top-3 w-4 h-4 text-[#606669] dark:text-[#8C8A86]" />
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search history..."
-              className="w-full pl-10 pr-4 py-2 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 text-xs text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-emerald-600"
+              className="w-full pl-10 pr-4 py-2 rounded-[6px] border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] text-xs text-[#1A2024] dark:text-[#F3EDE2] focus:outline-none focus:border-[#C74A43]"
             />
           </div>
 
           <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto justify-between sm:justify-end">
-            <div className="flex bg-zinc-100 dark:bg-zinc-800 p-1 rounded-xl text-xs font-medium">
+            <div className="flex items-center gap-1 p-1 rounded-[6px] bg-[#EDE6D8] dark:bg-[#11161A] border border-[#D8CEBF] dark:border-[#272D30] text-xs font-medium">
               {['all', 'prompt', 'vision', 'microstock', 'metadata', 'risk'].map((type) => (
                 <button
                   key={type}
                   onClick={() => setFilterType(type)}
-                  className={`px-3 py-1.5 rounded-lg capitalize transition-colors cursor-pointer ${
+                  className={`px-3 py-1.5 rounded-[4px] capitalize transition-colors cursor-pointer ${
                     filterType === type 
-                      ? 'bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 shadow-xs' 
-                      : 'text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200'
+                      ? 'bg-[#C74A43] text-[#F3EDE2]' 
+                      : 'text-[#606669] dark:text-[#8C8A86] hover:text-[#1A2024] dark:hover:text-[#F3EDE2] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24]'
                   }`}
                 >
                   {type}
@@ -154,7 +154,7 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
             {history.length > 0 && (
               <button
                 onClick={handleClearAll}
-                className="p-2 text-red-600 hover:bg-red-50 dark:hover:bg-red-950/40 rounded-xl transition-colors cursor-pointer"
+                className="p-2 text-[#C74A43] hover:bg-[#C74A43]/10 rounded-[6px] transition-colors cursor-pointer"
                 title="Clear all history"
               >
                 <Trash2 className="w-4 h-4" />
@@ -165,32 +165,32 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
 
         {/* Bulk Action & Export Toolbar */}
         {filteredHistory.length > 0 && (
-          <div className="flex flex-wrap items-center justify-between pt-3 border-t border-zinc-200 dark:border-zinc-800 text-xs gap-3">
+          <div className="flex flex-wrap items-center justify-between pt-3 border-t border-[#D8CEBF] dark:border-[#272D30] text-xs gap-3">
             <div className="flex items-center gap-2">
               <button
                 onClick={selectAll}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 font-medium cursor-pointer"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#EDE6D8] dark:bg-[#11161A] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] text-[#1A2024] dark:text-[#F3EDE2] font-medium cursor-pointer"
               >
                 {selectedIds.length === filteredHistory.length ? (
-                  <CheckSquare className="w-4 h-4 text-emerald-600" />
+                  <CheckSquare className="w-4 h-4 text-[#C74A43]" />
                 ) : (
-                  <Square className="w-4 h-4 text-zinc-400" />
+                  <Square className="w-4 h-4 text-[#606669] dark:text-[#8C8A86]" />
                 )}
                 <span>
                   {selectedIds.length > 0 ? `Selected (${selectedIds.length}/${filteredHistory.length})` : 'Select All'}
                 </span>
               </button>
-              <span className="text-zinc-400 text-xs hidden sm:inline">•</span>
-              <span className="text-zinc-500 text-xs hidden sm:inline">
+              <span className="text-[#606669] dark:text-[#8C8A86] text-xs hidden sm:inline">•</span>
+              <span className="text-[#606669] dark:text-[#8C8A86] text-xs hidden sm:inline">
                 {selectedIds.length > 0 ? `Ready to export ${selectedIds.length} items` : `Ready to export ${filteredHistory.length} items`}
               </span>
             </div>
 
             <div className="flex items-center gap-2">
-              <span className="text-xs font-semibold text-zinc-400 uppercase tracking-wider hidden md:inline">Bulk Export:</span>
+              <span className="text-xs font-semibold text-[#606669] dark:text-[#8C8A86] uppercase tracking-wider hidden md:inline">Bulk Export:</span>
               <button
                 onClick={handleBulkExportCSV}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-medium shadow-2xs cursor-pointer"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#C74A43] hover:bg-[#B53F39] text-white font-medium  cursor-pointer"
                 title="Export as CSV"
               >
                 <FileSpreadsheet className="w-3.5 h-3.5" />
@@ -198,14 +198,14 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
               </button>
               <button
                 onClick={handleBulkExportJSON}
-                className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 text-zinc-700 dark:text-zinc-300 font-medium cursor-pointer"
+                className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-[#EDE6D8] dark:bg-[#11161A] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] text-[#1A2024] dark:text-[#F3EDE2] font-medium cursor-pointer"
                 title="Export as JSON"
               >
                 <span>JSON</span>
               </button>
               <button
                 onClick={handleBulkExportTXT}
-                className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 text-zinc-700 dark:text-zinc-300 font-medium cursor-pointer"
+                className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-[#EDE6D8] dark:bg-[#11161A] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] text-[#1A2024] dark:text-[#F3EDE2] font-medium cursor-pointer"
                 title="Export as TXT"
               >
                 <span>TXT</span>
@@ -218,12 +218,16 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
       {/* History List */}
       <div className="space-y-3">
         {filteredHistory.length === 0 ? (
-          <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-12 text-center text-zinc-400">
-            <History className="w-12 h-12 mx-auto mb-3 text-zinc-400 opacity-40" />
-            <p className="font-medium text-zinc-700 dark:text-zinc-300">No generation history found</p>
-            <p className="text-xs text-zinc-500 mt-1">
-              Prompts, image analyses, and metadata generations will appear here automatically.
-            </p>
+          <div className="bg-[#EDE6D8] dark:bg-[#11161A] border border-[#D8CEBF] dark:border-[#272D30] rounded-[8px] p-12 text-center space-y-3">
+            <div className="w-10 h-10 rounded-full bg-[#E9E1D1] dark:bg-[#0C0F12] border border-[#D8CEBF] dark:border-[#272D30] text-[#606669] dark:text-[#8C8A86] flex items-center justify-center mx-auto">
+              <History className="w-4 h-4" />
+            </div>
+            <div className="space-y-1">
+              <p className="font-editorial text-base text-[#1A2024] dark:text-[#F3EDE2]">No generation history found</p>
+              <p className="text-xs text-[#606669] dark:text-[#8C8A86] max-w-sm mx-auto">
+                Prompts, image analyses, and metadata generations will appear here automatically.
+              </p>
+            </div>
           </div>
         ) : (
           filteredHistory.map((item) => {
@@ -232,19 +236,19 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
               <div
                 key={item.id}
                 onClick={() => onSelectHistory(item)}
-                className={`bg-white dark:bg-zinc-900 border rounded-2xl p-5 shadow-xs transition-all cursor-pointer flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 group ${
+                className={`bg-[#EDE6D8] dark:bg-[#11161A] border rounded-[8px] p-4 transition-colors cursor-pointer flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 group ${
                   isSelected 
-                    ? 'border-emerald-500 bg-emerald-50/20 dark:bg-emerald-950/20' 
-                    : 'border-zinc-200 dark:border-zinc-800 hover:border-emerald-500 dark:hover:border-emerald-500'
+                    ? 'border-[#C74A43] bg-[#C74A43]/10 dark:bg-[#C74A43]/10' 
+                    : 'border-[#D8CEBF] dark:border-[#272D30] hover:border-[#C74A43] dark:hover:border-[#C74A43]'
                 }`}
               >
                 <div className="flex items-start gap-3 min-w-0 flex-1">
                   <button
                     onClick={(e) => toggleSelect(item.id, e)}
-                    className="p-1 text-zinc-400 hover:text-emerald-600 mt-0.5 cursor-pointer"
+                    className="p-1 text-[#606669] dark:text-[#8C8A86] hover:text-[#C74A43] mt-0.5 cursor-pointer"
                   >
                     {isSelected ? (
-                      <CheckSquare className="w-4 h-4 text-emerald-600" />
+                      <CheckSquare className="w-4 h-4 text-[#C74A43]" />
                     ) : (
                       <Square className="w-4 h-4" />
                     )}
@@ -252,20 +256,20 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
 
                   <div className="space-y-1.5 min-w-0 flex-1">
                     <div className="flex items-center gap-2">
-                      <span className="text-[10px] font-mono font-bold uppercase px-2 py-0.5 rounded bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400">
+                      <span className="text-[10px] font-mono font-bold uppercase px-2 py-0.5 rounded bg-[#C74A43]/10 text-[#C74A43]">
                         {item.type}
                       </span>
-                      <span className="text-xs text-zinc-400">
+                      <span className="text-xs text-[#606669] dark:text-[#8C8A86]">
                         {new Date(item.createdAt).toLocaleString()}
                       </span>
-                      <span className="text-xs font-mono text-zinc-400">
+                      <span className="text-xs font-mono text-[#606669] dark:text-[#8C8A86]">
                         • {item.provider}
                       </span>
                     </div>
-                    <h4 className="font-semibold text-zinc-900 dark:text-zinc-100 text-sm truncate">
+                    <h4 className="font-semibold text-[#1A2024] dark:text-[#F3EDE2] text-sm truncate">
                       {item.title}
                     </h4>
-                    <p className="text-xs font-mono text-zinc-500 dark:text-zinc-400 truncate max-w-2xl">
+                    <p className="text-xs font-mono text-[#606669] dark:text-[#8C8A86] truncate max-w-2xl">
                       {item.summary}
                     </p>
                   </div>
@@ -280,19 +284,19 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
                       showToast('Copied summary to clipboard');
                       setTimeout(() => setCopiedId(null), 2000);
                     }}
-                    className="p-2 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 rounded-xl transition-colors cursor-pointer"
+                    className="p-2 bg-[#EDE6D8] dark:bg-[#11161A] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] text-[#1A2024] dark:text-[#F3EDE2] rounded-[6px] transition-colors cursor-pointer"
                     title="Copy content"
                   >
-                    {copiedId === item.id ? <Check className="w-4 h-4 text-emerald-600" /> : <Copy className="w-4 h-4" />}
+                    {copiedId === item.id ? <Check className="w-4 h-4 text-[#C74A43]" /> : <Copy className="w-4 h-4" />}
                   </button>
                   <button
                     onClick={(e) => handleDelete(item.id, e)}
-                    className="p-2 text-zinc-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/40 rounded-xl transition-colors cursor-pointer"
+                    className="p-2 text-[#606669] dark:text-[#8C8A86] hover:text-[#C74A43] hover:bg-[#C74A43]/10 rounded-[6px] transition-colors cursor-pointer"
                     title="Delete item"
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>
-                  <div className="p-2 text-zinc-400 group-hover:text-emerald-600 transition-colors">
+                  <div className="p-2 text-[#606669] dark:text-[#8C8A86] group-hover:text-[#C74A43] transition-colors">
                     <ArrowRight className="w-4 h-4" />
                   </div>
                 </div>

@@ -3,20 +3,11 @@ import React from 'react';
 export const SweetPromptsMascot: React.FC<{ className?: string }> = ({ className = '' }) => {
   return (
     <div className={`relative flex items-center justify-center select-none ${className}`}>
-      {/* Subtle warm ambient backdrop glow */}
-      <div 
-        className="absolute inset-0 rounded-full blur-3xl opacity-20 pointer-events-none"
-        style={{
-          background: 'radial-gradient(circle, rgba(232, 106, 36, 0.4) 0%, rgba(217, 203, 184, 0.1) 45%, transparent 70%)',
-          transform: 'translate(10%, 10%) scale(1.1)'
-        }}
-      />
-
       <svg
         viewBox="0 0 620 600"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="w-full h-auto max-w-[540px] drop-shadow-2xl overflow-visible transition-transform duration-700 hover:scale-[1.01]"
+        className="w-full h-auto max-w-[540px] drop-shadow-md overflow-visible"
       >
         <defs>
           {/* Subtle Gradients for Paper & Character Facets */}

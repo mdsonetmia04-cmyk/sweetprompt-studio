@@ -398,26 +398,31 @@ export const VectorPromptStudio: React.FC<VectorPromptStudioProps> = ({
     showToast('Downloaded CSV file!');
   };
 
+  const headerActionClass = "text-xs font-medium px-2.5 py-1.5 rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#EDE6D8] dark:bg-[#11161A] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] text-[#1A2024] dark:text-[#F3EDE2] flex items-center gap-1.5 cursor-pointer transition-colors";
+
   return (
     <div className="space-y-6 max-w-7xl mx-auto">
       {/* Page Header */}
-      <div className="pb-4 border-b border-zinc-200 dark:border-zinc-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
-            <PenTool className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+          <div className="text-[11px] font-semibold uppercase tracking-wider text-[#606669] dark:text-[#8C8A86] mb-1">
+            Vector Studio
+          </div>
+          <h1 className="font-editorial text-2xl sm:text-3xl text-[#1A2024] dark:text-[#F3EDE2] font-normal tracking-tight flex items-center gap-2.5">
+            <PenTool className="w-6 h-6 text-[#C74A43]" />
             <span>Vector Prompt Studio</span>
           </h1>
-          <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
+          <p className="text-xs text-[#606669] dark:text-[#8C8A86] mt-1 max-w-xl">
             Create clean, trace-friendly prompts for professional vector artwork and Illustrator refinement.
           </p>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           {/* Preset Buttons */}
           <button
             type="button"
             onClick={handleSavePreset}
-            className="text-xs font-semibold px-2.5 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1.5 cursor-pointer"
+            className={headerActionClass}
             title="Save current dropdown settings as default preset"
           >
             <Save className="w-3.5 h-3.5" />
@@ -427,7 +432,7 @@ export const VectorPromptStudio: React.FC<VectorPromptStudioProps> = ({
           <button
             type="button"
             onClick={handleResetPreset}
-            className="text-xs font-semibold px-2 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-zinc-100 flex items-center gap-1 cursor-pointer"
+            className={headerActionClass}
             title="Reset all settings to Auto (AI Suggested)"
           >
             <RotateCcw className="w-3.5 h-3.5" />
@@ -437,7 +442,7 @@ export const VectorPromptStudio: React.FC<VectorPromptStudioProps> = ({
           <button
             type="button"
             onClick={() => setShowWorkflow(!showWorkflow)}
-            className="text-xs font-semibold px-2.5 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1.5 cursor-pointer"
+            className={headerActionClass}
           >
             <Info className="w-3.5 h-3.5" />
             <span>Workflow</span>
@@ -446,7 +451,7 @@ export const VectorPromptStudio: React.FC<VectorPromptStudioProps> = ({
           <button
             type="button"
             onClick={() => setShowChecklist(!showChecklist)}
-            className="text-xs font-semibold px-2.5 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1.5 cursor-pointer"
+            className={headerActionClass}
           >
             <CheckSquare className="w-3.5 h-3.5" />
             <span>Vector QA Check</span>
@@ -456,38 +461,38 @@ export const VectorPromptStudio: React.FC<VectorPromptStudioProps> = ({
 
       {/* Subtle Vector Workflow Guide */}
       {showWorkflow && (
-        <div className="p-4 rounded-xl bg-indigo-50/60 dark:bg-indigo-950/30 border border-indigo-200/80 dark:border-indigo-900/40 space-y-3 animate-fade-in text-xs">
+        <div className="rounded-xl border border-[#D8CEBF] dark:border-[#272D30] bg-[#EDE6D8] dark:bg-[#11161A] p-4 sm:p-5 space-y-3 animate-fade-in text-xs">
           <div className="flex items-center justify-between">
-            <span className="font-bold text-indigo-950 dark:text-indigo-200 flex items-center gap-2">
-              <Zap className="w-4 h-4 text-indigo-600" />
+            <span className="font-semibold text-[#1A2024] dark:text-[#F3EDE2] flex items-center gap-2">
+              <Zap className="w-4 h-4 text-[#C74A43]" />
               Trace-Friendly Vector Workflow Pipeline
             </span>
-            <button onClick={() => setShowWorkflow(false)} className="text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 text-xs">Close</button>
+            <button onClick={() => setShowWorkflow(false)} className="text-xs text-[#606669] dark:text-[#8C8A86] hover:text-[#1A2024] dark:hover:text-[#F3EDE2] transition-colors">Close</button>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-6 gap-2 text-center pt-1 font-mono text-[11px]">
-            <div className="p-2 rounded bg-white dark:bg-zinc-900 border border-indigo-100 dark:border-indigo-900/50">
-              <span className="text-indigo-600 dark:text-indigo-400 font-bold block">01 Prompt</span>
-              <span className="text-[10px] text-zinc-500">Vector Studio</span>
+            <div className="p-2 rounded-lg bg-[#E9E1D1] dark:bg-[#0C0F12] border border-[#D8CEBF] dark:border-[#272D30]">
+              <span className="text-[#C74A43] font-bold block">01 Prompt</span>
+              <span className="text-[10px] text-[#606669] dark:text-[#8C8A86]">Vector Studio</span>
             </div>
-            <div className="p-2 rounded bg-white dark:bg-zinc-900 border border-indigo-100 dark:border-indigo-900/50">
-              <span className="text-indigo-600 dark:text-indigo-400 font-bold block">02 Generate</span>
-              <span className="text-[10px] text-zinc-500">Source Image</span>
+            <div className="p-2 rounded-lg bg-[#E9E1D1] dark:bg-[#0C0F12] border border-[#D8CEBF] dark:border-[#272D30]">
+              <span className="text-[#C74A43] font-bold block">02 Generate</span>
+              <span className="text-[10px] text-[#606669] dark:text-[#8C8A86]">Source Image</span>
             </div>
-            <div className="p-2 rounded bg-white dark:bg-zinc-900 border border-indigo-100 dark:border-indigo-900/50">
-              <span className="text-indigo-600 dark:text-indigo-400 font-bold block">03 Trace</span>
-              <span className="text-[10px] text-zinc-500">Image Trace</span>
+            <div className="p-2 rounded-lg bg-[#E9E1D1] dark:bg-[#0C0F12] border border-[#D8CEBF] dark:border-[#272D30]">
+              <span className="text-[#C74A43] font-bold block">03 Trace</span>
+              <span className="text-[10px] text-[#606669] dark:text-[#8C8A86]">Image Trace</span>
             </div>
-            <div className="p-2 rounded bg-white dark:bg-zinc-900 border border-indigo-100 dark:border-indigo-900/50">
-              <span className="text-indigo-600 dark:text-indigo-400 font-bold block">04 Refine</span>
-              <span className="text-[10px] text-zinc-500">Illustrator</span>
+            <div className="p-2 rounded-lg bg-[#E9E1D1] dark:bg-[#0C0F12] border border-[#D8CEBF] dark:border-[#272D30]">
+              <span className="text-[#C74A43] font-bold block">04 Refine</span>
+              <span className="text-[10px] text-[#606669] dark:text-[#8C8A86]">Illustrator</span>
             </div>
-            <div className="p-2 rounded bg-white dark:bg-zinc-900 border border-indigo-100 dark:border-indigo-900/50">
-              <span className="text-indigo-600 dark:text-indigo-400 font-bold block">05 Review</span>
-              <span className="text-[10px] text-zinc-500">QA Checklist</span>
+            <div className="p-2 rounded-lg bg-[#E9E1D1] dark:bg-[#0C0F12] border border-[#D8CEBF] dark:border-[#272D30]">
+              <span className="text-[#C74A43] font-bold block">05 Review</span>
+              <span className="text-[10px] text-[#606669] dark:text-[#8C8A86]">QA Checklist</span>
             </div>
-            <div className="p-2 rounded bg-white dark:bg-zinc-900 border border-indigo-100 dark:border-indigo-900/50">
-              <span className="text-indigo-600 dark:text-indigo-400 font-bold block">06 Submit</span>
-              <span className="text-[10px] text-zinc-500">Adobe Stock</span>
+            <div className="p-2 rounded-lg bg-[#E9E1D1] dark:bg-[#0C0F12] border border-[#D8CEBF] dark:border-[#272D30]">
+              <span className="text-[#C74A43] font-bold block">06 Submit</span>
+              <span className="text-[10px] text-[#606669] dark:text-[#8C8A86]">Adobe Stock</span>
             </div>
           </div>
         </div>
@@ -495,13 +500,13 @@ export const VectorPromptStudio: React.FC<VectorPromptStudioProps> = ({
 
       {/* Vector Refinement Checklist Drawer */}
       {showChecklist && (
-        <div className="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 space-y-3 text-xs animate-fade-in">
-          <div className="flex items-center justify-between pb-2 border-b border-zinc-200 dark:border-zinc-800">
-            <span className="font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+        <div className="rounded-xl border border-[#D8CEBF] dark:border-[#272D30] bg-[#EDE6D8] dark:bg-[#11161A] p-4 sm:p-5 space-y-3 text-xs animate-fade-in">
+          <div className="flex items-center justify-between pb-3 border-b border-[#D8CEBF] dark:border-[#272D30]">
+            <span className="font-semibold text-[#1A2024] dark:text-[#F3EDE2] flex items-center gap-2">
+              <ShieldCheck className="w-4 h-4 text-[#C74A43]" />
               Final Vector Pre-Submission Checklist (Manual QA in Illustrator)
             </span>
-            <span className="text-[10px] text-zinc-500 font-mono">
+            <span className="text-[10px] text-[#606669] dark:text-[#8C8A86] font-mono">
               {checklistItems.filter(i => i.checked).length} of {checklistItems.length} verified
             </span>
           </div>
@@ -514,13 +519,13 @@ export const VectorPromptStudio: React.FC<VectorPromptStudioProps> = ({
                 className={`p-2.5 rounded-lg border text-left flex items-start gap-2.5 transition-colors cursor-pointer ${
                   item.checked 
                     ? 'bg-emerald-50/60 dark:bg-emerald-950/20 border-emerald-200 dark:border-emerald-900/50 text-emerald-900 dark:text-emerald-200' 
-                    : 'bg-white dark:bg-zinc-800/50 border-zinc-200 dark:border-zinc-700/60 text-zinc-700 dark:text-zinc-300'
+                    : 'bg-[#E9E1D1] dark:bg-[#0C0F12] border-[#D8CEBF] dark:border-[#272D30] text-[#1A2024] dark:text-[#F3EDE2]'
                 }`}
               >
                 {item.checked ? (
                   <CheckSquare className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                 ) : (
-                  <Square className="w-4 h-4 text-zinc-400 shrink-0 mt-0.5" />
+                  <Square className="w-4 h-4 text-[#606669] dark:text-[#8C8A86] shrink-0 mt-0.5" />
                 )}
                 <span className="leading-tight font-medium text-[11px]">{item.label}</span>
               </button>
@@ -530,10 +535,10 @@ export const VectorPromptStudio: React.FC<VectorPromptStudioProps> = ({
           {/* Centralized Adobe Technical Specs Reminder */}
           <div className="mt-3 p-3 rounded-lg bg-amber-50/60 dark:bg-amber-950/20 border border-amber-200/70 dark:border-amber-900/40 text-[11px] text-amber-900 dark:text-amber-200 space-y-1">
             <span className="font-bold block">Adobe Stock Vector Requirements (Illustrator Export Specs):</span>
-            <p className="leading-relaxed text-zinc-600 dark:text-zinc-300">
-              Supported Formats: <strong>AI, EPS, SVG</strong> | Color Mode: <strong>RGB</strong> | Artboard Dimensions: <strong>15 MP min (e.g. 4000x3750px)</strong> to <strong>65 MP max</strong> | Max File Size: <strong>45 MB</strong> | Offset: <strong>0,0</strong>.
+            <p className="leading-relaxed text-[#606669] dark:text-[#8C8A86]">
+              Supported Formats: <strong className="text-[#1A2024] dark:text-[#F3EDE2]">AI, EPS, SVG</strong> | Color Mode: <strong className="text-[#1A2024] dark:text-[#F3EDE2]">RGB</strong> | Artboard Dimensions: <strong className="text-[#1A2024] dark:text-[#F3EDE2]">15 MP min (e.g. 4000x3750px)</strong> to <strong className="text-[#1A2024] dark:text-[#F3EDE2]">65 MP max</strong> | Max File Size: <strong className="text-[#1A2024] dark:text-[#F3EDE2]">45 MB</strong> | Offset: <strong className="text-[#1A2024] dark:text-[#F3EDE2]">0,0</strong>.
             </p>
-            <p className="text-[10px] text-zinc-500 dark:text-zinc-400 italic">
+            <p className="text-[10px] text-[#606669] dark:text-[#8C8A86] italic">
               * Note: These technical requirements apply to final vector export in Illustrator, not hardcoded into the initial source image prompt string.
             </p>
           </div>
@@ -541,169 +546,167 @@ export const VectorPromptStudio: React.FC<VectorPromptStudioProps> = ({
       )}
 
       {/* Main Workspace Form */}
-      <div className="bg-white dark:bg-zinc-900 rounded-xl p-5 border border-zinc-200 dark:border-zinc-800 shadow-xs space-y-5">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
+      <div className="rounded-xl border border-[#D8CEBF] dark:border-[#272D30] bg-[#EDE6D8] dark:bg-[#11161A] p-5 sm:p-6 space-y-5">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           
           {/* Left Column: Input Fields */}
           <div className="lg:col-span-7 space-y-4">
             <div>
-              <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5">
-                SUBJECT / IDEA *
+              <label className="block text-[11px] font-semibold uppercase tracking-wider text-[#606669] dark:text-[#8C8A86] mb-1.5">
+                Subject / Idea *
               </label>
               <input
                 type="text"
                 value={subject}
                 onChange={(e) => setSubject(e.target.value)}
                 placeholder="Enter what vector you want to create (e.g. minimal botanical leaf set, cyberpunk delivery drone, isometric office desk)..."
-                className="w-full text-xs p-3 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
+                className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3 py-2 text-sm text-[#1A2024] dark:text-[#F3EDE2] placeholder-[#606669] dark:placeholder-[#606669] focus:outline-none focus:border-[#C74A43]"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5">
-                INSTRUCTIONS
+              <label className="block text-[11px] font-semibold uppercase tracking-wider text-[#606669] dark:text-[#8C8A86] mb-1.5">
+                Instructions
               </label>
               <textarea
                 value={instructions}
                 onChange={(e) => setInstructions(e.target.value)}
                 placeholder="Add additional instructions (e.g. clean flat vector, three colors, isolated on white background, no tiny details)..."
                 rows={3}
-                className="w-full text-xs p-3 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 resize-none"
+                className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3 py-2 text-sm text-[#1A2024] dark:text-[#F3EDE2] placeholder-[#606669] dark:placeholder-[#606669] focus:outline-none focus:border-[#C74A43] resize-none"
               />
             </div>
 
             {/* Core Settings Grid with Default 'Auto (AI Suggested)' */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-1">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 pt-1">
               <div>
-                <label className="block text-[11px] font-semibold text-zinc-600 dark:text-zinc-400 mb-1">
+                <label className="block text-[11px] font-medium text-[#606669] dark:text-[#8C8A86] mb-1">
                   Vector Type
                 </label>
                 <select
                   value={vectorType}
                   onChange={(e) => setVectorType(e.target.value)}
-                  className="w-full text-xs p-2 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100"
+                  className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] focus:outline-none focus:border-[#C74A43]"
                 >
-                  {vectorTypeOptions.map(vt => <option key={vt} value={vt}>{vt}</option>)}
+                  {vectorTypeOptions.map(vt => <option key={vt} value={vt} className="bg-[#11161A] text-[#F3EDE2]">{vt}</option>)}
                 </select>
               </div>
 
               <div>
-                <label className="block text-[11px] font-semibold text-zinc-600 dark:text-zinc-400 mb-1">
+                <label className="block text-[11px] font-medium text-[#606669] dark:text-[#8C8A86] mb-1">
                   Style
                 </label>
                 <select
                   value={style}
                   onChange={(e) => setStyle(e.target.value)}
-                  className="w-full text-xs p-2 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100"
+                  className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] focus:outline-none focus:border-[#C74A43]"
                 >
-                  {styleOptions.map(st => <option key={st} value={st}>{st}</option>)}
+                  {styleOptions.map(st => <option key={st} value={st} className="bg-[#11161A] text-[#F3EDE2]">{st}</option>)}
                 </select>
               </div>
 
               <div>
-                <label className="block text-[11px] font-semibold text-zinc-600 dark:text-zinc-400 mb-1">
+                <label className="block text-[11px] font-medium text-[#606669] dark:text-[#8C8A86] mb-1">
                   Complexity
                 </label>
                 <select
                   value={complexity}
                   onChange={(e) => setComplexity(e.target.value)}
-                  className="w-full text-xs p-2 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100"
+                  className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] focus:outline-none focus:border-[#C74A43]"
                 >
-                  {complexityOptions.map(cx => <option key={cx} value={cx}>{cx}</option>)}
+                  {complexityOptions.map(cx => <option key={cx} value={cx} className="bg-[#11161A] text-[#F3EDE2]">{cx}</option>)}
                 </select>
               </div>
 
               <div>
-                <label className="block text-[11px] font-semibold text-zinc-600 dark:text-zinc-400 mb-1">
+                <label className="block text-[11px] font-medium text-[#606669] dark:text-[#8C8A86] mb-1">
                   Background
                 </label>
                 <select
                   value={background}
                   onChange={(e) => setBackground(e.target.value)}
-                  className="w-full text-xs p-2 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100"
+                  className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] focus:outline-none focus:border-[#C74A43]"
                 >
-                  {backgroundOptions.map(bg => <option key={bg} value={bg}>{bg}</option>)}
+                  {backgroundOptions.map(bg => <option key={bg} value={bg} className="bg-[#11161A] text-[#F3EDE2]">{bg}</option>)}
                 </select>
               </div>
             </div>
 
             {/* Extra Options Drawer Toggle */}
-            <div className="pt-1 flex items-center justify-between">
+            <div className="pt-1 flex flex-wrap items-center justify-between gap-2">
               <button
                 type="button"
                 onClick={() => setShowAdvanced(!showAdvanced)}
-                className="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1.5 cursor-pointer"
+                className="text-xs font-medium text-[#606669] dark:text-[#8C8A86] hover:text-[#C74A43] flex items-center gap-1.5 cursor-pointer transition-colors"
               >
                 <SlidersHorizontal className="w-3.5 h-3.5" />
                 <span>{showAdvanced ? 'Hide Additional Settings' : 'More Settings (Palette, Negative Space %, Commercial Use)'}</span>
               </button>
 
-              <div className="flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={handleSavePreset}
-                  className="text-[11px] text-zinc-500 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1 cursor-pointer"
-                  title="Save current configuration"
-                >
-                  <Save className="w-3 h-3" />
-                  <span>Save</span>
-                </button>
-              </div>
+              <button
+                type="button"
+                onClick={handleSavePreset}
+                className="text-[11px] text-[#606669] dark:text-[#8C8A86] hover:text-[#C74A43] flex items-center gap-1 cursor-pointer transition-colors"
+                title="Save current configuration"
+              >
+                <Save className="w-3 h-3" />
+                <span>Save</span>
+              </button>
             </div>
 
             {/* Extra Settings Drawer */}
             {showAdvanced && (
-              <div className="p-3.5 rounded-lg bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700/60 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+              <div className="p-4 rounded-lg bg-[#E9E1D1] dark:bg-[#0C0F12] border border-[#D8CEBF] dark:border-[#272D30] grid grid-cols-2 md:grid-cols-4 gap-3 text-xs animate-fade-in">
                 <div>
-                  <label className="block text-[11px] font-semibold text-zinc-600 dark:text-zinc-400 mb-1">
+                  <label className="block text-[11px] font-medium text-[#606669] dark:text-[#8C8A86] mb-1">
                     Color Palette
                   </label>
                   <select
                     value={colorPalette}
                     onChange={(e) => setColorPalette(e.target.value)}
-                    className="w-full text-xs p-2 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100"
+                    className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] focus:outline-none focus:border-[#C74A43]"
                   >
-                    {colorPaletteOptions.map(cp => <option key={cp} value={cp}>{cp}</option>)}
+                    {colorPaletteOptions.map(cp => <option key={cp} value={cp} className="bg-[#11161A] text-[#F3EDE2]">{cp}</option>)}
                   </select>
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-semibold text-zinc-600 dark:text-zinc-400 mb-1">
+                  <label className="block text-[11px] font-medium text-[#606669] dark:text-[#8C8A86] mb-1">
                     Negative Space Position
                   </label>
                   <select
                     value={negativeSpace}
                     onChange={(e) => setNegativeSpace(e.target.value)}
-                    className="w-full text-xs p-2 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100"
+                    className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] focus:outline-none focus:border-[#C74A43]"
                   >
-                    {negativeSpaceOptions.map(ns => <option key={ns} value={ns}>{ns}</option>)}
+                    {negativeSpaceOptions.map(ns => <option key={ns} value={ns} className="bg-[#11161A] text-[#F3EDE2]">{ns}</option>)}
                   </select>
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-semibold text-zinc-600 dark:text-zinc-400 mb-1 flex items-center gap-1">
-                    <Percent className="w-3 h-3 text-indigo-500" />
+                  <label className="block text-[11px] font-medium text-[#606669] dark:text-[#8C8A86] mb-1 flex items-center gap-1">
+                    <Percent className="w-3 h-3 text-[#C74A43]" />
                     <span>Negative Space %</span>
                   </label>
                   <select
                     value={negativeSpacePercent}
                     onChange={(e) => setNegativeSpacePercent(e.target.value)}
-                    className="w-full text-xs p-2 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100"
+                    className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] focus:outline-none focus:border-[#C74A43]"
                   >
-                    {negativeSpacePercentOptions.map(nsp => <option key={nsp} value={nsp}>{nsp}</option>)}
+                    {negativeSpacePercentOptions.map(nsp => <option key={nsp} value={nsp} className="bg-[#11161A] text-[#F3EDE2]">{nsp}</option>)}
                   </select>
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-semibold text-zinc-600 dark:text-zinc-400 mb-1">
+                  <label className="block text-[11px] font-medium text-[#606669] dark:text-[#8C8A86] mb-1">
                     Commercial Usage
                   </label>
                   <select
                     value={commercialUse}
                     onChange={(e) => setCommercialUse(e.target.value)}
-                    className="w-full text-xs p-2 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100"
+                    className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] focus:outline-none focus:border-[#C74A43]"
                   >
-                    {commercialUseOptions.map(cu => <option key={cu} value={cu}>{cu}</option>)}
+                    {commercialUseOptions.map(cu => <option key={cu} value={cu} className="bg-[#11161A] text-[#F3EDE2]">{cu}</option>)}
                   </select>
                 </div>
               </div>
@@ -718,12 +721,12 @@ export const VectorPromptStudio: React.FC<VectorPromptStudioProps> = ({
               disabled={isGenerating}
             />
 
-            <div className="p-3.5 rounded-lg bg-emerald-50/50 dark:bg-emerald-950/20 border border-emerald-200/60 dark:border-emerald-900/40 text-[11px] text-emerald-900 dark:text-emerald-200 leading-relaxed space-y-1">
+            <div className="p-3.5 rounded-lg bg-emerald-50/50 dark:bg-emerald-950/20 border border-emerald-200/60 dark:border-emerald-900/40 text-[11px] leading-relaxed space-y-1">
               <span className="font-semibold flex items-center gap-1.5 text-emerald-800 dark:text-emerald-300">
                 <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
                 Automatic IP & Risk Compliance Active:
               </span>
-              <p className="text-zinc-600 dark:text-zinc-300">
+              <p className="text-[#606669] dark:text-[#8C8A86]">
                 All generated prompts automatically filter out trademarked logos, brand names, celebrities, and copyrighted characters to ensure 100% Adobe Stock readiness.
               </p>
             </div>
@@ -732,7 +735,7 @@ export const VectorPromptStudio: React.FC<VectorPromptStudioProps> = ({
               type="button"
               onClick={handleGenerate}
               disabled={isGenerating}
-              className="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-medium text-xs shadow-md shadow-indigo-600/20 flex items-center justify-center gap-2 transition-all cursor-pointer"
+              className="w-full rounded-lg bg-[#C74A43] hover:bg-[#B53F39] text-[#F3EDE2] font-semibold px-4 py-3 text-sm disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 transition-colors cursor-pointer"
             >
               {isGenerating ? (
                 <>
@@ -752,21 +755,21 @@ export const VectorPromptStudio: React.FC<VectorPromptStudioProps> = ({
 
       {/* Export Toolbar when results exist */}
       {results.length > 0 && (
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-3.5 rounded-xl bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800">
-          <div className="text-xs text-zinc-600 dark:text-zinc-400 font-medium">
-            Generated <strong className="text-zinc-900 dark:text-zinc-100">{results.length}</strong> perfect trace-friendly vector prompt concepts
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-4 rounded-xl bg-[#EDE6D8] dark:bg-[#11161A] border border-[#D8CEBF] dark:border-[#272D30]">
+          <div className="text-xs text-[#606669] dark:text-[#8C8A86]">
+            Generated <strong className="text-[#1A2024] dark:text-[#F3EDE2]">{results.length}</strong> perfect trace-friendly vector prompt concepts
           </div>
           <div className="flex items-center gap-2">
             <button
               onClick={handleExportTXT}
-              className="px-3 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-700 dark:text-zinc-200 hover:text-indigo-600 dark:hover:text-indigo-400 text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
+              className="border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] text-[#1A2024] dark:text-[#F3EDE2] font-medium rounded-lg px-3 py-1.5 text-xs flex items-center gap-1.5 transition-colors cursor-pointer"
             >
               <Download className="w-3.5 h-3.5" />
               <span>Download TXT</span>
             </button>
             <button
               onClick={handleExportCSV}
-              className="px-3 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-700 dark:text-zinc-200 hover:text-indigo-600 dark:hover:text-indigo-400 text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
+              className="border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] text-[#1A2024] dark:text-[#F3EDE2] font-medium rounded-lg px-3 py-1.5 text-xs flex items-center gap-1.5 transition-colors cursor-pointer"
             >
               <Download className="w-3.5 h-3.5" />
               <span>Download CSV</span>

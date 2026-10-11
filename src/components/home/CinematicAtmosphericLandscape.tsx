@@ -3,20 +3,11 @@ import React from 'react';
 export const CinematicAtmosphericLandscape: React.FC<{ className?: string }> = ({ className = '' }) => {
   return (
     <div className={`relative flex items-center justify-center select-none ${className}`}>
-      {/* Ambient cinematic glow behind the artwork */}
-      <div 
-        className="absolute inset-0 rounded-2xl blur-3xl opacity-30 pointer-events-none"
-        style={{
-          background: 'radial-gradient(circle at 60% 50%, rgba(199, 74, 67, 0.25) 0%, rgba(33, 67, 75, 0.3) 40%, rgba(16, 35, 45, 0.1) 70%, transparent 100%)',
-          transform: 'scale(1.08)'
-        }}
-      />
-
       <svg
         viewBox="0 0 680 540"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="w-full h-auto max-w-[620px] rounded-lg overflow-hidden border border-[#272D30]/60 shadow-2xl transition-transform duration-700 hover:scale-[1.008]"
+        className="w-full h-auto max-w-[620px] rounded-lg overflow-hidden border border-[#D8CEBF] dark:border-[#272D30] shadow-md"
       >
         <defs>
           {/* Deep Blue Sky Gradient */}

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { ModuleType, AISettings } from '../../types';
-import { CinematicAtmosphericLandscape } from './CinematicAtmosphericLandscape';
 import { Sun, Moon, ChevronDown } from 'lucide-react';
 import { useTheme } from '../../lib/theme/ThemeContext';
 
@@ -72,7 +71,7 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
 
             {creatorsMenuOpen && (
               <div 
-                className="absolute top-full left-0 mt-2 w-48 py-2 bg-[#EDE6D8] dark:bg-[#11161A] border border-[#D8CEBF] dark:border-[#272D30] rounded-md shadow-2xl z-30 animate-fade-in"
+                className="absolute top-full left-0 mt-2 w-48 py-2 bg-[#EDE6D8] dark:bg-[#11161A] border border-[#D8CEBF] dark:border-[#272D30] rounded-md shadow-xl z-30 animate-fade-in"
                 onMouseLeave={() => setCreatorsMenuOpen(false)}
               >
                 <button
@@ -80,7 +79,7 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
                     onSelectModule('bulk-hub');
                     setCreatorsMenuOpen(false);
                   }}
-                  className="w-full text-left px-4 py-2 text-xs text-[#1A2024] dark:text-[#E8E4DC] hover:text-[#C74A43] dark:hover:text-[#F3EDE2] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] transition-colors cursor-pointer"
+                  className="w-full text-left px-4 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] hover:text-[#C74A43] dark:hover:text-[#F3EDE2] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] transition-colors cursor-pointer"
                 >
                   Bulk Generator
                 </button>
@@ -89,7 +88,7 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
                     onSelectModule('idea-gen');
                     setCreatorsMenuOpen(false);
                   }}
-                  className="w-full text-left px-4 py-2 text-xs text-[#1A2024] dark:text-[#E8E4DC] hover:text-[#C74A43] dark:hover:text-[#F3EDE2] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] transition-colors cursor-pointer"
+                  className="w-full text-left px-4 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] hover:text-[#C74A43] dark:hover:text-[#F3EDE2] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] transition-colors cursor-pointer"
                 >
                   Idea Generator
                 </button>
@@ -98,7 +97,7 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
                     onSelectModule('jpg-creator');
                     setCreatorsMenuOpen(false);
                   }}
-                  className="w-full text-left px-4 py-2 text-xs text-[#1A2024] dark:text-[#E8E4DC] hover:text-[#C74A43] dark:hover:text-[#F3EDE2] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] transition-colors cursor-pointer"
+                  className="w-full text-left px-4 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] hover:text-[#C74A43] dark:hover:text-[#F3EDE2] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] transition-colors cursor-pointer"
                 >
                   JPG Creator
                 </button>
@@ -107,7 +106,7 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
                     onSelectModule('png-creator');
                     setCreatorsMenuOpen(false);
                   }}
-                  className="w-full text-left px-4 py-2 text-xs text-[#1A2024] dark:text-[#E8E4DC] hover:text-[#C74A43] dark:hover:text-[#F3EDE2] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] transition-colors cursor-pointer"
+                  className="w-full text-left px-4 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] hover:text-[#C74A43] dark:hover:text-[#F3EDE2] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] transition-colors cursor-pointer"
                 >
                   PNG Creator
                 </button>
@@ -119,7 +118,7 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
                   className="w-full text-left px-4 py-2 text-xs font-semibold text-[#C74A43] dark:text-[#C74A43] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] transition-colors cursor-pointer flex items-center justify-between"
                 >
                   <span>Vector Prompt Studio</span>
-                  <span className="text-[10px] px-1 py-0.2 rounded bg-[#C74A43]/10">NEW</span>
+                  <span className="text-[10px] px-1 py-0.5 rounded bg-[#C74A43]/10">NEW</span>
                 </button>
               </div>
             )}
@@ -140,7 +139,7 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
 
             {toolsMenuOpen && (
               <div 
-                className="absolute top-full left-0 mt-2 w-52 py-2 bg-[#EDE6D8] dark:bg-[#11161A] border border-[#D8CEBF] dark:border-[#272D30] rounded-md shadow-2xl z-30 animate-fade-in"
+                className="absolute top-full left-0 mt-2 w-52 py-2 bg-[#EDE6D8] dark:bg-[#11161A] border border-[#D8CEBF] dark:border-[#272D30] rounded-md shadow-xl z-30 animate-fade-in"
                 onMouseLeave={() => setToolsMenuOpen(false)}
               >
                 <button
@@ -151,14 +150,14 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
                   className="w-full text-left px-4 py-2 text-xs font-semibold text-[#C74A43] dark:text-[#C74A43] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] transition-colors cursor-pointer flex items-center justify-between"
                 >
                   <span>Image to Prompt</span>
-                  <span className="text-[10px] px-1 py-0.2 rounded bg-[#C74A43]/10">NEW</span>
+                  <span className="text-[10px] px-1 py-0.5 rounded bg-[#C74A43]/10">NEW</span>
                 </button>
                 <button
                   onClick={() => {
                     onSelectModule('prompt-studio');
                     setToolsMenuOpen(false);
                   }}
-                  className="w-full text-left px-4 py-2 text-xs text-[#1A2024] dark:text-[#E8E4DC] hover:text-[#C74A43] dark:hover:text-[#F3EDE2] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] transition-colors cursor-pointer"
+                  className="w-full text-left px-4 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] hover:text-[#C74A43] dark:hover:text-[#F3EDE2] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] transition-colors cursor-pointer"
                 >
                   Prompt Studio
                 </button>
@@ -167,7 +166,7 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
                     onSelectModule('prompt-improver');
                     setToolsMenuOpen(false);
                   }}
-                  className="w-full text-left px-4 py-2 text-xs text-[#1A2024] dark:text-[#E8E4DC] hover:text-[#C74A43] dark:hover:text-[#F3EDE2] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] transition-colors cursor-pointer"
+                  className="w-full text-left px-4 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] hover:text-[#C74A43] dark:hover:text-[#F3EDE2] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] transition-colors cursor-pointer"
                 >
                   Prompt Improver
                 </button>
@@ -176,7 +175,7 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
                     onSelectModule('prompt-variations');
                     setToolsMenuOpen(false);
                   }}
-                  className="w-full text-left px-4 py-2 text-xs text-[#1A2024] dark:text-[#E8E4DC] hover:text-[#C74A43] dark:hover:text-[#F3EDE2] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] transition-colors cursor-pointer"
+                  className="w-full text-left px-4 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] hover:text-[#C74A43] dark:hover:text-[#F3EDE2] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] transition-colors cursor-pointer"
                 >
                   Prompt Variations
                 </button>
@@ -185,7 +184,7 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
                     onSelectModule('prompt-expander');
                     setToolsMenuOpen(false);
                   }}
-                  className="w-full text-left px-4 py-2 text-xs text-[#1A2024] dark:text-[#E8E4DC] hover:text-[#C74A43] dark:hover:text-[#F3EDE2] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] transition-colors cursor-pointer"
+                  className="w-full text-left px-4 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] hover:text-[#C74A43] dark:hover:text-[#F3EDE2] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] transition-colors cursor-pointer"
                 >
                   Prompt Expander
                 </button>
@@ -194,7 +193,7 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
                     onSelectModule('prompt-fixer');
                     setToolsMenuOpen(false);
                   }}
-                  className="w-full text-left px-4 py-2 text-xs text-[#1A2024] dark:text-[#E8E4DC] hover:text-[#C74A43] dark:hover:text-[#F3EDE2] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] transition-colors cursor-pointer"
+                  className="w-full text-left px-4 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] hover:text-[#C74A43] dark:hover:text-[#F3EDE2] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] transition-colors cursor-pointer"
                 >
                   Prompt Fixer
                 </button>
@@ -203,7 +202,7 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
                     onSelectModule('prompt-translator');
                     setToolsMenuOpen(false);
                   }}
-                  className="w-full text-left px-4 py-2 text-xs text-[#1A2024] dark:text-[#E8E4DC] hover:text-[#C74A43] dark:hover:text-[#F3EDE2] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] transition-colors cursor-pointer"
+                  className="w-full text-left px-4 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] hover:text-[#C74A43] dark:hover:text-[#F3EDE2] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] transition-colors cursor-pointer"
                 >
                   Prompt Translator
                 </button>
@@ -212,7 +211,7 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
                     onSelectModule('brainstormer');
                     setToolsMenuOpen(false);
                   }}
-                  className="w-full text-left px-4 py-2 text-xs text-[#1A2024] dark:text-[#E8E4DC] hover:text-[#C74A43] dark:hover:text-[#F3EDE2] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] transition-colors cursor-pointer"
+                  className="w-full text-left px-4 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] hover:text-[#C74A43] dark:hover:text-[#F3EDE2] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] transition-colors cursor-pointer"
                 >
                   Brainstormer
                 </button>
@@ -221,7 +220,7 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
                     onSelectModule('silhouette-finder');
                     setToolsMenuOpen(false);
                   }}
-                  className="w-full text-left px-4 py-2 text-xs text-[#1A2024] dark:text-[#E8E4DC] hover:text-[#C74A43] dark:hover:text-[#F3EDE2] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] transition-colors cursor-pointer"
+                  className="w-full text-left px-4 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] hover:text-[#C74A43] dark:hover:text-[#F3EDE2] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] transition-colors cursor-pointer"
                 >
                   Silhouette Finder
                 </button>
@@ -234,14 +233,14 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
                   className="w-full text-left px-4 py-2 text-xs font-semibold text-[#C74A43] dark:text-[#C74A43] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] transition-colors cursor-pointer flex items-center justify-between"
                 >
                   <span>Image Scan (Bulk Review)</span>
-                  <span className="text-[10px] px-1 py-0.2 rounded bg-[#C74A43]/10">NEW</span>
+                  <span className="text-[10px] px-1 py-0.5 rounded bg-[#C74A43]/10">NEW</span>
                 </button>
                 <button
                   onClick={() => {
                     onSelectModule('metadata-studio');
                     setToolsMenuOpen(false);
                   }}
-                  className="w-full text-left px-4 py-2 text-xs text-[#1A2024] dark:text-[#E8E4DC] hover:text-[#C74A43] dark:hover:text-[#F3EDE2] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] transition-colors cursor-pointer"
+                  className="w-full text-left px-4 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] hover:text-[#C74A43] dark:hover:text-[#F3EDE2] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] transition-colors cursor-pointer"
                 >
                   Metadata Studio
                 </button>
@@ -250,7 +249,7 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
                     onSelectModule('risk-checker');
                     setToolsMenuOpen(false);
                   }}
-                  className="w-full text-left px-4 py-2 text-xs text-[#1A2024] dark:text-[#E8E4DC] hover:text-[#C74A43] dark:hover:text-[#F3EDE2] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] transition-colors cursor-pointer"
+                  className="w-full text-left px-4 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] hover:text-[#C74A43] dark:hover:text-[#F3EDE2] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] transition-colors cursor-pointer"
                 >
                   IP & Risk Checker
                 </button>
@@ -259,7 +258,7 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
                     onSelectModule('commercial-optimizer');
                     setToolsMenuOpen(false);
                   }}
-                  className="w-full text-left px-4 py-2 text-xs text-[#1A2024] dark:text-[#E8E4DC] hover:text-[#C74A43] dark:hover:text-[#F3EDE2] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] transition-colors cursor-pointer"
+                  className="w-full text-left px-4 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] hover:text-[#C74A43] dark:hover:text-[#F3EDE2] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] transition-colors cursor-pointer"
                 >
                   Commercial Optimizer
                 </button>
@@ -268,7 +267,7 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
                     onSelectModule('similarity-checker');
                     setToolsMenuOpen(false);
                   }}
-                  className="w-full text-left px-4 py-2 text-xs text-[#1A2024] dark:text-[#E8E4DC] hover:text-[#C74A43] dark:hover:text-[#F3EDE2] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] transition-colors cursor-pointer"
+                  className="w-full text-left px-4 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] hover:text-[#C74A43] dark:hover:text-[#F3EDE2] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] transition-colors cursor-pointer"
                 >
                   Similarity Checker
                 </button>
@@ -277,7 +276,7 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
                     onSelectModule('pre-submission-check');
                     setToolsMenuOpen(false);
                   }}
-                  className="w-full text-left px-4 py-2 text-xs text-[#1A2024] dark:text-[#E8E4DC] hover:text-[#C74A43] dark:hover:text-[#F3EDE2] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] transition-colors cursor-pointer"
+                  className="w-full text-left px-4 py-2 text-xs text-[#1A2024] dark:text-[#F3EDE2] hover:text-[#C74A43] dark:hover:text-[#F3EDE2] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] transition-colors cursor-pointer"
                 >
                   Pre-Submission Check
                 </button>
@@ -304,7 +303,7 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
         <div className="flex items-center gap-3">
           <button
             onClick={handleToggle}
-            className="px-3.5 py-1.5 rounded-[6px] border border-[#D8CEBF] dark:border-[#272D30] text-xs font-medium text-[#1A2024] dark:text-[#E8E4DC] hover:border-[#C74A43] dark:hover:border-[#383E41] transition-all flex items-center gap-2 cursor-pointer bg-[#EDE6D8] dark:bg-[#11161A]"
+            className="px-3.5 py-1.5 rounded-[6px] border border-[#D8CEBF] dark:border-[#272D30] text-xs font-medium text-[#1A2024] dark:text-[#F3EDE2] hover:border-[#C74A43] dark:hover:border-[#383E41] transition-all flex items-center gap-2 cursor-pointer bg-[#EDE6D8] dark:bg-[#11161A]"
             title={`Switch to ${isDarkMode ? 'light' : 'dark'} mode`}
             aria-label="Toggle dark/light theme"
           >
@@ -349,7 +348,7 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
               {/* Primary Button */}
               <button
                 onClick={() => onSelectModule('prompt-studio')}
-                className="h-11 px-7 rounded-[7px] bg-[#C74A43] hover:bg-[#B53F39] text-[#F3EDE2] text-sm font-semibold tracking-wide shadow-sm transition-all flex items-center gap-2.5 cursor-pointer group"
+                className="h-11 px-7 rounded-lg bg-[#C74A43] hover:bg-[#B53F39] text-[#F3EDE2] text-sm font-semibold tracking-wide shadow-sm transition-all flex items-center gap-2.5 cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C74A43] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F5F0E6] dark:focus-visible:ring-offset-[#090B0D]"
               >
                 <span>Start Creating</span>
                 <span className="transition-transform group-hover:translate-x-1">→</span>
@@ -358,7 +357,7 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
               {/* Secondary Button */}
               <button
                 onClick={() => onSelectModule('jpg-creator')}
-                className="h-11 px-7 rounded-[7px] bg-transparent hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] border border-[#D8CEBF] dark:border-[#383E41] text-[#1A2024] dark:text-[#E8E4DC] text-sm font-medium tracking-wide transition-all cursor-pointer"
+                className="h-11 px-7 rounded-lg bg-transparent hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] border border-[#D8CEBF] dark:border-[#272D30] text-[#1A2024] dark:text-[#F3EDE2] text-sm font-medium tracking-wide transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C74A43]"
               >
                 Explore Tools
               </button>
@@ -369,7 +368,7 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
           {/* RIGHT SIDE: Minimal Editorial Consistency Card */}
           {/* ============================================== */}
           <div className="lg:col-span-5 flex items-center justify-center lg:justify-end">
-            <div className="w-full max-w-[380px] p-8 sm:p-10 rounded-2xl bg-[#EDE6D8]/70 dark:bg-[#11161A]/90 border border-[#D8CEBF] dark:border-[#272D30] shadow-sm relative overflow-hidden backdrop-blur-sm space-y-6 text-center">
+            <div className="w-full max-w-[380px] p-8 sm:p-10 rounded-2xl bg-[#EDE6D8] dark:bg-[#11161A] border border-[#D8CEBF] dark:border-[#272D30] shadow-sm relative overflow-hidden space-y-6 text-center">
               <div>
                 <h2 className="font-editorial text-4xl sm:text-5xl font-normal tracking-tight text-[#1A2024] dark:text-[#F3EDE2] italic">
                   Consistency
@@ -388,7 +387,7 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
       {/* ================================================== */}
       {/* 3. MINIMAL EDITORIAL FOOTER                        */}
       {/* ================================================== */}
-      <footer className="w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-14 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#606669] dark:text-[#606669] border-t border-[#D8CEBF] dark:border-[#171E24]">
+      <footer className="w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-14 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#606669] dark:text-[#8C8A86] border-t border-[#D8CEBF] dark:border-[#272D30]">
         <div className="flex items-center gap-2">
           <span>SweetPrompt Studio</span>
           <span className="text-[#D8CEBF] dark:text-[#272D30]">•</span>
