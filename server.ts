@@ -1,0 +1,856 @@
+import express from 'express';
+import { createServer as createViteServer } from 'vite';
+import dotenv from 'dotenv';
+import { GoogleGenAI } from '@google/genai';
+import { GEMINI_TEXT_FALLBACKS, GEMINI_VISION_FALLBACKS, cleanProviderError } from './api/_shared';
+
+dotenv.config();
+
+async function startServer() {
+  const app = express();
+  const port = process.env.PORT || 3000;
+
+  // --- Basic hardening: hide framework fingerprint ---
+  app.disable('x-powered-by');
+
+  // --- Simple in-memory rate limiter (no extra dependency) ---
+  // Protects /api/* from abuse/DoS. Not shared across processes; for a
+  // single-instance personal deployment this is enough.
+  interface RateBucket { count: number; resetAt: number }
+  const rateBuckets = new Map<string, RateBucket>();
+
+  function rateLimit({ windowMs, max, message }: { windowMs: number; max: number; message: string }) {
+    return (req: express.Request, res: express.Response, next: express.NextFunction) => {
+      const ip = req.ip || req.socket.remoteAddress || 'unknown';
+      const key = `${req.path}:${ip}`;
+      const now = Date.now();
+      let bucket = rateBuckets.get(key);
+      if (!bucket || now > bucket.resetAt) {
+        bucket = { count: 0, resetAt: now + windowMs };
+        rateBuckets.set(key, bucket);
+      }
+      bucket.count += 1;
+      if (bucket.count > max) {
+        const retryAfter = Math.ceil((bucket.resetAt - now) / 1000);
+        res.setHeader('Retry-After', String(retryAfter));
+        return res.status(429).json({ error: message });
+      }
+      // Prevent unbounded memory growth if many distinct IPs/paths appear
+      if (rateBuckets.size > 10000) rateBuckets.clear();
+      next();
+    };
+  }
+
+  // General API throttle: 60 requests/minute per IP per endpoint
+  app.use('/api/', rateLimit({
+    windowMs: 60_000,
+    max: 60,
+    message: 'Too many requests. Please wait a moment and try again.',
+  }));
+  // Vision accepts large base64 images, so it gets a stricter quota
+  app.use('/api/vision', rateLimit({
+    windowMs: 60_000,
+    max: 20,
+    message: 'Too many image requests. Please wait a moment and try again.',
+  }));
+
+  // 25mb is plenty for base64 images; 100mb was an easy DoS vector.
+  app.use(express.json({ limit: '25mb' }));
+  app.use(express.urlencoded({ limit: '25mb', extended: true }));
+
+  // Helper to parse OpenAI-compatible chat response
+  const handleOpenAIChatResponse = async (fetchRes: Response, providerName: string) => {
+    if (!fetchRes.ok) {
+      const errText = await fetchRes.text();
+      let parsedErr = errText;
+      try {
+        const jsonErr = JSON.parse(errText);
+        parsedErr = jsonErr.error?.message || jsonErr.error || jsonErr.message || errText;
+      } catch {}
+      throw new Error(`${providerName} error (${fetchRes.status}): ${parsedErr}`);
+    }
+    const data = await fetchRes.json();
+    return data.choices?.[0]?.message?.content || '';
+  };
+
+  // API Route: Text Generation
+  app.post('/api/generate', async (req, res) => {
+    try {
+      const { 
+        prompt, 
+        provider = 'gemini', 
+        apiKey, 
+        model, 
+        systemInstruction, 
+        jsonMode,
+        temperature = 0.7,
+        maxTokens = 1500
+      } = req.body;
+
+      if (!prompt) {
+        return res.status(400).json({ error: 'Prompt is required' });
+      }
+
+      const cleanSystem = systemInstruction || 'You are SweetPrompt Studio, an expert AI microstock creation assistant and professional prompt engineer for Adobe Stock contributors.';
+
+      // Provider: Google Gemini
+      if (provider === 'gemini') {
+        const clientKey = typeof apiKey === 'string' ? apiKey.trim() : '';
+        const systemEnvKey = (process.env.GEMINI_API_KEY || process.env.API_KEY || '').trim();
+        if (!systemEnvKey && process.env.VITE_GEMINI_API_KEY) {
+          console.warn('[security] VITE_GEMINI_API_KEY is set, but VITE_ variables are baked into the public JS bundle. Rename it to GEMINI_API_KEY (see .env.example).');
+        }
+
+        // Try user provided client key first, then system environment key if different
+        const keysToTry: string[] = [];
+        if (clientKey) keysToTry.push(clientKey);
+        if (systemEnvKey && systemEnvKey !== clientKey) keysToTry.push(systemEnvKey);
+
+        if (keysToTry.length === 0) {
+          return res.status(400).json({ error: 'Gemini API key not configured. Please add your key in Settings or switch AI providers.' });
+        }
+
+        const primaryModel = model || 'gemini-2.5-flash';
+        const candidateModels = [
+          primaryModel,
+          ...GEMINI_TEXT_FALLBACKS.filter((m) => m !== primaryModel)
+        ];
+
+        let lastError: any = null;
+        let successResult: { text: string; modelUsed: string } | null = null;
+
+        keyLoop: for (const currentKey of keysToTry) {
+          const client = new GoogleGenAI({ 
+            apiKey: currentKey,
+            httpOptions: {
+              headers: {
+                'User-Agent': 'aistudio-build',
+              }
+            }
+          });
+
+          for (const candidate of candidateModels) {
+            try {
+              const response = await client.models.generateContent({
+                model: candidate,
+                contents: prompt,
+                config: {
+                  systemInstruction: cleanSystem,
+                  responseMimeType: jsonMode ? 'application/json' : 'text/plain',
+                  temperature,
+                },
+              });
+
+              if (response.text) {
+                successResult = { text: response.text, modelUsed: candidate };
+                break keyLoop;
+              }
+            } catch (modelErr: any) {
+              lastError = modelErr;
+              const errStr = String(modelErr?.message || modelErr);
+              const isInvalidKey = errStr.includes('API key not valid') || errStr.includes('API_KEY_INVALID') || errStr.includes('INVALID_ARGUMENT');
+              if (isInvalidKey) {
+                break; // Silently break model loop, try next key in keysToTry
+              }
+              const isQuotaOrRateLimit = errStr.includes('429') || errStr.includes('Quota exceeded') || errStr.includes('RESOURCE_EXHAUSTED') || errStr.includes('not found');
+              if (isQuotaOrRateLimit) {
+                continue; // Try next fallback model
+              }
+              throw modelErr;
+            }
+          }
+        }
+
+        if (successResult) {
+          return res.json({ result: successResult.text, modelUsed: successResult.modelUsed });
+        }
+
+        if (lastError) {
+          throw lastError;
+        }
+
+        return res.status(500).json({ error: 'Failed to generate content with Gemini.' });
+      }
+
+      // Provider: Groq Cloud
+      if (provider === 'groq') {
+        const groqKey = apiKey || process.env.GROQ_API_KEY;
+        if (!groqKey) {
+          return res.status(400).json({ error: 'Groq API key not configured. Please add your key in Settings.' });
+        }
+
+        const initialModel = model || 'llama-3.1-8b-instant';
+        const candidateModels = Array.from(new Set([initialModel, 'llama-3.1-8b-instant', 'llama-3.3-70b-versatile', 'llama-4-scout-17b-16e-instruct', 'openai/gpt-oss-20b']));
+
+        let lastGroqErr: any = null;
+        for (const candidate of candidateModels) {
+          try {
+            const fetchRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${groqKey}`,
+              },
+              body: JSON.stringify({
+                model: candidate,
+                messages: [
+                  { role: 'system', content: cleanSystem },
+                  { role: 'user', content: prompt }
+                ],
+                response_format: jsonMode ? { type: 'json_object' } : undefined,
+                temperature,
+                max_tokens: maxTokens,
+              }),
+            });
+
+            if (!fetchRes.ok) {
+              const errText = await fetchRes.text();
+              if (fetchRes.status === 404 || errText.includes('does not exist') || errText.includes('model_not_found') || errText.includes('access')) {
+                lastGroqErr = new Error(`Groq model error (${candidate}): ${errText}`);
+                continue; // Try next candidate model
+              }
+              throw new Error(`Groq API Error (${fetchRes.status}): ${errText}`);
+            }
+
+            const data = await fetchRes.json();
+            const text = data.choices?.[0]?.message?.content || '';
+            return res.json({ result: text, modelUsed: candidate });
+          } catch (gErr: any) {
+            lastGroqErr = gErr;
+            if (String(gErr.message).includes('does not exist') || String(gErr.message).includes('access') || String(gErr.message).includes('model_not_found')) {
+              continue;
+            }
+            throw gErr;
+          }
+        }
+
+        if (lastGroqErr) {
+          throw lastGroqErr;
+        }
+      }
+
+      // Provider: Mistral AI
+      if (provider === 'mistral') {
+        const mistralKey = apiKey || process.env.MISTRAL_API_KEY;
+        if (!mistralKey) {
+          return res.status(400).json({ error: 'Mistral API key not configured. Please add your key in Settings.' });
+        }
+
+        const initialModel = (model && model !== 'mistral-large-latest') ? model : 'mistral-small-latest';
+        const candidateModels = Array.from(new Set([initialModel, 'mistral-small-latest', 'mistral-medium-latest', 'mistral-large-latest']));
+
+        let lastMistralErr: any = null;
+        for (const candidate of candidateModels) {
+          try {
+            const fetchRes = await fetch('https://api.mistral.ai/v1/chat/completions', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${mistralKey}`,
+              },
+              body: JSON.stringify({
+                model: candidate,
+                messages: [
+                  { role: 'system', content: cleanSystem },
+                  { role: 'user', content: prompt }
+                ],
+                response_format: jsonMode ? { type: 'json_object' } : undefined,
+                temperature,
+                max_tokens: maxTokens,
+              }),
+            });
+
+            if (!fetchRes.ok) {
+              const errText = await fetchRes.text();
+              if (fetchRes.status === 403 || errText.includes('subscription tier') || errText.includes('403')) {
+                lastMistralErr = new Error(`Mistral error (${fetchRes.status}): ${errText}`);
+                continue; // Try next candidate model
+              }
+              throw new Error(`Mistral API Error (${fetchRes.status}): ${errText}`);
+            }
+
+            const data = await fetchRes.json();
+            const text = data.choices?.[0]?.message?.content || '';
+            return res.json({ result: text, modelUsed: candidate });
+          } catch (mErr: any) {
+            lastMistralErr = mErr;
+            if (String(mErr.message).includes('subscription tier') || String(mErr.message).includes('403')) {
+              continue;
+            }
+            throw mErr;
+          }
+        }
+
+        if (lastMistralErr) throw lastMistralErr;
+        return res.status(500).json({ error: 'Failed to generate content with Mistral.' });
+      }
+
+      // Provider: OpenRouter
+      if (provider === 'openrouter') {
+        const orKey = apiKey || process.env.OPENROUTER_API_KEY;
+        if (!orKey) {
+          return res.status(400).json({ error: 'OpenRouter API key not configured. Please add your key in Settings.' });
+        }
+
+        const selectedModel = model || 'anthropic/claude-3.5-sonnet';
+        const fetchRes = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${orKey}`,
+            'HTTP-Referer': process.env.APP_URL || 'http://localhost:3000',
+            'X-Title': 'SweetPrompt Studio',
+          },
+          body: JSON.stringify({
+            model: selectedModel,
+            messages: [
+              { role: 'system', content: cleanSystem },
+              { role: 'user', content: prompt }
+            ],
+            response_format: jsonMode ? { type: 'json_object' } : undefined,
+            temperature,
+            max_tokens: maxTokens,
+          }),
+        });
+
+        const text = await handleOpenAIChatResponse(fetchRes, 'OpenRouter');
+        return res.json({ result: text });
+      }
+
+      // Provider: Hugging Face Inference
+      if (provider === 'huggingface') {
+        const hfKey = apiKey || process.env.HUGGINGFACE_API_KEY || process.env.HF_TOKEN;
+        if (!hfKey) {
+          return res.status(400).json({ error: 'Hugging Face API key (hf_...) not configured. Please add your key in Settings.' });
+        }
+
+        const selectedModel = model || 'meta-llama/Llama-3.2-3B-Instruct';
+        const candidateEndpoints = [
+          'https://router.huggingface.co/hf-inference/v1/chat/completions',
+          'https://router.huggingface.co/v1/chat/completions',
+          'https://api-inference.huggingface.co/v1/chat/completions',
+        ];
+
+        let lastHfErr = '';
+        for (const ep of candidateEndpoints) {
+          try {
+            const fetchRes = await fetch(ep, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${hfKey}`,
+              },
+              body: JSON.stringify({
+                model: selectedModel,
+                messages: [
+                  { role: 'system', content: cleanSystem },
+                  { role: 'user', content: prompt }
+                ],
+                response_format: jsonMode ? { type: 'json_object' } : undefined,
+                temperature,
+                max_tokens: maxTokens,
+              }),
+            });
+
+            if (!fetchRes.ok) {
+              lastHfErr = await fetchRes.text();
+              continue;
+            }
+
+            const text = await handleOpenAIChatResponse(fetchRes, 'Hugging Face');
+            return res.json({ result: text });
+          } catch (hErr: any) {
+            lastHfErr = hErr.message || String(hErr);
+            continue;
+          }
+        }
+
+        return res.status(400).json({ error: `Hugging Face API Error: ${lastHfErr || 'Endpoint unreachable'}` });
+      }
+
+      // Provider: Cerebras
+      if (provider === 'cerebras') {
+        const cerebrasKey = apiKey || process.env.CEREBRAS_API_KEY;
+        if (!cerebrasKey) {
+          return res.status(400).json({ error: 'Cerebras API key not configured. Please add your key in Settings.' });
+        }
+
+        const selectedModel = model || 'llama3.3-70b';
+        const fetchRes = await fetch('https://api.cerebras.ai/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${cerebrasKey}`,
+          },
+          body: JSON.stringify({
+            model: selectedModel,
+            messages: [
+              { role: 'system', content: cleanSystem },
+              { role: 'user', content: prompt }
+            ],
+            response_format: jsonMode ? { type: 'json_object' } : undefined,
+            temperature,
+            max_tokens: maxTokens,
+          }),
+        });
+
+        const text = await handleOpenAIChatResponse(fetchRes, 'Cerebras');
+        return res.json({ result: text });
+      }
+
+      return res.status(400).json({ error: `Unknown provider: ${provider}` });
+    } catch (error: any) {
+      console.error('API /generate Error:', error);
+      res.status(500).json({ error: cleanProviderError(req.body.provider || 'AI Provider', error) });
+    }
+  });
+
+  // API Route: Vision Analysis
+  app.post('/api/vision', async (req, res) => {
+    try {
+      const { imageBase64, mimeType = 'image/jpeg', prompt, provider = 'gemini', apiKey, model } = req.body;
+
+      if (!imageBase64 || !prompt) {
+        return res.status(400).json({ error: 'Image data and prompt are required for vision analysis' });
+      }
+
+      // Gemini Vision
+      if (provider === 'gemini') {
+        const clientKey = typeof apiKey === 'string' ? apiKey.trim() : '';
+        const systemEnvKey = (process.env.GEMINI_API_KEY || process.env.API_KEY || '').trim();
+        if (!systemEnvKey && process.env.VITE_GEMINI_API_KEY) {
+          console.warn('[security] VITE_GEMINI_API_KEY is set, but VITE_ variables are baked into the public JS bundle. Rename it to GEMINI_API_KEY (see .env.example).');
+        }
+
+        // Try user provided client key first, then system environment key if different
+        const keysToTry: string[] = [];
+        if (clientKey) keysToTry.push(clientKey);
+        if (systemEnvKey && systemEnvKey !== clientKey) keysToTry.push(systemEnvKey);
+
+        if (keysToTry.length === 0) {
+          return res.status(400).json({ error: 'Gemini API key not configured. Please add your key in Settings or switch AI providers.' });
+        }
+
+        const primaryModel = model || 'gemini-2.5-flash';
+        const candidateModels = [
+          primaryModel,
+          ...GEMINI_VISION_FALLBACKS.filter((m) => m !== primaryModel)
+        ];
+
+        let lastError: any = null;
+        let successResult: { text: string; modelUsed: string } | null = null;
+
+        keyLoop: for (const currentKey of keysToTry) {
+          const client = new GoogleGenAI({ 
+            apiKey: currentKey,
+            httpOptions: {
+              headers: {
+                'User-Agent': 'aistudio-build',
+              }
+            }
+          });
+
+          for (const candidate of candidateModels) {
+            try {
+              const response = await client.models.generateContent({
+                model: candidate,
+                contents: [
+                  {
+                    inlineData: {
+                      data: imageBase64,
+                      mimeType,
+                    },
+                  },
+                  prompt,
+                ],
+              });
+
+              if (response.text) {
+                successResult = { text: response.text, modelUsed: candidate };
+                break keyLoop;
+              }
+            } catch (modelErr: any) {
+              lastError = modelErr;
+              const errStr = String(modelErr?.message || modelErr);
+              const isInvalidKey = errStr.includes('API key not valid') || errStr.includes('API_KEY_INVALID') || errStr.includes('INVALID_ARGUMENT');
+              if (isInvalidKey) {
+                break; // Silently break model loop, try next key
+              }
+              const isQuotaOrRateLimit = errStr.includes('429') || errStr.includes('Quota exceeded') || errStr.includes('RESOURCE_EXHAUSTED') || errStr.includes('not found');
+              if (isQuotaOrRateLimit) {
+                continue;
+              }
+              throw modelErr;
+            }
+          }
+        }
+
+        if (successResult) {
+          return res.json({ result: successResult.text, modelUsed: successResult.modelUsed });
+        }
+
+        if (lastError) throw lastError;
+        return res.status(500).json({ error: 'Failed to generate vision analysis with Gemini.' });
+      }
+
+      // Groq Vision (llama-4-scout supports vision)
+      if (provider === 'groq') {
+        const groqKey = apiKey || process.env.GROQ_API_KEY;
+        if (!groqKey) return res.status(400).json({ error: 'Groq API key not configured.' });
+
+        const selectedModel = model || 'meta-llama/llama-4-scout-17b-16e-instruct';
+        const imageUrl = `data:${mimeType};base64,${imageBase64}`;
+
+        const fetchRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${groqKey}`,
+          },
+          body: JSON.stringify({
+            model: selectedModel,
+            messages: [
+              {
+                role: 'user',
+                content: [
+                  { type: 'text', text: prompt },
+                  { type: 'image_url', image_url: { url: imageUrl } }
+                ]
+              }
+            ],
+            max_tokens: 1500,
+          }),
+        });
+
+        const text = await handleOpenAIChatResponse(fetchRes, 'Groq Vision');
+        return res.json({ result: text });
+      }
+
+      // Mistral Vision (pixtral-12b-2409)
+      if (provider === 'mistral') {
+        const mistralKey = apiKey || process.env.MISTRAL_API_KEY;
+        if (!mistralKey) return res.status(400).json({ error: 'Mistral API key not configured.' });
+
+        const selectedModel = model || 'pixtral-12b-2409';
+        const imageUrl = `data:${mimeType};base64,${imageBase64}`;
+
+        const fetchRes = await fetch('https://api.mistral.ai/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${mistralKey}`,
+          },
+          body: JSON.stringify({
+            model: selectedModel,
+            messages: [
+              {
+                role: 'user',
+                content: [
+                  { type: 'text', text: prompt },
+                  { type: 'image_url', image_url: { url: imageUrl } }
+                ]
+              }
+            ],
+            max_tokens: 1500,
+          }),
+        });
+
+        const text = await handleOpenAIChatResponse(fetchRes, 'Mistral Vision');
+        return res.json({ result: text });
+      }
+
+      // OpenRouter Vision (Claude 3.5 Sonnet / GPT-4o)
+      if (provider === 'openrouter') {
+        const orKey = apiKey || process.env.OPENROUTER_API_KEY;
+        if (!orKey) return res.status(400).json({ error: 'OpenRouter API key not configured.' });
+
+        const selectedModel = model || 'anthropic/claude-3.5-sonnet';
+        const imageUrl = `data:${mimeType};base64,${imageBase64}`;
+
+        const fetchRes = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${orKey}`,
+          },
+          body: JSON.stringify({
+            model: selectedModel,
+            messages: [
+              {
+                role: 'user',
+                content: [
+                  { type: 'text', text: prompt },
+                  { type: 'image_url', image_url: { url: imageUrl } }
+                ]
+              }
+            ],
+            max_tokens: 1500,
+          }),
+        });
+
+        const text = await handleOpenAIChatResponse(fetchRes, 'OpenRouter Vision');
+        return res.json({ result: text });
+      }
+
+      // Cerebras & Hugging Face: explicit non-support
+      return res.status(400).json({ 
+        error: `Vision analysis is not supported by ${provider.toUpperCase()}. Please use Google Gemini, Groq, or OpenRouter for image reading.` 
+      });
+    } catch (error: any) {
+      console.error('Vision API Error:', error);
+      res.status(500).json({ error: cleanProviderError(req.body.provider || 'Vision Provider', error) });
+    }
+  });
+
+  // API Route: Test Connection
+  app.post('/api/test-connection', async (req, res) => {
+    const startTime = Date.now();
+    try {
+      const { provider = 'gemini', apiKey, model } = req.body;
+
+      if (provider === 'gemini') {
+        const activeApiKey = apiKey || process.env.GEMINI_API_KEY;
+        if (!activeApiKey) {
+          return res.status(400).json({ success: false, error: 'No Gemini API key provided' });
+        }
+        const client = new GoogleGenAI({ 
+          apiKey: activeApiKey,
+          httpOptions: {
+            headers: {
+              'User-Agent': 'aistudio-build',
+            }
+          }
+        });
+
+        const primaryModel = model || 'gemini-2.5-flash';
+        const candidateModels = [
+          primaryModel,
+          ...GEMINI_TEXT_FALLBACKS.filter((m) => m !== primaryModel)
+        ];
+
+        let lastError: any = null;
+        let successfulModel = primaryModel;
+        let responseText = '';
+
+        for (const candidate of candidateModels) {
+          try {
+            const response = await client.models.generateContent({
+              model: candidate,
+              contents: 'Ping test. Reply with: OK',
+            });
+            successfulModel = candidate;
+            responseText = response.text || 'OK';
+            lastError = null;
+            break;
+          } catch (mErr: any) {
+            lastError = mErr;
+            const errStr = String(mErr?.message || mErr);
+            const isQuotaOrRateLimit = errStr.includes('429') || errStr.includes('Quota exceeded') || errStr.includes('RESOURCE_EXHAUSTED') || errStr.includes('not found');
+            if (isQuotaOrRateLimit) {
+              continue;
+            }
+            throw mErr;
+          }
+        }
+
+        if (lastError) {
+          throw lastError;
+        }
+
+        const latencyMs = Date.now() - startTime;
+        return res.json({ 
+          success: true, 
+          provider: 'gemini',
+          modelUsed: successfulModel,
+          message: `Connected to Gemini API successfully (${successfulModel})`, 
+          hasText: true,
+          hasVision: true,
+          latencyMs,
+          detail: responseText.slice(0, 10) 
+        });
+      }
+
+      if (provider === 'groq') {
+        const groqKey = apiKey || process.env.GROQ_API_KEY;
+        if (!groqKey) return res.status(400).json({ success: false, error: 'No Groq API key provided' });
+        const fetchRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${groqKey}` },
+          body: JSON.stringify({ 
+            model: model || 'llama-3.1-8b-instant', 
+            messages: [{ role: 'user', content: 'Ping test. Reply: OK' }],
+            max_tokens: 5
+          })
+        });
+        const latencyMs = Date.now() - startTime;
+        if (!fetchRes.ok) {
+          const err = await fetchRes.text();
+          return res.status(fetchRes.status).json({ success: false, error: cleanProviderError('Groq', err, fetchRes.status) });
+        }
+        return res.json({ 
+          success: true, 
+          provider: 'groq',
+          message: 'Connected to Groq LPU successfully', 
+          hasText: true,
+          hasVision: true,
+          latencyMs
+        });
+      }
+
+      if (provider === 'mistral') {
+        const mistralKey = apiKey || process.env.MISTRAL_API_KEY;
+        if (!mistralKey) return res.status(400).json({ success: false, error: 'No Mistral API key provided' });
+        const fetchRes = await fetch('https://api.mistral.ai/v1/chat/completions', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${mistralKey}` },
+          body: JSON.stringify({ 
+            model: model || 'mistral-small-latest', 
+            messages: [{ role: 'user', content: 'Ping test. Reply: OK' }],
+            max_tokens: 5
+          })
+        });
+        const latencyMs = Date.now() - startTime;
+        if (!fetchRes.ok) {
+          const err = await fetchRes.text();
+          return res.status(fetchRes.status).json({ success: false, error: cleanProviderError('Mistral', err, fetchRes.status) });
+        }
+        return res.json({ 
+          success: true, 
+          provider: 'mistral',
+          message: 'Connected to Mistral AI successfully', 
+          hasText: true,
+          hasVision: true,
+          latencyMs
+        });
+      }
+
+      if (provider === 'openrouter') {
+        const orKey = apiKey || process.env.OPENROUTER_API_KEY;
+        if (!orKey) return res.status(400).json({ success: false, error: 'No OpenRouter API key provided' });
+        const fetchRes = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${orKey}` },
+          body: JSON.stringify({ 
+            model: model || 'meta-llama/llama-3.3-70b-instruct', 
+            messages: [{ role: 'user', content: 'Ping test. Reply: OK' }],
+            max_tokens: 5
+          })
+        });
+        const latencyMs = Date.now() - startTime;
+        if (!fetchRes.ok) {
+          const err = await fetchRes.text();
+          return res.status(fetchRes.status).json({ success: false, error: cleanProviderError('OpenRouter', err, fetchRes.status) });
+        }
+        return res.json({ 
+          success: true, 
+          provider: 'openrouter',
+          message: 'Connected to OpenRouter successfully', 
+          hasText: true,
+          hasVision: true,
+          latencyMs
+        });
+      }
+
+      if (provider === 'huggingface') {
+        const hfKey = apiKey || process.env.HUGGINGFACE_API_KEY || process.env.HF_TOKEN;
+        if (!hfKey) return res.status(400).json({ success: false, error: 'No Hugging Face token provided' });
+        
+        const candidateEndpoints = [
+          'https://router.huggingface.co/hf-inference/v1/chat/completions',
+          'https://router.huggingface.co/v1/chat/completions',
+          'https://api-inference.huggingface.co/v1/chat/completions',
+        ];
+
+        let lastHfErr = '';
+        for (const ep of candidateEndpoints) {
+          try {
+            const fetchRes = await fetch(ep, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${hfKey}` },
+              body: JSON.stringify({ 
+                model: model || 'meta-llama/Llama-3.2-3B-Instruct', 
+                messages: [{ role: 'user', content: 'Ping test. Reply: OK' }],
+                max_tokens: 5
+              })
+            });
+            const latencyMs = Date.now() - startTime;
+            if (fetchRes.ok) {
+              return res.json({ 
+                success: true, 
+                provider: 'huggingface',
+                message: 'Connected to Hugging Face Router API successfully', 
+                hasText: true,
+                hasVision: false,
+                latencyMs
+              });
+            }
+            lastHfErr = await fetchRes.text();
+          } catch (hErr: any) {
+            lastHfErr = hErr.message || String(hErr);
+          }
+        }
+
+        return res.status(400).json({ 
+          success: false, 
+          error: cleanProviderError('Hugging Face', lastHfErr || 'Hugging Face endpoint unreachable', 400) 
+        });
+      }
+
+      if (provider === 'cerebras') {
+        const cerebrasKey = apiKey || process.env.CEREBRAS_API_KEY;
+        if (!cerebrasKey) return res.status(400).json({ success: false, error: 'No Cerebras API key provided' });
+        const fetchRes = await fetch('https://api.cerebras.ai/v1/chat/completions', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${cerebrasKey}` },
+          body: JSON.stringify({ 
+            model: model || 'llama3.1-8b', 
+            messages: [{ role: 'user', content: 'Ping test. Reply: OK' }],
+            max_tokens: 5
+          })
+        });
+        const latencyMs = Date.now() - startTime;
+        if (!fetchRes.ok) {
+          const err = await fetchRes.text();
+          return res.status(fetchRes.status).json({ success: false, error: cleanProviderError('Cerebras', err, fetchRes.status) });
+        }
+        return res.json({ 
+          success: true, 
+          provider: 'cerebras',
+          message: 'Connected to Cerebras Wafer-Scale Engine successfully', 
+          hasText: true,
+          hasVision: false,
+          latencyMs
+        });
+      }
+
+      res.status(400).json({ success: false, error: `Unsupported provider: ${provider}` });
+    } catch (err: any) {
+      console.error('Test connection error:', err);
+      res.status(400).json({ success: false, error: err.message || 'Connection failed' });
+    }
+  });
+
+  // Payload Too Large Express Error Handler Middleware
+  app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+    if (err?.type === 'entity.too.large' || err?.status === 413 || err?.code === 'LIMIT_FILE_SIZE') {
+      return res.status(413).json({
+        error: 'Payload too large. Please use slightly smaller images or upload fewer images at once.'
+      });
+    }
+    next(err);
+  });
+
+  // Vite middleware for development
+  const vite = await createViteServer({
+    server: { middlewareMode: true },
+    appType: 'spa',
+  });
+
+  app.use(vite.middlewares);
+
+  app.listen(Number(port), '0.0.0.0', () => {
+    console.log(`SweetPrompt Studio server running on http://localhost:${port}`);
+  });
+}
+
+startServer();
