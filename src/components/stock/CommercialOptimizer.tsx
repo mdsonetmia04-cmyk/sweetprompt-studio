@@ -241,28 +241,31 @@ Audit and optimize for maximum microstock sales.`;
 
   return (
     <div className="space-y-6">
-      <div className="pb-4 border-b border-zinc-200 dark:border-zinc-800">
-        <h1 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
-          <TrendingUp className="w-5 h-5 text-emerald-600" />
+      <div className="pb-4 border-b border-[#D8CEBF] dark:border-[#272D30]">
+        <div className="text-[11px] font-semibold uppercase tracking-wider text-[#606669] dark:text-[#8C8A86] mb-1">
+          Commercial Viability
+        </div>
+        <h1 className="text-xl font-bold text-[#1A2024] dark:text-[#F3EDE2] flex items-center gap-2">
+          <TrendingUp className="w-5 h-5 text-[#C74A43]" />
           <span>Commercial Stock Optimizer</span>
         </h1>
-        <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
+        <p className="text-xs text-[#606669] dark:text-[#8C8A86] mt-1">
           Audit prompts or upload stock images to inspect buyer utility, copy space, authentic emotion, and licensing versatility to maximize sell-through rate on Adobe Stock.
         </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         <div className="lg:col-span-5 space-y-4">
-          <div className="bg-white dark:bg-zinc-900 rounded-xl p-5 border border-zinc-200 dark:border-zinc-800 shadow-sm space-y-4">
+          <div className="bg-[#EDE6D8] dark:bg-[#11161A] rounded-xl p-5 border border-[#D8CEBF] dark:border-[#272D30] space-y-4">
             
             {/* Input Mode Selector */}
-            <div className="flex rounded-lg bg-zinc-100 dark:bg-zinc-800 p-1 text-xs">
+            <div className="flex rounded-lg bg-[#E9E1D1] dark:bg-[#0C0F12] p-1 text-xs">
               <button
                 onClick={() => setInputMode('prompt')}
                 className={`flex-1 py-1.5 px-3 rounded-md font-medium flex items-center justify-center gap-1.5 transition-colors cursor-pointer ${
                   inputMode === 'prompt' 
-                    ? 'bg-white dark:bg-zinc-700 text-zinc-900 dark:text-zinc-100 shadow-sm' 
-                    : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200'
+                    ? 'bg-[#F5F0E6] dark:bg-[#0C0F12] text-[#1A2024] dark:text-[#F3EDE2]' 
+                    : 'text-[#606669] dark:text-[#8C8A86] hover:text-[#1A2024] dark:hover:text-[#E8E4DC]'
                 }`}
               >
                 <FileText className="w-3.5 h-3.5" />
@@ -272,18 +275,18 @@ Audit and optimize for maximum microstock sales.`;
                 onClick={() => setInputMode('image')}
                 className={`flex-1 py-1.5 px-3 rounded-md font-medium flex items-center justify-center gap-1.5 transition-colors cursor-pointer ${
                   inputMode === 'image' 
-                    ? 'bg-white dark:bg-zinc-700 text-emerald-600 dark:text-emerald-400 shadow-sm' 
-                    : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200'
+                    ? 'bg-[#F5F0E6] dark:bg-[#0C0F12] text-[#C74A43]' 
+                    : 'text-[#606669] dark:text-[#8C8A86] hover:text-[#1A2024] dark:hover:text-[#E8E4DC]'
                 }`}
               >
-                <ImageIcon className="w-3.5 h-3.5 text-emerald-500" />
+                <ImageIcon className="w-3.5 h-3.5" />
                 <span>Upload Image</span>
               </button>
             </div>
 
             {inputMode === 'prompt' ? (
               <div>
-                <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5">
+                <label className="block text-xs font-semibold text-[#1A2024] dark:text-[#E8E4DC] mb-1.5">
                   Candidate Prompt to Evaluate *
                 </label>
                 <textarea
@@ -291,19 +294,19 @@ Audit and optimize for maximum microstock sales.`;
                   onChange={(e) => setCandidatePrompt(e.target.value)}
                   placeholder="Paste the prompt you want to optimize for commercial stock licensing..."
                   rows={4}
-                  className="w-full text-xs p-3 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
+                  className="w-full text-xs p-3 rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] text-[#1A2024] dark:text-[#F3EDE2] focus:outline-none focus:ring-2 focus:ring-[#C74A43]/40"
                 />
               </div>
             ) : (
               <div className="space-y-3">
-                <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300">
+                <label className="block text-xs font-semibold text-[#1A2024] dark:text-[#E8E4DC]">
                   Upload Stock Image(s) *
                 </label>
 
                 <div 
                   onDragOver={(e) => e.preventDefault()}
                   onDrop={handleDrop}
-                  className="border-2 border-dashed border-zinc-300 dark:border-zinc-700 hover:border-emerald-500/60 dark:hover:border-emerald-500/60 bg-zinc-50 dark:bg-zinc-800/50 hover:bg-emerald-50/20 dark:hover:bg-emerald-950/10 rounded-xl p-5 text-center transition-all cursor-pointer relative"
+                  className="border-2 border-dashed border-[#D8CEBF] dark:border-[#272D30] hover:border-[#C74A43]/60 bg-[#F5F0E6]/60 dark:bg-[#0C0F12]/60 hover:bg-[#C74A43]/5 rounded-xl p-5 text-center transition-all cursor-pointer relative"
                 >
                   <input
                     type="file"
@@ -312,20 +315,20 @@ Audit and optimize for maximum microstock sales.`;
                     onChange={handleFileUpload}
                     className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
                   />
-                  <div className="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-400 mx-auto flex items-center justify-center mb-2">
+                  <div className="w-10 h-10 rounded-xl bg-[#C74A43]/10 text-[#C74A43] mx-auto flex items-center justify-center mb-2">
                     <Upload className="w-5 h-5" />
                   </div>
-                  <p className="text-xs font-semibold text-zinc-800 dark:text-zinc-200">
+                  <p className="text-xs font-semibold text-[#1A2024] dark:text-[#E8E4DC]">
                     Click to browse or Drag & Drop stock images
                   </p>
-                  <p className="text-[11px] text-zinc-500 dark:text-zinc-400 mt-1">
+                  <p className="text-[11px] text-[#606669] dark:text-[#8C8A86] mt-1">
                     Supports JPG, PNG, WEBP (Supports Bulk Uploads)
                   </p>
                 </div>
 
                 {uploadedImages.length > 0 && (
                   <div className="space-y-2">
-                    <div className="flex items-center justify-between text-xs text-zinc-500 dark:text-zinc-400">
+                    <div className="flex items-center justify-between text-xs text-[#606669] dark:text-[#8C8A86]">
                       <span>Uploaded Files ({uploadedImages.length}):</span>
                       <span>Select image to audit</span>
                     </div>
@@ -334,10 +337,10 @@ Audit and optimize for maximum microstock sales.`;
                         <div
                           key={img.id}
                           onClick={() => setSelectedImageId(img.id)}
-                          className={`group relative rounded-lg overflow-hidden border-2 cursor-pointer transition-all aspect-square bg-zinc-900 ${
+                          className={`group relative rounded-lg overflow-hidden border-2 cursor-pointer transition-all aspect-square bg-[#090B0D] ${
                             selectedImageId === img.id 
-                              ? 'border-emerald-500 ring-2 ring-emerald-500/30' 
-                              : 'border-zinc-200 dark:border-zinc-800 opacity-70 hover:opacity-100'
+                              ? 'border-[#C74A43] ring-2 ring-[#C74A43]/30' 
+                              : 'border-[#D8CEBF] dark:border-[#272D30] opacity-70 hover:opacity-100'
                           }`}
                         >
                           <img src={img.url} alt={img.name} className="w-full h-full object-cover" />
@@ -347,7 +350,7 @@ Audit and optimize for maximum microstock sales.`;
                           >
                             <X className="w-3 h-3" />
                           </button>
-                          <div className="absolute bottom-0 inset-x-0 bg-black/60 text-[9px] text-zinc-200 truncate px-1 py-0.5">
+                          <div className="absolute bottom-0 inset-x-0 bg-black/60 text-[9px] text-[#E8E4DC] truncate px-1 py-0.5">
                             {img.name}
                           </div>
                         </div>
@@ -359,13 +362,13 @@ Audit and optimize for maximum microstock sales.`;
             )}
 
             <div>
-              <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5">
+              <label className="block text-xs font-semibold text-[#1A2024] dark:text-[#E8E4DC] mb-1.5">
                 Primary Commercial Goal
               </label>
               <select
                 value={commercialGoal}
                 onChange={(e) => setCommercialGoal(e.target.value)}
-                className="w-full text-xs p-2.5 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100"
+                className="w-full text-xs p-2.5 rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] text-[#1A2024] dark:text-[#F3EDE2]"
               >
                 {goalOptions.map((g) => (
                   <option key={g} value={g}>{g}</option>
@@ -376,7 +379,7 @@ Audit and optimize for maximum microstock sales.`;
             <button
               onClick={handleOptimize}
               disabled={loading}
-              className="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white font-medium text-xs flex items-center justify-center gap-2 shadow-md shadow-emerald-600/20 transition-all cursor-pointer"
+              className="w-full py-2.5 rounded-lg bg-[#C74A43] hover:bg-[#B53F39] disabled:opacity-50 text-[#F3EDE2] font-semibold text-xs flex items-center justify-center gap-2 transition-colors cursor-pointer"
             >
               {loading ? (
                 <>
@@ -394,67 +397,67 @@ Audit and optimize for maximum microstock sales.`;
         </div>
 
         <div className="lg:col-span-7 space-y-4">
-          <h2 className="text-sm font-bold text-zinc-900 dark:text-zinc-100">
+          <h2 className="text-sm font-bold text-[#1A2024] dark:text-[#F3EDE2]">
             Commercial Utility Audit
           </h2>
 
           {!auditResult && !loading && (
-            <div className="rounded-xl border border-dashed border-zinc-300 dark:border-zinc-800 p-12 text-center bg-white/50 dark:bg-zinc-900/50 space-y-3">
-              <div className="w-12 h-12 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 mx-auto flex items-center justify-center">
+            <div className="rounded-xl border border-dashed border-[#D8CEBF] dark:border-[#272D30] p-12 text-center bg-[#F5F0E6]/50 dark:bg-[#090B0D]/50 space-y-3">
+              <div className="w-12 h-12 rounded-xl bg-[#C74A43]/10 text-[#C74A43] mx-auto flex items-center justify-center">
                 <TrendingUp className="w-6 h-6" />
               </div>
-              <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 text-sm">
+              <h3 className="font-semibold text-[#1A2024] dark:text-[#F3EDE2] text-sm">
                 Ready for Commercial Optimization
               </h3>
-              <p className="text-xs text-zinc-500 dark:text-zinc-400 max-w-sm mx-auto">
+              <p className="text-xs text-[#606669] dark:text-[#8C8A86] max-w-sm mx-auto">
                 Evaluate your concept against real advertising agency requirements: copy space, multi-industry appeal, and natural lighting.
               </p>
             </div>
           )}
 
           {loading && (
-            <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 p-12 text-center bg-white dark:bg-zinc-900 space-y-3">
-              <RefreshCw className="w-8 h-8 text-emerald-600 animate-spin mx-auto" />
-              <p className="text-xs text-zinc-600 dark:text-zinc-400">
+            <div className="rounded-xl border border-[#D8CEBF] dark:border-[#272D30] p-12 text-center bg-[#EDE6D8] dark:bg-[#11161A] space-y-3">
+              <RefreshCw className="w-8 h-8 text-[#C74A43] animate-spin mx-auto" />
+              <p className="text-xs text-[#606669] dark:text-[#8C8A86]">
                 Simulating buyer utility, negative space, and licensing breadth...
               </p>
             </div>
           )}
 
           {auditResult && (
-            <div className="bg-white dark:bg-zinc-900 rounded-xl p-5 border border-zinc-200 dark:border-zinc-800 shadow-sm space-y-4">
+            <div className="bg-[#EDE6D8] dark:bg-[#11161A] rounded-xl p-5 border border-[#D8CEBF] dark:border-[#272D30] space-y-4">
               {auditResult.imagePreviewUrl && (
-                <div className="flex items-center gap-3 p-2 bg-zinc-50 dark:bg-zinc-800/60 rounded-lg border border-zinc-200 dark:border-zinc-700">
-                  <img src={auditResult.imagePreviewUrl} alt="Inspected Stock Asset" className="w-16 h-16 object-cover rounded-md border border-zinc-200 dark:border-zinc-700" />
+                <div className="flex items-center gap-3 p-2 bg-[#F5F0E6] dark:bg-[#0C0F12] rounded-lg border border-[#D8CEBF] dark:border-[#272D30]">
+                  <img src={auditResult.imagePreviewUrl} alt="Inspected Stock Asset" className="w-16 h-16 object-cover rounded-md border border-[#D8CEBF] dark:border-[#272D30]" />
                   <div>
-                    <span className="text-xs font-semibold text-zinc-900 dark:text-zinc-100 block">Inspected Image Asset</span>
-                    <span className="text-[11px] text-zinc-500 dark:text-zinc-400">Vision AI commercial & copy space inspection</span>
+                    <span className="text-xs font-semibold text-[#1A2024] dark:text-[#F3EDE2] block">Inspected Image Asset</span>
+                    <span className="text-[11px] text-[#606669] dark:text-[#8C8A86]">Vision AI commercial & copy space inspection</span>
                   </div>
                 </div>
               )}
               {/* Score Header */}
-              <div className="flex items-center justify-between p-4 rounded-xl bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700/60">
+              <div className="flex items-center justify-between p-4 rounded-xl bg-[#F5F0E6]/60 dark:bg-[#0C0F12]/60 border border-[#D8CEBF] dark:border-[#272D30]/60">
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-xl shadow-md">
+                  <div className="w-12 h-12 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-xl">
                     {auditResult.score}
                   </div>
                   <div>
                     <div className="flex items-center gap-2">
-                      <span className="text-sm font-bold text-zinc-900 dark:text-zinc-100">
+                      <span className="text-sm font-bold text-[#1A2024] dark:text-[#F3EDE2]">
                         Commercial Viability Score
                       </span>
-                      <span className="text-xs px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 font-bold">
+                      <span className="text-xs px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 font-bold">
                         GRADE {auditResult.grade}
                       </span>
                     </div>
-                    <p className="text-xs text-zinc-500 dark:text-zinc-400">
+                    <p className="text-xs text-[#606669] dark:text-[#8C8A86]">
                       Based on buyer utility, copy space, and microstock appeal
                     </p>
                   </div>
                 </div>
                 <button
                   onClick={handleCopy}
-                  className="px-3 py-1.5 rounded-lg bg-white dark:bg-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-600 text-zinc-700 dark:text-zinc-200 text-xs font-medium flex items-center gap-1.5 border border-zinc-200 dark:border-zinc-600 transition-colors"
+                  className="px-3 py-1.5 rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#EDE6D8] dark:bg-[#11161A] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] text-[#1A2024] dark:text-[#F3EDE2] text-xs font-medium flex items-center gap-1.5 transition-colors"
                 >
                   {copied ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
                   <span>{copied ? 'Copied' : 'Copy'}</span>
@@ -463,11 +466,11 @@ Audit and optimize for maximum microstock sales.`;
 
               {/* Strengths & Weaknesses */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-                <div className="p-3 rounded-lg bg-emerald-50/50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-900/40 space-y-1">
-                  <span className="font-bold text-emerald-800 dark:text-emerald-300 flex items-center gap-1.5">
+                <div className="p-3 rounded-lg bg-emerald-500/5 dark:bg-emerald-500/10 border border-emerald-500/25 space-y-1">
+                  <span className="font-bold text-emerald-700 dark:text-emerald-400 flex items-center gap-1.5">
                     <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> Commercial Strengths
                   </span>
-                  <ul className="space-y-1 text-zinc-600 dark:text-zinc-400 text-[11px] pt-1">
+                  <ul className="space-y-1 text-[#606669] dark:text-[#8C8A86] text-[11px] pt-1">
                     {auditResult.strengths.map((s, idx) => (
                       <li key={idx} className="flex items-start gap-1.5">
                         <span className="text-emerald-600 font-bold">•</span>
@@ -476,11 +479,11 @@ Audit and optimize for maximum microstock sales.`;
                     ))}
                   </ul>
                 </div>
-                <div className="p-3 rounded-lg bg-amber-50/50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900/40 space-y-1">
-                  <span className="font-bold text-amber-800 dark:text-amber-300 flex items-center gap-1.5">
+                <div className="p-3 rounded-lg bg-amber-500/5 dark:bg-amber-500/10 border border-amber-500/25 space-y-1">
+                  <span className="font-bold text-amber-700 dark:text-amber-400 flex items-center gap-1.5">
                     <AlertCircle className="w-3.5 h-3.5 text-amber-600" /> Actionable Fixes
                   </span>
-                  <ul className="space-y-1 text-zinc-600 dark:text-zinc-400 text-[11px] pt-1">
+                  <ul className="space-y-1 text-[#606669] dark:text-[#8C8A86] text-[11px] pt-1">
                     {auditResult.weaknesses.map((w, idx) => (
                       <li key={idx} className="flex items-start gap-1.5">
                         <span className="text-amber-600 font-bold">•</span>
@@ -493,39 +496,39 @@ Audit and optimize for maximum microstock sales.`;
 
               {/* Optimized Prompt Output */}
               <div className="space-y-1.5">
-                <span className="text-[11px] font-semibold text-emerald-600 uppercase tracking-wider block">
+                <span className="text-[11px] font-semibold text-[#C74A43] uppercase tracking-wider block">
                   Commercially Optimized Prompt:
                 </span>
-                <div className="p-3.5 rounded-lg bg-zinc-50 dark:bg-zinc-950/60 border border-emerald-500/30 font-mono text-xs text-zinc-800 dark:text-zinc-200 leading-relaxed select-all">
+                <div className="p-3.5 rounded-lg bg-[#F5F0E6] dark:bg-[#090B0D]/60 border border-[#C74A43]/30 font-mono text-xs text-[#1A2024] dark:text-[#E8E4DC] leading-relaxed select-all">
                   {auditResult.optimizedPrompt}
                 </div>
               </div>
 
               {/* Copy Space & Buyer Analysis */}
-              <div className="p-3 rounded-lg bg-zinc-50 dark:bg-zinc-800/40 border border-zinc-200 dark:border-zinc-800 text-xs space-y-1.5">
+              <div className="p-3 rounded-lg bg-[#F5F0E6] dark:bg-[#0C0F12] border border-[#D8CEBF] dark:border-[#272D30] text-xs space-y-1.5">
                 <div>
-                  <span className="font-semibold text-zinc-900 dark:text-zinc-100">Copy Space Layout: </span>
-                  <span className="text-zinc-600 dark:text-zinc-400">{auditResult.copySpaceAnalysis}</span>
+                  <span className="font-semibold text-[#1A2024] dark:text-[#F3EDE2]">Copy Space Layout: </span>
+                  <span className="text-[#606669] dark:text-[#8C8A86]">{auditResult.copySpaceAnalysis}</span>
                 </div>
                 <div>
-                  <span className="font-semibold text-zinc-900 dark:text-zinc-100">Target Buyers: </span>
-                  <span className="text-zinc-600 dark:text-zinc-400">{auditResult.targetBuyerAnalysis}</span>
+                  <span className="font-semibold text-[#1A2024] dark:text-[#F3EDE2]">Target Buyers: </span>
+                  <span className="text-[#606669] dark:text-[#8C8A86]">{auditResult.targetBuyerAnalysis}</span>
                 </div>
               </div>
 
               {/* Action Buttons */}
-              <div className="pt-2 flex flex-wrap items-center justify-between gap-2 border-t border-zinc-100 dark:border-zinc-800">
+              <div className="pt-2 flex flex-wrap items-center justify-between gap-2 border-t border-[#D8CEBF] dark:border-[#272D30]">
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => onSendToMetadata(auditResult.optimizedPrompt, 'Commercial Asset', 'Business')}
-                    className="px-2.5 py-1.5 rounded-lg bg-zinc-100 dark:bg-zinc-800 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 hover:text-emerald-600 text-zinc-700 dark:text-zinc-300 text-xs font-medium flex items-center gap-1.5 transition-colors"
+                    className="px-2.5 py-1.5 rounded-lg bg-[#E9E1D1] dark:bg-[#0C0F12] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] hover:text-[#C74A43] text-[#1A2024] dark:text-[#E8E4DC] text-xs font-medium flex items-center gap-1.5 transition-colors"
                   >
-                    <Tag className="w-3.5 h-3.5 text-emerald-600" />
+                    <Tag className="w-3.5 h-3.5 text-[#C74A43]" />
                     <span>Send to Metadata</span>
                   </button>
                   <button
                     onClick={() => onSendToRisk(auditResult.optimizedPrompt)}
-                    className="px-2.5 py-1.5 rounded-lg bg-zinc-100 dark:bg-zinc-800 hover:bg-rose-50 dark:hover:bg-rose-950/40 hover:text-rose-600 text-zinc-700 dark:text-zinc-300 text-xs font-medium flex items-center gap-1.5 transition-colors"
+                    className="px-2.5 py-1.5 rounded-lg bg-[#E9E1D1] dark:bg-[#0C0F12] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] hover:text-rose-600 text-[#1A2024] dark:text-[#E8E4DC] text-xs font-medium flex items-center gap-1.5 transition-colors"
                   >
                     <ShieldAlert className="w-3.5 h-3.5 text-rose-500" />
                     <span>Scan IP Risk</span>
@@ -543,9 +546,9 @@ Audit and optimize for maximum microstock sales.`;
                     });
                     showToast('Saved to Library');
                   }}
-                  className="px-2.5 py-1.5 rounded-lg bg-zinc-100 dark:bg-zinc-800 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 hover:text-emerald-600 text-zinc-700 dark:text-zinc-300 text-xs font-medium flex items-center gap-1.5 transition-colors"
+                  className="px-2.5 py-1.5 rounded-lg bg-[#E9E1D1] dark:bg-[#0C0F12] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] hover:text-[#C74A43] text-[#1A2024] dark:text-[#E8E4DC] text-xs font-medium flex items-center gap-1.5 transition-colors"
                 >
-                  <Layers className="w-3.5 h-3.5 text-emerald-500" />
+                  <Layers className="w-3.5 h-3.5 text-[#C74A43]" />
                   <span>Save to Library</span>
                 </button>
               </div>
