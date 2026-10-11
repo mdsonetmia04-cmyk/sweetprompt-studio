@@ -74,26 +74,28 @@ export const PromptResultsToolbar: React.FC<PromptResultsToolbarProps> = ({
     showToast(`Downloaded ${activeExportPrompts.length} prompts as CSV`);
   };
 
+  const ghostBtn = 'px-2.5 py-1.5 rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#E9E1D1] dark:bg-[#0C0F12] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] text-[#1A2024] dark:text-[#F3EDE2] text-xs flex items-center gap-1.5 transition-colors cursor-pointer focus-visible:outline-none';
+
   return (
     <div className="space-y-2.5">
       {/* Curation Advisory Warning for Batches of 20 or 30 */}
       {totalCount >= 20 && (
-        <div className="px-3.5 py-2 rounded-[6px] bg-[#10232D]/40 border border-[#21434B] flex items-start gap-2.5 text-xs text-[#E8E4DC]">
-          <AlertCircle className="w-4 h-4 text-[#D9672E] shrink-0 mt-0.5" />
-          <p className="leading-relaxed text-[11px] text-[#8C8A86]">
-            <strong className="text-[#F3EDE2]">Adobe Stock Curation Advisory:</strong> Curate and review variations before submission. Submitting large numbers of near-identical images may impact portfolio quality.
+        <div className="px-3.5 py-2 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-start gap-2.5 text-xs text-[#1A2024] dark:text-[#F3EDE2]">
+          <AlertCircle className="w-4 h-4 text-amber-700 dark:text-amber-400 shrink-0 mt-0.5" />
+          <p className="leading-relaxed text-[11px] text-[#606669] dark:text-[#8C8A86]">
+            <strong className="text-[#1A2024] dark:text-[#F3EDE2]">Adobe Stock Curation Advisory:</strong> Curate and review variations before submission. Submitting large numbers of near-identical images may impact portfolio quality.
           </p>
         </div>
       )}
 
       {/* Main Results Bar */}
-      <div className="p-3 rounded-[6px] bg-[#11161A] border border-[#272D30] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div className="p-3 rounded-lg bg-[#EDE6D8] dark:bg-[#11161A] border border-[#D8CEBF] dark:border-[#272D30] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         {/* Left: Count & Select All */}
         <div className="flex items-center gap-3">
           <button
             type="button"
             onClick={onToggleSelectAll}
-            className="flex items-center gap-2 text-xs font-semibold text-[#8C8A86] hover:text-[#F3EDE2] transition-colors cursor-pointer"
+            className="flex items-center gap-2 text-xs font-semibold text-[#606669] dark:text-[#8C8A86] hover:text-[#1A2024] dark:hover:text-[#F3EDE2] transition-colors cursor-pointer focus-visible:outline-none"
             title={isAllSelected ? 'Deselect all' : 'Select all'}
           >
             {isAllSelected ? (
@@ -103,15 +105,15 @@ export const PromptResultsToolbar: React.FC<PromptResultsToolbarProps> = ({
                 <span className="w-2 h-0.5 bg-[#F3EDE2]"></span>
               </div>
             ) : (
-              <Square className="w-4 h-4 text-[#606669]" />
+              <Square className="w-4 h-4 text-[#606669] dark:text-[#8C8A86]" />
             )}
             <span>Select All</span>
           </button>
 
-          <div className="h-3.5 w-px bg-[#272D30]" />
+          <div className="h-3.5 w-px bg-[#D8CEBF] dark:bg-[#272D30]" />
 
           <div className="flex items-center gap-2 text-xs">
-            <span className="font-semibold text-[#F3EDE2]">
+            <span className="font-semibold text-[#1A2024] dark:text-[#F3EDE2]">
               {totalCount} {totalCount === 1 ? 'Prompt' : 'Prompts'}
             </span>
 
@@ -122,7 +124,7 @@ export const PromptResultsToolbar: React.FC<PromptResultsToolbarProps> = ({
             )}
 
             {diversityScore !== undefined && (
-              <span className="hidden md:inline-flex items-center gap-1 text-[11px] text-[#4E8793]">
+              <span className="hidden md:inline-flex items-center gap-1 text-[11px] text-emerald-700 dark:text-emerald-400">
                 <ShieldCheck className="w-3.5 h-3.5" />
                 <span>Diversity: {diversityScore}%</span>
               </span>
@@ -136,9 +138,9 @@ export const PromptResultsToolbar: React.FC<PromptResultsToolbarProps> = ({
           <button
             type="button"
             onClick={handleCopyAll}
-            className="px-3 py-1 rounded-[4px] border border-[#272D30] hover:border-[#383E41] bg-[#090B0D] hover:bg-[#171E24] text-[#E8E4DC] hover:text-[#F3EDE2] text-xs flex items-center gap-1.5 transition-colors cursor-pointer"
+            className={ghostBtn}
           >
-            {copiedAll ? <Check className="w-3.5 h-3.5 text-[#4E8793]" /> : <Copy className="w-3.5 h-3.5 text-[#8C8A86]" />}
+            {copiedAll ? <Check className="w-3.5 h-3.5 text-emerald-700 dark:text-emerald-400" /> : <Copy className="w-3.5 h-3.5 text-[#606669] dark:text-[#8C8A86]" />}
             <span>{copiedAll ? 'Copied' : selectedCount > 0 ? `Copy (${selectedCount})` : 'Copy All'}</span>
           </button>
 
@@ -146,9 +148,9 @@ export const PromptResultsToolbar: React.FC<PromptResultsToolbarProps> = ({
           <button
             type="button"
             onClick={handleDownloadTxt}
-            className="px-3 py-1 rounded-[4px] border border-[#272D30] hover:border-[#383E41] bg-[#090B0D] hover:bg-[#171E24] text-[#E8E4DC] hover:text-[#F3EDE2] text-xs flex items-center gap-1.5 transition-colors cursor-pointer"
+            className={ghostBtn}
           >
-            <FileText className="w-3.5 h-3.5 text-[#8C8A86]" />
+            <FileText className="w-3.5 h-3.5 text-[#606669] dark:text-[#8C8A86]" />
             <span>TXT</span>
           </button>
 
@@ -156,7 +158,7 @@ export const PromptResultsToolbar: React.FC<PromptResultsToolbarProps> = ({
           <button
             type="button"
             onClick={handleDownloadCsv}
-            className="px-3 py-1 rounded-[4px] bg-[#C74A43] hover:bg-[#B53F39] text-[#F3EDE2] text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
+            className="px-2.5 py-1.5 rounded-lg bg-[#C74A43] hover:bg-[#B53F39] text-[#F3EDE2] text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer focus-visible:outline-none"
           >
             <FileSpreadsheet className="w-3.5 h-3.5" />
             <span>Export CSV</span>

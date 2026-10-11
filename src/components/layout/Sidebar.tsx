@@ -21,6 +21,7 @@ import {
   FolderArchive,
   Settings,
   ScanSearch,
+  Wrench,
   X
 } from 'lucide-react';
 import { ModuleType, AISettings } from '../../types';
@@ -57,7 +58,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     { id: 'prompt-improver' as ModuleType, label: 'Prompt Improver', icon: ShieldCheck },
     { id: 'prompt-variations' as ModuleType, label: 'Prompt Variations', icon: Layers },
     { id: 'prompt-expander' as ModuleType, label: 'Prompt Expander', icon: Maximize2 },
-    { id: 'prompt-fixer' as ModuleType, label: 'Prompt Fixer', icon: ShieldCheck },
+    { id: 'prompt-fixer' as ModuleType, label: 'Prompt Fixer', icon: Wrench },
     { id: 'prompt-translator' as ModuleType, label: 'Prompt Translator', icon: Languages },
     { id: 'brainstormer' as ModuleType, label: 'Brainstormer', icon: Compass },
     { id: 'silhouette-finder' as ModuleType, label: 'Silhouette Finder', icon: Users },
@@ -149,7 +150,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
           {/* CREATE GROUP */}
           <div className="space-y-1.5">
-            <div className="px-1 text-[10px] font-semibold uppercase tracking-wider text-[#606669] dark:text-[#606669]">
+            <div className="px-1 text-[10px] font-semibold uppercase tracking-wider text-[#606669] dark:text-[#8C8A86]">
               CREATE
             </div>
             <div className="space-y-1">
@@ -159,7 +160,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
           {/* TOOLS GROUP */}
           <div className="space-y-1.5">
-            <div className="px-1 text-[10px] font-semibold uppercase tracking-wider text-[#606669] dark:text-[#606669]">
+            <div className="px-1 text-[10px] font-semibold uppercase tracking-wider text-[#606669] dark:text-[#8C8A86]">
               TOOLS
             </div>
             <div className="space-y-1">
@@ -169,7 +170,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
           {/* STOCK AUDIT GROUP */}
           <div className="space-y-1.5">
-            <div className="px-1 text-[10px] font-semibold uppercase tracking-wider text-[#606669] dark:text-[#606669]">
+            <div className="px-1 text-[10px] font-semibold uppercase tracking-wider text-[#606669] dark:text-[#8C8A86]">
               STOCK
             </div>
             <div className="space-y-1">
@@ -179,7 +180,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
           {/* LIBRARY */}
           <div className="space-y-1.5">
-            <div className="px-1 text-[10px] font-semibold uppercase tracking-wider text-[#606669] dark:text-[#606669]">
+            <div className="px-1 text-[10px] font-semibold uppercase tracking-wider text-[#606669] dark:text-[#8C8A86]">
               LIBRARY
             </div>
             <button

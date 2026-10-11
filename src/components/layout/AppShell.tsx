@@ -100,13 +100,6 @@ export default function AppShell() {
     showToast('Loaded into Prompt Studio');
   };
 
-  // Determine styling based on themeStyle: 'sweet' | 'simple' | 'futuristic'
-  const themeClasses = {
-    sweet: 'selection:bg-emerald-500 selection:text-white',
-    simple: 'selection:bg-zinc-800 selection:text-white',
-    futuristic: 'selection:bg-indigo-500 selection:text-white'
-  }[settings.themeStyle || 'sweet'];
-
   const isHomePage = currentModule === 'home';
 
   if (isHomePage) {
@@ -367,8 +360,8 @@ export default function AppShell() {
 
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 px-4 py-3 rounded-xl shadow-xl flex items-center gap-3 text-sm font-medium animate-in fade-in slide-in-from-bottom-3">
-          <div className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></div>
+        <div className="fixed bottom-6 right-6 z-50 bg-[#1A2024] dark:bg-[#EDE6D8] text-[#F3EDE2] dark:text-[#1A2024] px-4 py-3 rounded-lg shadow-xl flex items-center gap-3 text-sm font-medium animate-fade-in">
+          <div className="w-2 h-2 rounded-full bg-[#C74A43] shrink-0"></div>
           <span>{toastMessage}</span>
         </div>
       )}

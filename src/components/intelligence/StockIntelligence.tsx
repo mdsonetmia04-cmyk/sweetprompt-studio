@@ -86,20 +86,29 @@ export const StockIntelligence: React.FC<StockIntelligenceProps> = ({
 
   const currentEvent = seasonalEvents.find(e => e.name === selectedSeason) || seasonalEvents[0];
 
+  const seasonTabClass = (active: boolean) =>
+    `px-4 py-2.5 rounded-xl text-xs font-semibold transition-colors flex items-center gap-2 cursor-pointer ${
+      active
+        ? 'bg-[#C74A43] hover:bg-[#B53F39] text-[#F3EDE2]'
+        : 'border border-[#D8CEBF] dark:border-[#272D30] bg-[#EDE6D8] dark:bg-[#11161A] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] text-[#1A2024] dark:text-[#F3EDE2]'
+    }`;
+
+  const smallSecondaryClass = "px-3 py-2 border border-[#D8CEBF] dark:border-[#272D30] bg-[#EDE6D8] dark:bg-[#11161A] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] text-[#1A2024] dark:text-[#F3EDE2] rounded-xl text-xs font-semibold flex items-center gap-1.5 cursor-pointer transition-colors";
+
   return (
     <div className="space-y-6">
-      {/* Header Banner */}
-      <div className="bg-gradient-to-r from-emerald-600 to-teal-700 rounded-2xl p-6 md:p-8 text-white shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-        <div className="space-y-2">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 text-xs font-semibold backdrop-blur-xs">
-            <TrendingUp className="w-3.5 h-3.5" />
-            <span>Stock Intelligence & Market Trends</span>
-          </div>
-          <h2 className="text-xl md:text-2xl font-bold tracking-tight">AI-Driven Commercial Concept Generator</h2>
-          <p className="text-emerald-100 text-sm max-w-2xl">
-            Explore high-demand microstock themes, seasonal demand surges, and commercial concepts optimized for Adobe Stock buyer search patterns.
-          </p>
+      {/* Page Header */}
+      <div className="rounded-xl border border-[#D8CEBF] dark:border-[#272D30] bg-[#EDE6D8] dark:bg-[#11161A] p-5 sm:p-6">
+        <div className="text-[11px] font-semibold uppercase tracking-wider text-[#606669] dark:text-[#8C8A86] mb-1">
+          Stock Intelligence
         </div>
+        <h1 className="font-editorial text-2xl sm:text-3xl text-[#1A2024] dark:text-[#F3EDE2] font-normal tracking-tight flex items-center gap-2.5">
+          <TrendingUp className="w-6 h-6 text-[#C74A43]" />
+          <span>AI-Driven Commercial Concept Generator</span>
+        </h1>
+        <p className="text-xs text-[#606669] dark:text-[#8C8A86] mt-1 max-w-2xl">
+          Explore high-demand microstock themes, seasonal demand surges, and commercial concepts optimized for Adobe Stock buyer search patterns.
+        </p>
       </div>
 
       {/* Season Selector Tabs & Bulk Export */}
@@ -109,11 +118,7 @@ export const StockIntelligence: React.FC<StockIntelligenceProps> = ({
             <button
               key={evt.id}
               onClick={() => setSelectedSeason(evt.name)}
-              className={`px-4 py-2.5 rounded-xl text-xs font-semibold transition-all flex items-center gap-2 cursor-pointer ${
-                selectedSeason === evt.name
-                  ? 'bg-emerald-600 text-white shadow-sm'
-                  : 'bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800'
-              }`}
+              className={seasonTabClass(selectedSeason === evt.name)}
             >
               <Calendar className="w-3.5 h-3.5" />
               <span>{evt.name}</span>
@@ -121,7 +126,7 @@ export const StockIntelligence: React.FC<StockIntelligenceProps> = ({
           ))}
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <button
             onClick={async () => {
               setIsAiGenerating(true);
@@ -155,7 +160,7 @@ Return JSON strictly:
               }
             }}
             disabled={isAiGenerating}
-            className="px-3 py-2 bg-purple-600 hover:bg-purple-700 disabled:opacity-50 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-2xs cursor-pointer"
+            className="px-3 py-2 bg-[#C74A43] hover:bg-[#B53F39] disabled:opacity-50 text-[#F3EDE2] rounded-xl text-xs font-semibold flex items-center gap-1.5 cursor-pointer transition-colors"
           >
             {isAiGenerating ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : null}
             <span>{isAiGenerating ? 'Brainstorming...' : 'Trend Expander'}</span>
@@ -182,9 +187,9 @@ Return JSON strictly:
               }))];
               exportToCSV(allConcepts, `stock-intelligence-all-${Date.now()}.csv`);
             }}
-            className="px-3 py-2 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-2xs cursor-pointer"
+            className={smallSecondaryClass}
           >
-            <FileSpreadsheet className="w-3.5 h-3.5 text-emerald-600" />
+            <FileSpreadsheet className="w-3.5 h-3.5 text-[#C74A43]" />
             <span>Bulk CSV All</span>
           </button>
           <button
@@ -199,7 +204,7 @@ Return JSON strictly:
               }));
               exportToJSON(currentConcepts, `stock-intelligence-${currentEvent.id}-${Date.now()}.json`);
             }}
-            className="px-3 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-2xs cursor-pointer"
+            className={smallSecondaryClass}
           >
             <Download className="w-3.5 h-3.5" />
             <span>Export JSON</span>
@@ -210,58 +215,58 @@ Return JSON strictly:
       {/* Concepts Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {aiConcepts.map((concept, idx) => (
-          <div key={`ai-${idx}`} className="bg-purple-50/40 dark:bg-purple-950/20 border border-purple-200 dark:border-purple-800/60 rounded-2xl p-6 shadow-sm flex flex-col justify-between space-y-4">
+          <div key={`ai-${idx}`} className="rounded-xl border border-[#D8CEBF] dark:border-[#272D30] bg-[#EDE6D8] dark:bg-[#11161A] p-5 sm:p-6 flex flex-col justify-between space-y-4">
             <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-mono font-semibold px-2.5 py-1 rounded-lg bg-purple-100 dark:bg-purple-900/60 text-purple-700 dark:text-purple-300 flex items-center gap-1.5">
-                  <Layers className="w-3 h-3 text-purple-600 dark:text-purple-400" />
-                  <span>Concept • {concept.category}</span>
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg bg-[#E9E1D1] dark:bg-[#0C0F12] border border-[#D8CEBF] dark:border-[#272D30] text-[#C74A43] flex items-center gap-1.5">
+                  <Layers className="w-3 h-3" />
+                  <span>AI Concept • {concept.category}</span>
                 </span>
-                <span className="text-xs text-purple-600 dark:text-purple-400 font-medium">{concept.copySpace}</span>
+                <span className="text-xs text-[#606669] dark:text-[#8C8A86]">{concept.copySpace}</span>
               </div>
-              <h3 className="font-bold text-zinc-900 dark:text-zinc-100 text-base">{concept.title}</h3>
-              <p className="text-xs font-mono text-zinc-700 dark:text-zinc-300 bg-white/70 dark:bg-zinc-900/70 p-3.5 rounded-xl border border-purple-100 dark:border-purple-900/40 leading-relaxed">
+              <h3 className="font-semibold text-[#1A2024] dark:text-[#F3EDE2] text-base">{concept.title}</h3>
+              <p className="text-xs font-mono text-[#1A2024] dark:text-[#F3EDE2] bg-[#E9E1D1] dark:bg-[#0C0F12] p-3.5 rounded-lg border border-[#D8CEBF] dark:border-[#272D30] leading-relaxed">
                 {concept.promptIdea}
               </p>
-              <p className="text-xs text-zinc-600 dark:text-zinc-400">
-                <strong className="text-zinc-800 dark:text-zinc-200">Commercial Use:</strong> {concept.commercialUse}
+              <p className="text-xs text-[#606669] dark:text-[#8C8A86]">
+                <strong className="text-[#1A2024] dark:text-[#F3EDE2]">Commercial Use:</strong> {concept.commercialUse}
               </p>
             </div>
 
             <button
               onClick={() => onSelectPromptIdea(concept.promptIdea)}
-              className="w-full py-3 px-4 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-semibold flex items-center justify-center gap-2 transition-colors cursor-pointer group shadow-sm shadow-purple-600/20"
+              className="w-full rounded-lg bg-[#C74A43] hover:bg-[#B53F39] text-[#F3EDE2] font-semibold px-4 py-3 text-xs flex items-center justify-center gap-2 transition-colors cursor-pointer"
             >
               <span>Load into Prompt Studio</span>
-              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-3.5 h-3.5" />
             </button>
           </div>
         ))}
 
         {currentEvent.concepts.map((concept, idx) => (
-          <div key={idx} className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-6 shadow-sm flex flex-col justify-between space-y-4">
+          <div key={idx} className="rounded-xl border border-[#D8CEBF] dark:border-[#272D30] bg-[#EDE6D8] dark:bg-[#11161A] p-5 sm:p-6 flex flex-col justify-between space-y-4">
             <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-mono font-semibold px-2.5 py-1 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg bg-[#E9E1D1] dark:bg-[#0C0F12] border border-[#D8CEBF] dark:border-[#272D30] text-[#1A2024] dark:text-[#F3EDE2]">
                   {concept.category}
                 </span>
-                <span className="text-xs text-zinc-400">{concept.copySpace}</span>
+                <span className="text-xs text-[#606669] dark:text-[#8C8A86]">{concept.copySpace}</span>
               </div>
-              <h3 className="font-bold text-zinc-900 dark:text-zinc-100 text-base">{concept.title}</h3>
-              <p className="text-xs font-mono text-zinc-600 dark:text-zinc-400 bg-zinc-50 dark:bg-zinc-950 p-3.5 rounded-xl border border-zinc-200 dark:border-zinc-800 leading-relaxed">
+              <h3 className="font-semibold text-[#1A2024] dark:text-[#F3EDE2] text-base">{concept.title}</h3>
+              <p className="text-xs font-mono text-[#1A2024] dark:text-[#F3EDE2] bg-[#E9E1D1] dark:bg-[#0C0F12] p-3.5 rounded-lg border border-[#D8CEBF] dark:border-[#272D30] leading-relaxed">
                 {concept.promptIdea}
               </p>
-              <p className="text-xs text-zinc-500">
-                <strong className="text-zinc-700 dark:text-zinc-300">Commercial Use:</strong> {concept.commercialUse}
+              <p className="text-xs text-[#606669] dark:text-[#8C8A86]">
+                <strong className="text-[#1A2024] dark:text-[#F3EDE2]">Commercial Use:</strong> {concept.commercialUse}
               </p>
             </div>
 
             <button
               onClick={() => onSelectPromptIdea(concept.promptIdea)}
-              className="w-full py-3 px-4 bg-zinc-100 dark:bg-zinc-800 hover:bg-emerald-600 hover:text-white text-zinc-800 dark:text-zinc-200 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 transition-colors group cursor-pointer"
+              className="w-full rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#EDE6D8] dark:bg-[#11161A] hover:bg-[#C74A43] hover:border-[#C74A43] hover:text-[#F3EDE2] text-[#1A2024] dark:text-[#F3EDE2] font-semibold px-4 py-3 text-xs flex items-center justify-center gap-2 transition-colors cursor-pointer"
             >
               <span>Load into Prompt Studio</span>
-              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-3.5 h-3.5" />
             </button>
           </div>
         ))}

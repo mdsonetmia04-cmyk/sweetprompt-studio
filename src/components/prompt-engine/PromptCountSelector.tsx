@@ -16,17 +16,17 @@ export const PromptCountSelector: React.FC<PromptCountSelectorProps> = ({
   return (
     <div className="space-y-1.5">
       <div className="flex items-center justify-between">
-        <label className="text-xs font-medium text-[#E8E4DC] flex items-center gap-1.5">
-          <Layers className="w-3.5 h-3.5 text-[#8C8A86]" />
+        <label className="text-xs font-medium text-[#1A2024] dark:text-[#F3EDE2] flex items-center gap-1.5">
+          <Layers className="w-3.5 h-3.5 text-[#606669] dark:text-[#8C8A86]" />
           <span>Batch Quantity</span>
         </label>
-        <span className="text-[11px] font-mono text-[#8C8A86]">
+        <span className="text-[11px] font-mono text-[#606669] dark:text-[#8C8A86]">
           Target: <strong className="text-[#C74A43] font-semibold">{value}</strong> {value === 1 ? 'Prompt' : 'Prompts'}
         </span>
       </div>
 
       {/* Segmented Control */}
-      <div className="grid grid-cols-6 gap-1 p-1 rounded-[6px] bg-[#090B0D] border border-[#272D30]">
+      <div className="grid grid-cols-3 sm:grid-cols-6 gap-1 p-1 rounded-lg bg-[#EDE6D8] dark:bg-[#090B0D] border border-[#D8CEBF] dark:border-[#272D30]">
         {PROMPT_COUNT_OPTIONS.map((count) => {
           const isSelected = value === count;
           return (
@@ -35,10 +35,10 @@ export const PromptCountSelector: React.FC<PromptCountSelectorProps> = ({
               type="button"
               disabled={disabled}
               onClick={() => onChange(count)}
-              className={`py-1.5 px-1 text-center rounded-[4px] text-xs font-medium transition-colors cursor-pointer disabled:opacity-50 ${
+              className={`py-1.5 px-2.5 text-center rounded-lg text-xs font-medium transition-colors cursor-pointer disabled:opacity-50 focus-visible:outline-none ${
                 isSelected
                   ? 'bg-[#C74A43] text-[#F3EDE2] font-semibold'
-                  : 'text-[#8C8A86] hover:text-[#F3EDE2] hover:bg-[#171E24]'
+                  : 'text-[#606669] dark:text-[#8C8A86] hover:text-[#1A2024] dark:hover:text-[#F3EDE2] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24]'
               }`}
             >
               <span>{count}</span>
