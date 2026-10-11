@@ -110,7 +110,7 @@ async function startServer() {
           return res.status(400).json({ error: 'Gemini API key not configured. Please add your key in Settings or switch AI providers.' });
         }
 
-        const primaryModel = model || 'gemini-2.5-flash';
+        const primaryModel = model || 'gemini-3.8-flash';
         const candidateModels = [
           primaryModel,
           ...GEMINI_TEXT_FALLBACKS.filter((m) => m !== primaryModel)
@@ -431,7 +431,7 @@ async function startServer() {
           return res.status(400).json({ error: 'Gemini API key not configured. Please add your key in Settings or switch AI providers.' });
         }
 
-        const primaryModel = model || 'gemini-2.5-flash';
+        const primaryModel = model || 'gemini-3.8-flash';
         const candidateModels = [
           primaryModel,
           ...GEMINI_VISION_FALLBACKS.filter((m) => m !== primaryModel)
@@ -622,7 +622,7 @@ async function startServer() {
           }
         });
 
-        const primaryModel = model || 'gemini-2.5-flash';
+        const primaryModel = model || 'gemini-3.8-flash';
         const candidateModels = [
           primaryModel,
           ...GEMINI_TEXT_FALLBACKS.filter((m) => m !== primaryModel)

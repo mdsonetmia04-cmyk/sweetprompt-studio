@@ -86,7 +86,7 @@ export const MetadataGenerator: React.FC<MetadataGeneratorProps> = ({
         summary: updatedMetadata.keywords.slice(0, 8).join(', '),
         data: updatedMetadata,
         provider: 'gemini',
-        model: 'gemini-2.5-flash',
+        model: 'gemini-3.8-flash',
       });
 
       showToast(`Generated title and ${updatedMetadata.keywords.length} keywords`);

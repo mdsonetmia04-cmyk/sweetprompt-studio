@@ -82,7 +82,7 @@ Return a JSON array of objects:
         summary: items[0]?.prompt || topic,
         data: items,
         provider: 'gemini',
-        model: 'gemini-2.5-flash',
+        model: 'gemini-3.8-flash',
       });
 
       showToast(`Generated ${items.length} commercial microstock prompts`);

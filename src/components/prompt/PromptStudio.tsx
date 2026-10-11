@@ -284,7 +284,7 @@ export const PromptStudio: React.FC<PromptStudioProps> = ({
             <div className="space-y-1">
               <label className="text-[11px] font-medium text-[#606669] dark:text-[#8C8A86]">Model Engine</label>
               <div className="rounded-lg border border-[#D8CEBF] dark:border-[#272D30] bg-[#F5F0E6] dark:bg-[#090B0D] px-3 py-2 text-xs text-[#606669] dark:text-[#8C8A86] font-mono">
-                {settings.model || 'gemini-2.5-flash'} (Universal Stock Engine)
+                {settings.model || 'gemini-3.8-flash'} (Universal Stock Engine)
               </div>
             </div>
           </div>
