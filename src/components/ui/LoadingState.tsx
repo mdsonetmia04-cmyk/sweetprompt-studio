@@ -13,11 +13,11 @@ export const LoadingState: React.FC<LoadingStateProps> = ({
   className = '',
 }) => {
   return (
-    <div className={`rounded-xl border border-zinc-200 dark:border-zinc-800 p-8 sm:p-12 text-center bg-white dark:bg-zinc-900/60 space-y-3 ${className}`}>
-      <Loader2 className="w-7 h-7 text-indigo-600 dark:text-indigo-400 animate-spin mx-auto" />
+    <div className={`rounded-xl border border-[#D8CEBF] dark:border-[#272D30] p-8 sm:p-12 text-center bg-[#EDE6D8]/60 dark:bg-[#11161A]/60 space-y-3 ${className}`}>
+      <Loader2 className="w-7 h-7 text-[#C74A43] animate-spin mx-auto" />
       <div className="space-y-1">
-        <h4 className="font-extrabold text-zinc-950 dark:text-zinc-50 text-sm">{message}</h4>
-        <p className="text-xs text-zinc-600 dark:text-zinc-400 max-w-xs mx-auto leading-relaxed font-medium">
+        <h4 className="font-extrabold text-[#1A2024] dark:text-[#F3EDE2] text-sm">{message}</h4>
+        <p className="text-xs text-[#606669] dark:text-[#8C8A86] max-w-xs mx-auto leading-relaxed font-medium">
           {subMessage}
         </p>
       </div>

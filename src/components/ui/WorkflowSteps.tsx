@@ -42,29 +42,29 @@ export const WorkflowSteps: React.FC<WorkflowStepsProps> = ({
         return (
           <React.Fragment key={step.id}>
             {idx > 0 && (
-              <div className="w-4 sm:w-8 h-[1px] bg-zinc-200 dark:bg-zinc-800 shrink-0" />
+              <div className="w-4 sm:w-8 h-[1px] bg-[#D8CEBF] dark:bg-[#272D30] shrink-0" />
             )}
             <button
               type="button"
               onClick={() => onStepClick && onStepClick(step.id)}
               disabled={!onStepClick}
-              className={`flex items-center gap-2 text-xs transition-colors ${
+              className={`flex items-center gap-2 text-xs transition-colors focus-visible:outline-none ${
                 onStepClick ? 'cursor-pointer' : 'cursor-default'
               } ${
                 status === 'active'
-                  ? 'text-indigo-600 dark:text-indigo-400 font-extrabold'
+                  ? 'text-[#C74A43] font-extrabold'
                   : status === 'completed'
-                  ? 'text-emerald-600 dark:text-emerald-400 font-semibold'
-                  : 'text-zinc-500 font-medium'
+                  ? 'text-emerald-700 dark:text-emerald-400 font-semibold'
+                  : 'text-[#606669] dark:text-[#8C8A86] font-medium'
               }`}
             >
               <span
                 className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-mono shrink-0 transition-colors ${
                   status === 'completed'
-                    ? 'bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/40'
+                    ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20'
                     : status === 'active'
-                    ? 'bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 border border-indigo-500/60 ring-2 ring-indigo-500/20 font-bold'
-                    : 'bg-zinc-100 dark:bg-zinc-900 text-zinc-500 border border-zinc-200 dark:border-zinc-800'
+                    ? 'bg-[#C74A43]/15 text-[#C74A43] border border-[#C74A43]/40 ring-2 ring-[#C74A43]/20 font-bold'
+                    : 'bg-[#E9E1D1] dark:bg-[#0C0F12] text-[#606669] dark:text-[#8C8A86] border border-[#D8CEBF] dark:border-[#272D30]'
                 }`}
               >
                 {status === 'completed' ? (
@@ -73,7 +73,7 @@ export const WorkflowSteps: React.FC<WorkflowStepsProps> = ({
                   <span>{step.num}</span>
                 )}
               </span>
-              <span className="hidden xs:inline tracking-wide">{step.label}</span>
+              <span className="hidden sm:inline tracking-wide">{step.label}</span>
             </button>
           </React.Fragment>
         );

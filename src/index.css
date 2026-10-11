@@ -37,6 +37,12 @@
     --warm-white: #E8E4DC;
   }
 
+  /* Visible keyboard focus for accessibility — restrained accent ring */
+  :focus-visible {
+    outline: 2px solid #C74A43;
+    outline-offset: 2px;
+  }
+
   body {
     background-color: var(--bg-base);
     color: var(--text-primary);

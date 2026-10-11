@@ -70,21 +70,24 @@ export const ResultCard: React.FC<ResultCardProps> = ({
     ? String(data.number).padStart(2, '0')
     : data.number || '01';
 
+  const actionBtnBase = 'px-2.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer focus-visible:outline-none border';
+  const actionBtnIdle = 'border-[#D8CEBF] dark:border-[#272D30] bg-[#E9E1D1] dark:bg-[#0C0F12] hover:bg-[#E2D9C7] dark:hover:bg-[#171E24] text-[#1A2024] dark:text-[#F3EDE2]';
+
   return (
-    <div className={`p-4 sm:p-5 rounded-xl bg-zinc-900/80 border border-zinc-800 hover:border-zinc-700/80 transition-all shadow-sm space-y-3.5 ${className}`}>
+    <div className={`p-4 sm:p-5 rounded-xl bg-[#EDE6D8] dark:bg-[#11161A] border border-[#D8CEBF] dark:border-[#272D30] hover:border-[#C74A43]/40 transition-colors space-y-3.5 ${className}`}>
       {/* Header with Number, Title, Status Badges */}
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-start gap-3 min-w-0">
-          <span className="font-mono text-xs font-bold px-2 py-0.5 rounded bg-zinc-800 text-zinc-300 shrink-0 mt-0.5">
+          <span className="font-mono text-xs font-bold px-2 py-0.5 rounded bg-[#E9E1D1] dark:bg-[#0C0F12] text-[#606669] dark:text-[#8C8A86] border border-[#D8CEBF] dark:border-[#272D30] shrink-0 mt-0.5">
             #{numberDisplay}
           </span>
           <div className="min-w-0">
-            <h3 className="font-bold text-zinc-100 text-sm sm:text-base leading-snug truncate">
+            <h3 className="font-bold text-[#1A2024] dark:text-[#F3EDE2] text-sm sm:text-base leading-snug truncate">
               {data.title || 'Commercial Stock Asset'}
             </h3>
             {data.commercialUse && (
-              <p className="text-[11px] text-zinc-400 mt-0.5 truncate">
-                <strong className="text-zinc-300">Commercial Use:</strong> {data.commercialUse}
+              <p className="text-[11px] text-[#606669] dark:text-[#8C8A86] mt-0.5 truncate">
+                <strong className="text-[#1A2024] dark:text-[#F3EDE2]">Commercial Use:</strong> {data.commercialUse}
               </p>
             )}
           </div>
@@ -94,7 +97,7 @@ export const ResultCard: React.FC<ResultCardProps> = ({
         <div className="flex items-center gap-1.5 shrink-0">
           <StatusBadge status={data.ipStatus || 'LOW'} size="sm" />
           {data.similarityStatus && (
-            <span className="hidden sm:inline-flex items-center text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-zinc-800 text-zinc-400 border border-zinc-700">
+            <span className="hidden sm:inline-flex items-center text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-[#E9E1D1] dark:bg-[#0C0F12] text-[#606669] dark:text-[#8C8A86] border border-[#D8CEBF] dark:border-[#272D30]">
               SIMILARITY: {data.similarityStatus}
             </span>
           )}
@@ -104,7 +107,7 @@ export const ResultCard: React.FC<ResultCardProps> = ({
       {/* Prompt Block */}
       <div className="relative group">
         <div
-          className={`p-3.5 rounded-lg bg-zinc-950/70 border border-zinc-800/80 font-mono text-xs text-zinc-200 leading-relaxed select-all ${
+          className={`p-3.5 rounded-lg bg-[#E9E1D1] dark:bg-[#0C0F12] border border-[#D8CEBF] dark:border-[#272D30] font-mono text-xs text-[#1A2024] dark:text-[#F3EDE2] leading-relaxed select-all ${
             !expanded ? 'line-clamp-3' : ''
           }`}
         >
@@ -113,7 +116,7 @@ export const ResultCard: React.FC<ResultCardProps> = ({
         {data.prompt.length > 200 && (
           <button
             onClick={() => setExpanded(!expanded)}
-            className="mt-1 text-[11px] text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 flex items-center gap-1 font-semibold transition-colors"
+            className="mt-1 text-[11px] text-[#C74A43] hover:text-[#B53F39] flex items-center gap-1 font-semibold transition-colors focus-visible:outline-none"
           >
             {expanded ? (
               <>
@@ -130,38 +133,38 @@ export const ResultCard: React.FC<ResultCardProps> = ({
 
       {/* Composition / Optics details if available */}
       {(data.cameraSetup || data.lightingSetup || data.copySpace) && (
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-[11px] text-zinc-600 dark:text-zinc-400 pt-0.5">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-[11px] text-[#606669] dark:text-[#8C8A86] pt-0.5">
           {data.cameraSetup && (
-            <div className="p-2 rounded bg-zinc-50 dark:bg-zinc-950/40 border border-zinc-200 dark:border-zinc-800/60 truncate">
-              <span className="text-zinc-500 font-bold block">Optics:</span>
-              <span className="text-zinc-800 dark:text-zinc-200 truncate">{data.cameraSetup}</span>
+            <div className="p-2 rounded bg-[#E9E1D1] dark:bg-[#0C0F12] border border-[#D8CEBF] dark:border-[#272D30] truncate">
+              <span className="text-[#606669] dark:text-[#8C8A86] font-bold block">Optics:</span>
+              <span className="text-[#1A2024] dark:text-[#F3EDE2] truncate">{data.cameraSetup}</span>
             </div>
           )}
           {data.lightingSetup && (
-            <div className="p-2 rounded bg-zinc-50 dark:bg-zinc-950/40 border border-zinc-200 dark:border-zinc-800/60 truncate">
-              <span className="text-zinc-500 font-bold block">Lighting:</span>
-              <span className="text-zinc-800 dark:text-zinc-200 truncate">{data.lightingSetup}</span>
+            <div className="p-2 rounded bg-[#E9E1D1] dark:bg-[#0C0F12] border border-[#D8CEBF] dark:border-[#272D30] truncate">
+              <span className="text-[#606669] dark:text-[#8C8A86] font-bold block">Lighting:</span>
+              <span className="text-[#1A2024] dark:text-[#F3EDE2] truncate">{data.lightingSetup}</span>
             </div>
           )}
           {data.copySpace && (
-            <div className="p-2 rounded bg-zinc-50 dark:bg-zinc-950/40 border border-zinc-200 dark:border-zinc-800/60 truncate">
-              <span className="text-zinc-500 font-bold block">Copy Space:</span>
-              <span className="text-zinc-800 dark:text-zinc-200 truncate">{data.copySpace}</span>
+            <div className="p-2 rounded bg-[#E9E1D1] dark:bg-[#0C0F12] border border-[#D8CEBF] dark:border-[#272D30] truncate">
+              <span className="text-[#606669] dark:text-[#8C8A86] font-bold block">Copy Space:</span>
+              <span className="text-[#1A2024] dark:text-[#F3EDE2] truncate">{data.copySpace}</span>
             </div>
           )}
         </div>
       )}
 
       {/* Compact Action Buttons */}
-      <div className="pt-2 border-t border-zinc-200 dark:border-zinc-800/80 flex flex-wrap items-center justify-between gap-2">
+      <div className="pt-2 border-t border-[#D8CEBF] dark:border-[#272D30] flex flex-wrap items-center justify-between gap-2">
         <div className="flex flex-wrap items-center gap-1.5">
           <button
             type="button"
             onClick={handleCopy}
-            className={`px-2.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer ${
+            className={`${actionBtnBase} ${
               copied
-                ? 'bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/40'
-                : 'bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700/80 text-zinc-800 dark:text-zinc-200 border border-zinc-200 dark:border-zinc-700/60'
+                ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/20'
+                : actionBtnIdle
             }`}
           >
             {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
@@ -172,10 +175,10 @@ export const ResultCard: React.FC<ResultCardProps> = ({
             <button
               type="button"
               onClick={handleSave}
-              className={`px-2.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer ${
+              className={`${actionBtnBase} ${
                 saved
-                  ? 'bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 border border-indigo-500/40'
-                  : 'bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700/80 text-zinc-800 dark:text-zinc-200 border border-zinc-200 dark:border-zinc-700/60'
+                  ? 'bg-[#C74A43]/10 text-[#C74A43] border-[#C74A43]/40'
+                  : actionBtnIdle
               }`}
             >
               <Bookmark className="w-3.5 h-3.5" />
@@ -187,9 +190,9 @@ export const ResultCard: React.FC<ResultCardProps> = ({
             <button
               type="button"
               onClick={() => onImprove(data.prompt)}
-              className="px-2.5 py-1.5 rounded-lg text-xs font-medium bg-zinc-800 hover:bg-zinc-700/80 text-zinc-200 border border-zinc-700/60 flex items-center gap-1.5 transition-colors cursor-pointer"
+              className={`${actionBtnBase} ${actionBtnIdle}`}
             >
-              <Wand2 className="w-3.5 h-3.5 text-cyan-400" />
+              <Wand2 className="w-3.5 h-3.5 text-[#C74A43]" />
               <span>Improve</span>
             </button>
           )}
@@ -198,9 +201,9 @@ export const ResultCard: React.FC<ResultCardProps> = ({
             <button
               type="button"
               onClick={() => onVariations(data.prompt)}
-              className="px-2.5 py-1.5 rounded-lg text-xs font-medium bg-zinc-800 hover:bg-zinc-700/80 text-zinc-200 border border-zinc-700/60 flex items-center gap-1.5 transition-colors cursor-pointer"
+              className={`${actionBtnBase} ${actionBtnIdle}`}
             >
-              <Layers className="w-3.5 h-3.5 text-indigo-400" />
+              <Layers className="w-3.5 h-3.5 text-[#C74A43]" />
               <span>Variations</span>
             </button>
           )}
@@ -211,9 +214,9 @@ export const ResultCard: React.FC<ResultCardProps> = ({
             <button
               type="button"
               onClick={() => onMetadata(data.prompt, data.title, data.category)}
-              className="px-2.5 py-1.5 rounded-lg text-xs font-medium bg-zinc-800 hover:bg-emerald-950/40 hover:text-emerald-300 text-zinc-200 border border-zinc-700/60 flex items-center gap-1.5 transition-colors cursor-pointer"
+              className={`${actionBtnBase} ${actionBtnIdle} hover:text-emerald-700 dark:hover:text-emerald-400`}
             >
-              <Tag className="w-3.5 h-3.5 text-emerald-400" />
+              <Tag className="w-3.5 h-3.5 text-emerald-700 dark:text-emerald-400" />
               <span>Metadata</span>
             </button>
           )}
@@ -222,9 +225,9 @@ export const ResultCard: React.FC<ResultCardProps> = ({
             <button
               type="button"
               onClick={() => onIPCheck(data.prompt)}
-              className="px-2.5 py-1.5 rounded-lg text-xs font-medium bg-zinc-800 hover:bg-rose-950/40 hover:text-rose-300 text-zinc-200 border border-zinc-700/60 flex items-center gap-1.5 transition-colors cursor-pointer"
+              className={`${actionBtnBase} ${actionBtnIdle} hover:text-rose-700 dark:hover:text-rose-400`}
             >
-              <ShieldAlert className="w-3.5 h-3.5 text-rose-400" />
+              <ShieldAlert className="w-3.5 h-3.5 text-rose-700 dark:text-rose-400" />
               <span>IP Check</span>
             </button>
           )}
