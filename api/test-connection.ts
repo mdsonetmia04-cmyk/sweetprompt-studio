@@ -1,4 +1,5 @@
 import { GoogleGenAI } from '@google/genai';
+import { GEMINI_TEXT_FALLBACKS, isRetryableModelError, isInvalidKeyError } from './_shared';
 
 export default async function handler(req: any, res: any) {
   if (req.method !== 'POST') {
@@ -16,19 +17,39 @@ export default async function handler(req: any, res: any) {
       }
 
       const client = new GoogleGenAI({ apiKey: activeApiKey });
-      const targetModel = model || 'gemini-3.8-flash';
+      const primaryModel = model || 'gemini-3.8-flash';
+      const candidateModels = [
+        primaryModel,
+        ...GEMINI_TEXT_FALLBACKS.filter((m) => m !== primaryModel),
+      ];
 
-      await client.models.generateContent({
-        model: targetModel,
-        contents: 'Ping test. Reply: OK',
-        config: { maxOutputTokens: 5 },
-      });
+      let lastError: any = null;
+      let modelUsed = primaryModel;
+      for (const candidate of candidateModels) {
+        try {
+          await client.models.generateContent({
+            model: candidate,
+            contents: 'Ping test. Reply: OK',
+            config: { maxOutputTokens: 5 },
+          });
+          modelUsed = candidate;
+          lastError = null;
+          break;
+        } catch (mErr: any) {
+          lastError = mErr;
+          if (isInvalidKeyError(mErr)) break;
+          if (isRetryableModelError(mErr)) continue;
+          throw mErr;
+        }
+      }
+      if (lastError) throw lastError;
 
       const latencyMs = Date.now() - startTime;
       return res.status(200).json({
         success: true,
         provider: 'gemini',
-        message: 'Connected to Google Gemini API successfully',
+        modelUsed,
+        message: `Connected to Google Gemini API successfully (${modelUsed})`,
         hasText: true,
         hasVision: true,
         latencyMs,

@@ -1,5 +1,5 @@
 import { GoogleGenAI } from '@google/genai';
-import { GEMINI_VISION_FALLBACKS } from './_shared';
+import { GEMINI_VISION_FALLBACKS, isRetryableModelError, isInvalidKeyError } from './_shared';
 
 
 
@@ -60,13 +60,13 @@ export default async function handler(req: any, res: any) {
             }
           } catch (modelErr: any) {
             lastError = modelErr;
-            const errStr = String(modelErr?.message || modelErr);
-            if (errStr.includes('API key not valid') || errStr.includes('API_KEY_INVALID') || errStr.includes('INVALID_ARGUMENT')) {
-              break;
+            if (isInvalidKeyError(modelErr)) {
+              break; // try next API key
             }
-            if (errStr.includes('429') || errStr.includes('Quota exceeded') || errStr.includes('RESOURCE_EXHAUSTED')) {
-              continue;
+            if (isRetryableModelError(modelErr)) {
+              continue; // try next fallback model (rate limit / retired model)
             }
+            throw modelErr;
           }
         }
       }

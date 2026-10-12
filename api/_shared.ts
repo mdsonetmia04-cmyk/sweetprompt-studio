@@ -140,3 +140,37 @@ export function cleanProviderError(provider: string, raw: unknown, status?: numb
     ? `${provider} (${status}): ${shortMsg.slice(0, 120)}`
     : `${provider}: ${shortMsg.slice(0, 160)}`;
 }
+
+/**
+ * Returns true when a model-call failure is worth retrying with the next
+ * fallback model: rate limits, quota exhaustion, and "model not found /
+ * retired" (404 / NOT_FOUND) errors. Invalid-key errors are NOT retryable
+ * here — callers break out of the model loop and try the next API key.
+ * Matching is case-insensitive to cover SDK error formats.
+ */
+export function isRetryableModelError(raw: unknown): boolean {
+  const s = String((raw as { message?: unknown })?.message ?? raw ?? '').toLowerCase();
+  return (
+    s.includes('429') ||
+    s.includes('404') ||
+    s.includes('not_found') ||
+    s.includes('not found') ||
+    s.includes('no longer available') ||
+    s.includes('quota') ||
+    s.includes('rate limit') ||
+    s.includes('rate_limit') ||
+    s.includes('too many requests') ||
+    s.includes('resource_exhausted') ||
+    s.includes('resource exhausted')
+  );
+}
+
+/** Returns true when the failure means the API key itself is invalid. */
+export function isInvalidKeyError(raw: unknown): boolean {
+  const s = String((raw as { message?: unknown })?.message ?? raw ?? '');
+  return (
+    s.includes('API key not valid') ||
+    s.includes('API_KEY_INVALID') ||
+    s.includes('INVALID_ARGUMENT')
+  );
+}

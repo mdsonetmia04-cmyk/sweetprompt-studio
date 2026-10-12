@@ -12,6 +12,8 @@ import {
   GEMINI_TEXT_FALLBACKS,
   GEMINI_VISION_FALLBACKS,
   cleanProviderError,
+  isRetryableModelError,
+  isInvalidKeyError,
 } from './_shared';
 
 afterEach(() => {
@@ -128,5 +130,19 @@ describe('ported constants and error cleaner', () => {
     const msg = cleanProviderError('X', 'oops sk-or-v1-abcdefgh12345678 happened', 500);
     expect(msg).not.toContain('sk-or-v1-abcdefgh12345678');
     expect(msg).toContain('[REDACTED]');
+  });
+});
+
+describe('isRetryableModelError / isInvalidKeyError', () => {
+  it('treats the retired-model 404 (NOT_FOUND) as retryable', () => {
+    const err = new Error('{"error":{"code":404,"message":"This model models/gemini-2.5-flash is no longer available to new users.","status":"NOT_FOUND"}}');
+    expect(isRetryableModelError(err)).toBe(true);
+    expect(isInvalidKeyError(err)).toBe(false);
+  });
+  it('treats rate limits as retryable and invalid keys as key errors', () => {
+    expect(isRetryableModelError(new Error('429 Too Many Requests'))).toBe(true);
+    const keyErr = new Error('API_KEY_INVALID: key is not valid');
+    expect(isInvalidKeyError(keyErr)).toBe(true);
+    expect(isRetryableModelError(keyErr)).toBe(false);
   });
 });

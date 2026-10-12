@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { cleanProviderError, GEMINI_TEXT_FALLBACKS, GEMINI_VISION_FALLBACKS } from './_shared';
+import { cleanProviderError, GEMINI_TEXT_FALLBACKS, GEMINI_VISION_FALLBACKS, isRetryableModelError, isInvalidKeyError } from './_shared';
 
 describe('fallback model lists', () => {
   it('lists text fallback models, most capable first', () => {
@@ -118,5 +118,27 @@ describe('cleanProviderError — key redaction and path scrubbing', () => {
   it('removes internal stack-trace paths from error text', () => {
     const result = cleanProviderError('X', 'Error: boom\n    at handler (/app/server.ts:42:10)');
     expect(result).not.toContain('/app/server.ts');
+  });
+});
+
+describe('isRetryableModelError / isInvalidKeyError', () => {
+  it('treats the retired-model 404 (NOT_FOUND) as retryable', () => {
+    const err = new Error('{"error":{"code":404,"message":"This model models/gemini-2.5-flash is no longer available to new users. Please update your code to use models/gemini-3.8-flash","status":"NOT_FOUND"}}');
+    expect(isRetryableModelError(err)).toBe(true);
+    expect(isInvalidKeyError(err)).toBe(false);
+  });
+  it('treats rate limits and quota errors as retryable', () => {
+    expect(isRetryableModelError(new Error('429 Too Many Requests'))).toBe(true);
+    expect(isRetryableModelError(new Error('Quota exceeded for quota metric'))).toBe(true);
+    expect(isRetryableModelError(new Error('RESOURCE_EXHAUSTED'))).toBe(true);
+  });
+  it('detects invalid keys separately from retryable errors', () => {
+    const err = new Error('API key not valid. Please pass a valid API key.');
+    expect(isInvalidKeyError(err)).toBe(true);
+    expect(isRetryableModelError(err)).toBe(false);
+  });
+  it('does not mark unknown errors as retryable', () => {
+    expect(isRetryableModelError(new Error('socket hang up'))).toBe(false);
+    expect(isRetryableModelError(null)).toBe(false);
   });
 });
