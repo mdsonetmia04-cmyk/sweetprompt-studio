@@ -2,7 +2,7 @@ import express from 'express';
 import { createServer as createViteServer } from 'vite';
 import dotenv from 'dotenv';
 import { GoogleGenAI } from '@google/genai';
-import { GEMINI_TEXT_FALLBACKS, GEMINI_VISION_FALLBACKS, cleanProviderError } from './api/_shared';
+import { GEMINI_TEXT_FALLBACKS, GEMINI_VISION_FALLBACKS, cleanProviderError, isRetryableModelError, isInvalidKeyError } from './api/_shared';
 
 dotenv.config();
 
@@ -147,14 +147,11 @@ async function startServer() {
               }
             } catch (modelErr: any) {
               lastError = modelErr;
-              const errStr = String(modelErr?.message || modelErr);
-              const isInvalidKey = errStr.includes('API key not valid') || errStr.includes('API_KEY_INVALID') || errStr.includes('INVALID_ARGUMENT');
-              if (isInvalidKey) {
+              if (isInvalidKeyError(modelErr)) {
                 break; // Silently break model loop, try next key in keysToTry
               }
-              const isQuotaOrRateLimit = errStr.includes('429') || errStr.includes('Quota exceeded') || errStr.includes('RESOURCE_EXHAUSTED') || errStr.includes('not found');
-              if (isQuotaOrRateLimit) {
-                continue; // Try next fallback model
+              if (isRetryableModelError(modelErr)) {
+                continue; // Try next fallback model (rate limit / retired model)
               }
               throw modelErr;
             }
@@ -471,13 +468,10 @@ async function startServer() {
               }
             } catch (modelErr: any) {
               lastError = modelErr;
-              const errStr = String(modelErr?.message || modelErr);
-              const isInvalidKey = errStr.includes('API key not valid') || errStr.includes('API_KEY_INVALID') || errStr.includes('INVALID_ARGUMENT');
-              if (isInvalidKey) {
+              if (isInvalidKeyError(modelErr)) {
                 break; // Silently break model loop, try next key
               }
-              const isQuotaOrRateLimit = errStr.includes('429') || errStr.includes('Quota exceeded') || errStr.includes('RESOURCE_EXHAUSTED') || errStr.includes('not found');
-              if (isQuotaOrRateLimit) {
+              if (isRetryableModelError(modelErr)) {
                 continue;
               }
               throw modelErr;
@@ -644,9 +638,7 @@ async function startServer() {
             break;
           } catch (mErr: any) {
             lastError = mErr;
-            const errStr = String(mErr?.message || mErr);
-            const isQuotaOrRateLimit = errStr.includes('429') || errStr.includes('Quota exceeded') || errStr.includes('RESOURCE_EXHAUSTED') || errStr.includes('not found');
-            if (isQuotaOrRateLimit) {
+            if (isRetryableModelError(mErr)) {
               continue;
             }
             throw mErr;
