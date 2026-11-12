@@ -170,8 +170,8 @@ async function executeDirectClientGenerate(payload: GeneratePayload): Promise<st
   // Groq Client
   if (provider === 'groq') {
     if (!apiKey) throw new Error('Groq API Key is missing. Please enter your Groq key in Settings.');
-    const initialModel = model || 'llama-3.1-8b-instant';
-    const candidateModels = Array.from(new Set([initialModel, 'llama-3.1-8b-instant', 'llama-3.3-70b-versatile', 'llama-4-scout-17b-16e-instruct', 'openai/gpt-oss-20b']));
+    const initialModel = model || 'openai/gpt-oss-20b';
+    const candidateModels = Array.from(new Set([initialModel, 'openai/gpt-oss-20b', 'openai/gpt-oss-120b']));
 
     let lastGroqErr = '';
     for (const candidate of candidateModels) {
@@ -454,37 +454,6 @@ export async function executeApiVision(payload: VisionPayload): Promise<string> 
       ],
     });
     if (response.text) return response.text;
-  }
-
-  // Direct Browser Vision Fallback for Groq
-  if (provider === 'groq') {
-    if (!apiKey) throw new Error('Groq API Key missing for vision analysis. Please enter your key in Settings.');
-    const visionModel = model || 'llama-3.2-11b-vision-instruct';
-    const fetchRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify({
-        model: visionModel,
-        messages: [
-          {
-            role: 'user',
-            content: [
-              { type: 'text', text: prompt },
-              { type: 'image_url', image_url: { url: `data:${mimeType};base64,${imageBase64}` } },
-            ],
-          },
-        ],
-        max_tokens: 1000,
-      }),
-    });
-
-    if (fetchRes.ok) {
-      const data = await fetchRes.json();
-      return data.choices?.[0]?.message?.content || '';
-    }
   }
 
   // Direct Browser Vision Fallback for OpenRouter

@@ -12,7 +12,7 @@ import {
   ProviderConfig,
   ProviderCapabilities
 } from './providerTypes';
-import { PROVIDER_CAPABILITIES } from './capabilities';
+import { PROVIDER_CAPABILITIES, ENABLED_PROVIDERS } from './capabilities';
 
 export interface AIOptions {
   systemInstruction?: string;
@@ -50,7 +50,10 @@ export class AIManagerClass {
   }
 
   /**
-   * Helper to resolve all configured provider keys
+   * Helper to resolve all configured provider keys.
+   * Only ENABLED_PROVIDERS are ever returned — a key saved earlier for a
+   * disabled provider (Mistral / OpenRouter / Cerebras / Hugging Face)
+   * can never be used as a fallback.
    */
   getAllConfiguredProviders(requireVision: boolean = false): Array<{ provider: AIProviderName; apiKey: string }> {
     const settings = this.getSettings();
@@ -60,8 +63,8 @@ export class AIManagerClass {
     const activeProv = settings.provider || 'gemini';
     const activeKey = keysMap[activeProv] || (settings.apiKey ? settings.apiKey : '');
 
-    // Place active provider first if configured
-    if (activeKey && activeKey.trim()) {
+    // Place active provider first if configured (and enabled)
+    if (activeKey && activeKey.trim() && ENABLED_PROVIDERS.includes(activeProv)) {
       if (!requireVision || PROVIDER_CAPABILITIES[activeProv]?.supportsVision) {
         result.push({ provider: activeProv, apiKey: activeKey.trim() });
       }
@@ -70,6 +73,7 @@ export class AIManagerClass {
     // Add remaining configured providers
     for (const prov of PROVIDER_ORDER) {
       if (prov === activeProv) continue;
+      if (!ENABLED_PROVIDERS.includes(prov)) continue;
       const k = keysMap[prov];
       if (k && k.trim()) {
         if (!requireVision || PROVIDER_CAPABILITIES[prov]?.supportsVision) {
@@ -83,6 +87,9 @@ export class AIManagerClass {
 
   /**
    * Resolves effective provider and API key with auto-fallback.
+   * Disabled providers are never returned: a key saved earlier for one
+   * can never be used, even as a fallback. An explicitly supplied key
+   * for an explicitly requested provider is still honoured (caller choice).
    */
   getEffectiveProviderAndKey(
     requestedProvider?: AIProviderName,
@@ -106,7 +113,7 @@ export class AIManagerClass {
       return { provider: prov, apiKey: requestedKey.trim() };
     }
 
-    if (requestedProvider) {
+    if (requestedProvider && ENABLED_PROVIDERS.includes(requestedProvider)) {
       const key = getKeyForProvider(requestedProvider);
       if (key) {
         if (!requireVision || PROVIDER_CAPABILITIES[requestedProvider]?.supportsVision) {
@@ -117,13 +124,14 @@ export class AIManagerClass {
 
     const currentProv = settings.provider || 'gemini';
     const currentKey = getKeyForProvider(currentProv);
-    if (currentKey) {
+    if (currentKey && ENABLED_PROVIDERS.includes(currentProv)) {
       if (!requireVision || PROVIDER_CAPABILITIES[currentProv]?.supportsVision) {
         return { provider: currentProv, apiKey: currentKey };
       }
     }
 
     for (const prov of PROVIDER_ORDER) {
+      if (!ENABLED_PROVIDERS.includes(prov)) continue;
       const key = getKeyForProvider(prov);
       if (key) {
         if (!requireVision || PROVIDER_CAPABILITIES[prov]?.supportsVision) {
@@ -132,7 +140,9 @@ export class AIManagerClass {
       }
     }
 
-    return { provider: currentProv, apiKey: currentKey };
+    // Nothing usable: report the current provider only if enabled, else gemini — with no key.
+    const reportProv = ENABLED_PROVIDERS.includes(currentProv) ? currentProv : 'gemini';
+    return { provider: reportProv, apiKey: '' };
   }
 
   getCapabilities(provider?: AIProviderName): ProviderCapabilities {

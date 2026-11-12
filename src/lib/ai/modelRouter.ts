@@ -38,7 +38,7 @@ export class ModelRouter {
       case 'prompt-expander':
         // Favor ultra-fast high-throughput models when available
         if (provider === 'gemini') return 'gemini-3.8-flash';
-        if (provider === 'groq') return 'llama-3.1-8b-instant';
+        if (provider === 'groq') return 'openai/gpt-oss-20b';
         if (provider === 'mistral') return 'mistral-small-latest';
         if (provider === 'cerebras') return 'llama3.1-8b';
         return caps.defaultTextModel;
@@ -47,7 +47,7 @@ export class ModelRouter {
       case 'compliance-audit':
         // Favor high precision structured models
         if (provider === 'gemini') return 'gemini-3.8-flash';
-        if (provider === 'groq') return 'llama-3.3-70b-versatile';
+        if (provider === 'groq') return 'openai/gpt-oss-120b';
         if (provider === 'mistral') return 'mistral-large-latest';
         if (provider === 'cerebras') return 'llama3.3-70b';
         return caps.defaultStructuredModel;

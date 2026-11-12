@@ -4,7 +4,8 @@
  * Verifies the provider-switching contract: every supported provider exposes
  * text generation; only vision-capable providers accept image analysis.
  * The app must surface a clear message for providers without vision support
- * (huggingface, cerebras) instead of sending image data to them.
+ * (groq — text only since the gpt-oss switch — huggingface, cerebras)
+ * instead of sending image data to them.
  */
 import { describe, it, expect } from 'vitest';
 import {
@@ -45,8 +46,8 @@ describe('PROVIDER_CAPABILITIES — provider registry completeness', () => {
 });
 
 describe('validateProviderCapability — vision support matrix', () => {
-  const visionProviders: AIProviderName[] = ['gemini', 'groq', 'mistral', 'openrouter'];
-  const nonVisionProviders: AIProviderName[] = ['huggingface', 'cerebras'];
+  const visionProviders: AIProviderName[] = ['gemini', 'mistral', 'openrouter'];
+  const nonVisionProviders: AIProviderName[] = ['groq', 'huggingface', 'cerebras'];
 
   it.each(visionProviders)('%s supports vision analysis', (p) => {
     expect(validateProviderCapability(p, 'vision')).toBe(true);

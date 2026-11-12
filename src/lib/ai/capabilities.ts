@@ -15,28 +15,20 @@ export const PROVIDER_CAPABILITIES: Record<AIProviderName, ProviderCapabilities>
     defaultStructuredModel: 'gemini-3.8-flash',
     supportedModels: [
       'gemini-3.8-flash',
-      'gemini-3.8-flash',
-      'gemini-3.1-flash-lite',
-      'gemini-flash-latest',
-      'gemini-3.8-flash-lite',
-      'gemini-3.1-pro-preview'
+      'gemini-flash-latest'
     ]
   },
   groq: {
     supportsText: true,
-    supportsVision: true, // Supported via meta-llama/llama-4-scout-17b-16e-instruct
+    supportsVision: false, // Groq has no vision model on free/developer tiers
     supportsStructuredJson: true,
     speedTier: 'ultra-fast',
     freeOrLowCostTier: true,
-    defaultTextModel: 'llama-3.1-8b-instant',
-    defaultVisionModel: 'meta-llama/llama-4-scout-17b-16e-instruct',
-    defaultStructuredModel: 'llama-3.1-8b-instant',
+    defaultTextModel: 'openai/gpt-oss-20b',
+    defaultStructuredModel: 'openai/gpt-oss-120b',
     supportedModels: [
-      'llama-3.1-8b-instant',
-      'llama-3.3-70b-versatile',
-      'llama-4-scout-17b-16e-instruct',
       'openai/gpt-oss-20b',
-      'meta-llama/llama-4-scout-17b-16e-instruct'
+      'openai/gpt-oss-120b'
     ]
   },
   mistral: {
@@ -102,6 +94,14 @@ export const PROVIDER_CAPABILITIES: Record<AIProviderName, ProviderCapabilities>
     ]
   }
 };
+
+/**
+ * Providers currently enabled in the app. Only these two have verified,
+ * working free-tier APIs: Gemini and Groq (text only). Mistral, OpenRouter,
+ * Cerebras and Hugging Face are kept in the code but hidden from Settings
+ * and never used as a fallback — see SettingsView PROVIDERS.
+ */
+export const ENABLED_PROVIDERS: AIProviderName[] = ['gemini', 'groq'];
 
 export function getProviderCapabilities(provider: AIProviderName): ProviderCapabilities {
   return PROVIDER_CAPABILITIES[provider] || PROVIDER_CAPABILITIES.gemini;
