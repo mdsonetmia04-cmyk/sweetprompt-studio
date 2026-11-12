@@ -34,6 +34,9 @@ interface ProviderMeta {
   badge: string;
   getKeyUrl: string;
   keyPlaceholder: string;
+  /** Only enabled providers are shown in Settings and usable anywhere.
+   *  Re-enable a provider by flipping this to true (one line). */
+  enabled: boolean;
 }
 
 const PROVIDERS: ProviderMeta[] = [
@@ -43,13 +46,15 @@ const PROVIDERS: ProviderMeta[] = [
     badge: 'Vision + Text (Fastest)',
     getKeyUrl: 'https://aistudio.google.com/app/apikey',
     keyPlaceholder: 'AIzaSy...',
+    enabled: true,
   },
   {
     id: 'groq',
     name: 'Groq Cloud',
-    badge: 'Vision + Text (Ultra-Fast)',
+    badge: 'Text Only (Ultra-Fast)',
     getKeyUrl: 'https://console.groq.com/keys',
     keyPlaceholder: 'gsk_...',
+    enabled: true,
   },
   {
     id: 'mistral',
@@ -57,6 +62,7 @@ const PROVIDERS: ProviderMeta[] = [
     badge: 'Vision + Text',
     getKeyUrl: 'https://console.mistral.ai/api-keys/',
     keyPlaceholder: 'paste mistral key...',
+    enabled: false, // disabled: free-tier API no longer works reliably — set true to re-enable
   },
   {
     id: 'openrouter',
@@ -64,6 +70,7 @@ const PROVIDERS: ProviderMeta[] = [
     badge: 'Vision + Text (100+ Models)',
     getKeyUrl: 'https://openrouter.ai/keys',
     keyPlaceholder: 'sk-or-v1-...',
+    enabled: false, // disabled: coded model IDs are gone from the live model list — set true to re-enable
   },
   {
     id: 'cerebras',
@@ -71,6 +78,7 @@ const PROVIDERS: ProviderMeta[] = [
     badge: 'Text Only (Instant)',
     getKeyUrl: 'https://cloud.cerebras.ai/platform/',
     keyPlaceholder: 'csk-...',
+    enabled: false, // disabled: free tier now requires a card — set true to re-enable
   },
   {
     id: 'huggingface',
@@ -78,8 +86,12 @@ const PROVIDERS: ProviderMeta[] = [
     badge: 'Text Only (Open Source)',
     getKeyUrl: 'https://huggingface.co/settings/tokens',
     keyPlaceholder: 'hf_...',
+    enabled: false, // disabled: coded inference endpoint is decommissioned — set true to re-enable
   },
 ];
+
+// Only enabled providers are rendered or counted anywhere in Settings.
+const ENABLED_PROVIDER_LIST = PROVIDERS.filter(p => p.enabled);
 
 export const SettingsView: React.FC<SettingsViewProps> = ({
   settings,
@@ -111,8 +123,10 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
 
   /**
    * Smart Test & Save:
-   * Tests connection, clears input box, saves key to browser storage,
-   * activates provider and assigns optimal model.
+   * Tests connection FIRST. Only when the test succeeds is the key saved
+   * to browser storage, the provider activated and its own default model
+   * assigned. On test failure (or an exception) the error is shown and
+   * nothing is saved — a bad key must never become the active provider.
    */
   const handleTestSaveAndActivate = async (prov: AIProviderName) => {
     const keyToSave = (inputValues[prov] || apiKeys[prov] || '').trim();
@@ -126,9 +140,14 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
       const caps = PROVIDER_CAPABILITIES[prov];
       const autoModel = caps?.defaultTextModel || 'gemini-3.8-flash';
 
-      // Live test connection ping
+      // Live test connection ping — save nothing until it succeeds
       const res = await AIManager.testConnection(prov, keyToSave, autoModel);
       setTestResults(prev => ({ ...prev, [prov]: res }));
+
+      if (!res.success) {
+        showToast(`⚠️ ${prov.toUpperCase()} test failed: ${res.error || res.message || 'Connection test failed'}. Key not saved.`);
+        return;
+      }
 
       // Save key and update states
       const updatedKeys = { ...apiKeys, [prov]: keyToSave };
@@ -151,31 +170,9 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
       };
 
       onUpdateSettings(updatedSettings);
-
-      if (res.success) {
-        showToast(`✓ Connected & Saved! ${prov.toUpperCase()} is active.`);
-      } else {
-        showToast(`⚠️ ${prov.toUpperCase()} saved. Note: ${res.message || 'Key verified'}`);
-      }
+      showToast(`✓ Connected & Saved! ${prov.toUpperCase()} is active.`);
     } catch (err: any) {
-      const updatedKeys = { ...apiKeys, [prov]: keyToSave };
-      setApiKeys(updatedKeys);
-      setActiveProvider(prov);
-      setInputValues(prev => ({ ...prev, [prov]: '' }));
-
-      const updatedSettings: AISettings = {
-        ...settings,
-        provider: prov,
-        apiKey: keyToSave,
-        apiKeys: updatedKeys,
-        model: 'gemini-3.8-flash',
-        autoModel: true,
-        commercialMode: true,
-        theme,
-        themeStyle,
-      };
-      onUpdateSettings(updatedSettings);
-
+      // Test threw (network/proxy error) — record the failure, save nothing.
       setTestResults(prev => ({
         ...prev,
         [prov]: {
@@ -189,7 +186,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
           availableModels: [],
         }
       }));
-      showToast(`Key saved for ${prov.toUpperCase()}.`);
+      showToast(`⚠️ ${prov.toUpperCase()} test failed: ${err.message || 'Connection test failed'}. Key not saved.`);
     } finally {
       setTestingProvider(null);
     }
@@ -238,7 +235,8 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
     setShowKeys(prev => ({ ...prev, [prov]: !prev[prov] }));
   };
 
-  const configuredCount = Object.values(apiKeys).filter(k => Boolean(k && k.trim())).length;
+  // Count only enabled providers (disabled ones' saved keys don't count)
+  const configuredCount = ENABLED_PROVIDER_LIST.filter(p => apiKeys[p.id] && apiKeys[p.id].trim()).length;
 
   return (
     <div className="max-w-4xl mx-auto space-y-6 pb-16">
@@ -285,7 +283,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
             <div className="text-[11px] text-[#606669] dark:text-[#8C8A86] mt-0.5">
               {configuredCount > 0 
                 ? `Website is running on ${activeProvider.toUpperCase()}. Adding additional keys enables automatic fallback.`
-                : 'Paste any key below (Gemini, Groq, Mistral, OpenRouter) and click TEST & SAVE.'}
+                : 'Paste any key below (Gemini, Groq) and click TEST & SAVE.'}
             </div>
           </div>
         </div>
@@ -317,12 +315,12 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
             <span>Select & Configure Provider API Key</span>
           </h3>
           <span className="text-[11px] text-[#606669] dark:text-[#8C8A86]">
-            {configuredCount} / {PROVIDERS.length} configured
+            {configuredCount} / {ENABLED_PROVIDER_LIST.length} configured
           </span>
         </div>
 
         <div className="space-y-4">
-          {PROVIDERS.map((p, index) => {
+          {ENABLED_PROVIDER_LIST.map((p, index) => {
             const savedVal = apiKeys[p.id] || '';
             const inputVal = inputValues[p.id] !== undefined ? inputValues[p.id] : '';
             const isConfigured = Boolean(savedVal && savedVal.trim());
@@ -433,10 +431,13 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
                     <span className="text-[11px] font-mono text-[#606669] dark:text-[#8C8A86] bg-[#E2D9C7] dark:bg-[#171E24] px-2 py-0.5 rounded border border-[#D8CEBF] dark:border-[#272D30]">
                       Key #{index + 1}: {savedVal.slice(0, 6)}...{savedVal.slice(-4)}
                     </span>
-                    <span className="text-[11px] text-[#4E8793] bg-[#21434B]/30 px-2 py-0.5 rounded border border-[#21434B] font-medium flex items-center gap-1">
-                      <Check className="w-3 h-3" />
-                      Valid
-                    </span>
+                    {/* 'Valid' only after a successful test in this session — never just because a key string is saved */}
+                    {testResults[p.id]?.success && (
+                      <span className="text-[11px] text-[#4E8793] bg-[#21434B]/30 px-2 py-0.5 rounded border border-[#21434B] font-medium flex items-center gap-1">
+                        <Check className="w-3 h-3" />
+                        Valid
+                      </span>
+                    )}
                     <span className="text-[11px] text-[#606669] dark:text-[#8C8A86] bg-[#E2D9C7] dark:bg-[#171E24] px-2 py-0.5 rounded border border-[#D8CEBF] dark:border-[#272D30]">
                       Model: <strong className="text-[#1A2024] dark:text-[#F3EDE2]">{defaultModelName}</strong>
                     </span>
