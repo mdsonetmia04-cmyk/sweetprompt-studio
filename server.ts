@@ -176,8 +176,8 @@ async function startServer() {
           return res.status(400).json({ error: 'Groq API key not configured. Please add your key in Settings.' });
         }
 
-        const initialModel = model || 'llama-3.1-8b-instant';
-        const candidateModels = Array.from(new Set([initialModel, 'llama-3.1-8b-instant', 'llama-3.3-70b-versatile', 'llama-4-scout-17b-16e-instruct', 'openai/gpt-oss-20b']));
+        const initialModel = model || 'openai/gpt-oss-20b';
+        const candidateModels = Array.from(new Set([initialModel, 'openai/gpt-oss-20b', 'openai/gpt-oss-120b']));
 
         let lastGroqErr: any = null;
         for (const candidate of candidateModels) {
@@ -487,37 +487,11 @@ async function startServer() {
         return res.status(500).json({ error: 'Failed to generate vision analysis with Gemini.' });
       }
 
-      // Groq Vision (llama-4-scout supports vision)
+      // Groq Vision — removed: Groq has no vision model on self-serve tiers
+      // (llama-4-scout shut down 17 Jul 2026). Vision routing rejects Groq
+      // before reaching here; this branch stays as an explicit guard.
       if (provider === 'groq') {
-        const groqKey = apiKey || process.env.GROQ_API_KEY;
-        if (!groqKey) return res.status(400).json({ error: 'Groq API key not configured.' });
-
-        const selectedModel = model || 'meta-llama/llama-4-scout-17b-16e-instruct';
-        const imageUrl = `data:${mimeType};base64,${imageBase64}`;
-
-        const fetchRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${groqKey}`,
-          },
-          body: JSON.stringify({
-            model: selectedModel,
-            messages: [
-              {
-                role: 'user',
-                content: [
-                  { type: 'text', text: prompt },
-                  { type: 'image_url', image_url: { url: imageUrl } }
-                ]
-              }
-            ],
-            max_tokens: 1500,
-          }),
-        });
-
-        const text = await handleOpenAIChatResponse(fetchRes, 'Groq Vision');
-        return res.json({ result: text });
+        return res.status(400).json({ error: 'Groq does not support vision. Use Gemini for image analysis.' });
       }
 
       // Mistral Vision (pixtral-12b-2409)
@@ -669,7 +643,7 @@ async function startServer() {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${groqKey}` },
           body: JSON.stringify({ 
-            model: model || 'llama-3.1-8b-instant', 
+            model: model || 'openai/gpt-oss-20b', 
             messages: [{ role: 'user', content: 'Ping test. Reply: OK' }],
             max_tokens: 5
           })
