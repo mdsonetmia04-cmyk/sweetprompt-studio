@@ -97,7 +97,7 @@ export async function onRequest(context: PagesContext): Promise<Response> {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${groqKey}` },
         body: JSON.stringify({
-          model: model || 'llama-3.1-8b-instant',
+          model: model || 'openai/gpt-oss-20b',
           messages: [{ role: 'user', content: 'Ping test. Reply: OK' }],
           max_tokens: 5,
         }),
@@ -161,14 +161,8 @@ export async function onRequest(context: PagesContext): Promise<Response> {
       return jsonResponse({ success: false, error: `Hugging Face error: ${lastHfErr}` }, 400);
     }
 
-    return jsonResponse({
-      success: true,
-      provider,
-      message: `Connected to ${provider} successfully`,
-      hasText: true,
-      hasVision: true,
-      latencyMs: Date.now() - startTime,
-    }, 200);
+    // No branch matched: refuse instead of reporting a fake success.
+    return jsonResponse({ success: false, error: 'Unsupported provider' }, 400);
   } catch (err: any) {
     return jsonResponse({ success: false, error: err.message || 'Connection test failed' }, 400);
   }
