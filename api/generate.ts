@@ -89,8 +89,8 @@ export default async function handler(req: any, res: any) {
       const groqKey = apiKey || process.env.GROQ_API_KEY;
       if (!groqKey) return res.status(400).json({ error: 'Groq API key not configured. Please add your key in Settings.' });
 
-      const initialModel = model || 'llama-3.1-8b-instant';
-      const candidateModels = Array.from(new Set([initialModel, 'llama-3.1-8b-instant', 'llama-3.3-70b-versatile', 'llama-4-scout-17b-16e-instruct', 'openai/gpt-oss-20b']));
+      const initialModel = model || 'openai/gpt-oss-20b';
+      const candidateModels = Array.from(new Set([initialModel, 'openai/gpt-oss-20b', 'openai/gpt-oss-120b']));
 
       let lastGroqErr: any = null;
       for (const candidate of candidateModels) {

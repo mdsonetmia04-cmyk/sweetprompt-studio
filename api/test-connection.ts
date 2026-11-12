@@ -64,7 +64,7 @@ export default async function handler(req: any, res: any) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${groqKey}` },
         body: JSON.stringify({
-          model: model || 'llama-3.1-8b-instant',
+          model: model || 'openai/gpt-oss-20b',
           messages: [{ role: 'user', content: 'Ping test. Reply: OK' }],
           max_tokens: 5,
         }),
@@ -128,14 +128,9 @@ export default async function handler(req: any, res: any) {
       return res.status(400).json({ success: false, error: `Hugging Face error: ${lastHfErr}` });
     }
 
-    return res.status(200).json({
-      success: true,
-      provider,
-      message: `Connected to ${provider} successfully`,
-      hasText: true,
-      hasVision: true,
-      latencyMs: Date.now() - startTime,
-    });
+    // No branch matched: refuse instead of reporting a fake success.
+    // (server.ts already returns 400 Unsupported provider here.)
+    return res.status(400).json({ success: false, error: 'Unsupported provider' });
   } catch (err: any) {
     return res.status(400).json({ success: false, error: err.message || 'Connection test failed' });
   }
